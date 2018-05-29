@@ -1,12 +1,12 @@
-#CPSC490 Project Proposal
+# CPSC490 Project Proposal
 
-##Audience:
+## Audience:
 	From movie buffs to casual moviegoers
 
-##Activity/goal:
+## Activity/goal:
 	Users will be able to get information on movies, whether newly released or old, in terms of cast, plot(summary), release date, showtimes etc. as well as post their comments. 
 
-##Type of data:
+## Type of data:
 * User data (Individual accounts for users)
 * Reviews the user posts online (provide a way for users to keep track of the reviews                                         they have written. Also provides an indirect way for us to prevent spam as well as for users to have accountability for the comments they write)
 	* Bookmarks for the movies the users have looked up/are interested in
@@ -26,6 +26,6 @@
 * Forms, PHP: for Reviews
 * Draw statistics (e.g. number of movies watched, most-watched genres)
 
-##Expansions:
+## Expansions:
 * Comments/interactions on reviews
 * Scheduling time (extension bit)

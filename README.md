@@ -17,7 +17,6 @@ Users will be able to get information on movies, whether newly released or old, 
   * Parsed into different categories
   * Be able to search by title, actors, release year, genre, etc.
 	* Display most popular movie in a certain time frame
-
 * Timeline of future releases
 * Slideshow of new releases
 * Find theatre showtimes

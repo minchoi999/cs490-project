@@ -10,10 +10,8 @@ Users will be able to get information on movies, whether newly released or old, 
 * User data (Individual accounts for users)
 * Reviews the user posts online (provide a way for users to keep track of the reviews they have written. Also provides an indirect way for us to prevent spam as well as for users to have accountability for the comments they write)
 	* Bookmarks for the movies the users have looked up/are interested in
-
-*Thumbnails for movies
-  * Will probably source data from (maybe) imdb
-	
+* Thumbnails for movies
+  * Will probably source data from (maybe) imdb	
 * Data scraping + visualisation: D3 JS
 *  Draw information on movies
   *  Parsed into different categories

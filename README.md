@@ -13,10 +13,10 @@ Users will be able to get information on movies, whether newly released or old, 
 * Thumbnails for movies
   * Will probably source data from (maybe) imdb	
 * Data scraping + visualisation: D3 JS
-*  Draw information on movies
-  *  Parsed into different categories
-  *  Be able to search by title, actors, release year, genre, etc.
-	*  Display most popular movie in a certain time frame
+* Draw information on movies
+  * Parsed into different categories
+  * Be able to search by title, actors, release year, genre, etc.
+	* Display most popular movie in a certain time frame
 
 * Timeline of future releases
 * Slideshow of new releases

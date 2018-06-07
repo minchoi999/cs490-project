@@ -14,10 +14,18 @@ class NavigationBar extends React.Component {
 
 					<div className="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul className="navbar-nav ml-auto">
-							<li className="nav-item"><a className="nav-link" href="#profile">Categories</a></li>
-							<li className="nav-item"><a className="nav-link" href="#projects">Series</a></li>
+							<li className="nav-item dropdown">
+								<a className="nav-link dropdown-toggle" href="#categories" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									Categories
+								</a>
+								<div className="dropdown-menu" aria-labelledby="navbarDropdown">
+									<a className="dropdown-item" href="#horror">Horror</a>
+									<div className="dropdown-divider"></div>
+									<a className="dropdown-item" href="#comedy">Comedy</a>
+								</div>
+							</li>
 							<li className="nav-item"><a className="nav-link" href="#contact">Contact</a></li>
-							<li className="nav-item"><a className="nav-link" href="#contact">Login</a></li>
+							<li className="nav-item"><a className="nav-link" href="#login">Login</a></li>
 						</ul>
 					</div>
 				</nav>

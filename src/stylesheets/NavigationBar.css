@@ -13,9 +13,13 @@
     color: var(--main-color);
 }
 
-.navbar .nav-link {
+.navbar .nav-link, .navbar .dropdown-item {
     font-family: var(--body-strong-font-family);
     font-weight: var(--body-strong-font-weight);
+}
+
+.navbar .dropdown-item {
+    font-size: 0.8em;
 }
 
 .navbar .navbar-nav li a:hover {

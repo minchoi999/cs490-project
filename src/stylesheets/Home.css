@@ -1,6 +1,6 @@
 #home {
     background-color: white;
-    padding: 2em;
+    padding: var(--padding-section);
 }
 
 #home .row {
@@ -19,15 +19,3 @@
 #home h6 {
     color: rgb(50, 112, 136);
 }
-
-#home .img-sect {
-    overflow: hidden;
-    margin: 0;
-}
-
-#home .home-img {
-    display: block;
-    border-radius: 50%;
-    width: 100%;
-}
-

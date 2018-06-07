@@ -1,6 +1,6 @@
 #contact {
     background-color: rgb(45, 46, 51);
-    padding: 2em;
+    padding: var(--padding-section);
     color: white;
 }
 

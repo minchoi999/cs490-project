@@ -1,0 +1,33 @@
+#home {
+    background-color: white;
+    padding: 2em;
+}
+
+#home .row {
+    padding-top: 3em;
+}
+
+#home hr {
+    border-color: black;
+    width: 50%;
+}
+
+#home p strong {
+    color: rgb(67, 147, 179);
+}
+
+#home h6 {
+    color: rgb(50, 112, 136);
+}
+
+#home .img-sect {
+    overflow: hidden;
+    margin: 0;
+}
+
+#home .home-img {
+    display: block;
+    border-radius: 50%;
+    width: 100%;
+}
+

@@ -1,5 +1,5 @@
 .footer .social-icons {
-    color: yellow;
+    color: var(--main-color);
     font-size: 1.2em;
     margin-left: 0.2em;
     margin-right: 0.2em;

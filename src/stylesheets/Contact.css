@@ -25,8 +25,8 @@
 }
 
 #contact .btn:hover {
-    background-color: #DCAF68;
-    border: 0.1em solid #DCAF68;
+    background-color: var(--main-color);
+    border: 0.1em solid var(--main-color);
     color: white;
 }
 

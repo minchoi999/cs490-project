@@ -58,9 +58,8 @@ class Movie extends Component {
   }
 
   render() {
-
     return (
-      <div>
+      <div id="movie-search" className="container-fluid">
         <span className="title">Movies</span>
 
         <SearchBar onSearch={this.handleSearch} />
@@ -73,7 +72,7 @@ class Movie extends Component {
                   </li>
                 )}
             </ol>
-        </div>
+      </div>
     );
   }
 }

@@ -8,9 +8,6 @@ const SearchBar = ({onSearch}) => {
   return( 
     <div className="input-group ">
             <input onChange = {handleChange} className="searchbar" type="search" placeholder="Search for a movie" id="example" />
-            <button className="button" type="button">
-              <i className="fa fa-search"></i>
-            </button>
         </div>
     )
 }

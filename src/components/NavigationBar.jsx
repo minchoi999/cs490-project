@@ -19,6 +19,14 @@ class NavigationBar extends React.Component {
 									Categories
 								</a>
 								<div className="dropdown-menu" aria-labelledby="navbarDropdown">
+									<a className="dropdown-item" href="#action">Action</a>
+									<div className="dropdown-divider"></div>
+									<a className="dropdown-item" href="#adventure">Adventure</a>
+									<div className="dropdown-divider"></div>
+									<a className="dropdown-item" href="#comedy">Comedy</a>
+									<div className="dropdown-divider"></div>
+									<a className="dropdown-item" href="#fantasy">Fantasy</a>
+									<div className="dropdown-divider"></div>
 									<a className="dropdown-item" href="#horror">Horror</a>
 									<div className="dropdown-divider"></div>
 									<a className="dropdown-item" href="#comedy">Comedy</a>

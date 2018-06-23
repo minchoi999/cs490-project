@@ -17,7 +17,7 @@ class App extends React.Component {
 
 				<Home />
 
-				<Movie/>
+				<Movie />
 
 				<Contact />
 

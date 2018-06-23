@@ -3,28 +3,34 @@ import * as React from 'react';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Home from './components/Home';
+import Slider from './components/Slider/Slider';
 import Movie from './components/Movie';
 import NavigationBar from './components/NavigationBar';
 
 import './App.css';
 
 class App extends React.Component {
-	render() {
-		return (
-			<div className="App">
+  render() {
+    return (
+      <div className="App">
+        <NavigationBar />
 
-				<NavigationBar />
+        <Home />
 
-				<Home />
+        <Slider />
 
+<<<<<<< HEAD
 				<Movie />
+=======
+        <Movie />
+>>>>>>> slideshow
 
-				<Contact />
+        <Contact />
 
-				<Footer />
-			</div>
-		);
-	}
+        <Footer />
+      </div>
+    );
+  }
 }
 
 export default App;

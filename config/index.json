@@ -1,0 +1,4 @@
+{
+  "dbUri": "mongodb://localhost/cs490",
+  "jwtSecret": "nleriuvnlnleriuvnlnleriuvnlnleriuvnlnleriuvnlnleriuvnl"
+}

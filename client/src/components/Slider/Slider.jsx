@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import SlideOne from './SlideOne';
-import SlideTwo from './SlideTwo';
-import SlideThree from './SlideThree';
-import RightArrow from './RightArrow';
-import LeftArrow from './LeftArrow';
+import SlideOne from './SlideOne.jsx';
+import SlideTwo from './SlideTwo.jsx';
+import SlideThree from './SlideThree.jsx';
+import RightArrow from './RightArrow.jsx';
+import LeftArrow from './LeftArrow.jsx';
 import '../../stylesheets/Slider/Slider.css';
 
 // import AppActions from '../../Actions/AppActions.js';

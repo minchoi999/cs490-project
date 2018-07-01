@@ -1,16 +1,9 @@
 import React, {Component} from 'react';
-import SearchBar from './SearchBar';
-import MovieCard from './MovieCard';
+import SearchBar from './SearchBar.jsx';
+import MovieCard from './MovieCard.jsx';
 import '../stylesheets/Movies.css';
 
-<<<<<<< HEAD
-
-const moviesMockAPI = 'http://www.mocky.io/v2/5b2dbc9f2f00007900ebd5d0'; ///
-    
-class Movie extends Component {
-=======
 const moviesMockAPI = 'http://www.mocky.io/v2/5b1ae124330000b435fb15e4'; ///
->>>>>>> slideshow
 
 class Movie extends Component {
   constructor(props) {

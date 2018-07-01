@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import contactImg from '../images/contactImg.jpg';
+const contactImg = require('../images/contactImg.png');
 import '../stylesheets/Contact.css';
 
 class Contact extends React.Component {
@@ -12,7 +12,7 @@ class Contact extends React.Component {
 
 				<div className="row">
 
-					<img src={contactImg} className="contact-img col-sm-6 img-fluid" alt="ContactImage" />
+					<img src={require('../images/contactImg.png')} className="contact-img col-sm-6 img-fluid" alt="ContactImage" />
 
 					<div className="col-sm-6 text-center">
 						<h3>Do you like what we made?</h3>
@@ -30,5 +30,6 @@ class Contact extends React.Component {
 		);
 	}
 }
+
 
 export default Contact;

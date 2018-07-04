@@ -19,11 +19,7 @@ class App extends React.Component {
 
         <Slider />
 
-<<<<<<< HEAD
 				<Movie />
-=======
-        <Movie />
->>>>>>> slideshow
 
         <Contact />
 

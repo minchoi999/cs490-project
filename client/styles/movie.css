@@ -1,0 +1,29 @@
+/* @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css); */
+
+#movie-search {
+    padding: var(--padding-section);
+}
+
+.title {
+    font-size: 50px;
+    font-weight: bolder;
+    padding: 5px 15px;
+}
+
+.moviePoster {
+    width: 200px;
+}
+
+.movieTitle {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.movieYear {
+  font-size:20px;
+  font-style: italic;
+}
+
+.info {
+    font-size: 15px;
+}

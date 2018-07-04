@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import SearchBar from './SearchBar.jsx';
 import MovieCard from './MovieCard.jsx';
-import '../stylesheets/Movies.css';
+// import '../stylesheets/Movies.css';
 
 const moviesMockAPI = 'http://www.mocky.io/v2/5b1ae124330000b435fb15e4'; ///
 

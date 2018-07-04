@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../../stylesheets/Slider/Arrow.css';
+// import '../../stylesheets/Slider/Arrow.css';
 
 const LeftArrow = (props) => {
   return (

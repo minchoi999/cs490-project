@@ -273,3 +273,199 @@ a:hover {
   padding: 0 16px;
   color: green;
 }
+
+/****************** Arrow.css *************************/
+
+.slide-img {
+  width: 80%;
+  height: auto;
+}
+
+.nextArrow, .backArrow {
+  height: 50px;
+  width: 50px;
+}
+
+.nextArrow {
+  position: absolute;
+  top: 75%;
+  right: 25px;
+}
+
+.backArrow {
+  position: absolute;
+  top: 75%;
+  left: 25px;
+}
+
+/****************** Contact.css **********************/
+
+#contact {
+  background-color: rgb(45, 46, 51);
+  padding: var(--padding-section);
+  color: white;
+}
+
+#contact hr {
+  border-color: white;
+  width: 50%;
+}
+
+#contact .btn {
+  font-weight: bold;
+  font-size: 1.25em;
+  background-color: white;
+  color: black;
+  border: 0.1em solid black;
+  border-radius: 0.33em;
+  text-align: center;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  margin-left: 2em;
+  margin-right: 2em;
+}
+
+#contact .btn:hover {
+  background-color: var(--main-color);
+  border: 0.1em solid var(--main-color);
+  color: white;
+}
+
+#contact .social-icons, .pdf-icon {
+  color: black;
+  font-size: 1.13em;
+}
+
+.contact-img {
+  width: 100%;
+  max-height: 300px;
+  max-width: 300px;
+  overflow-y: hidden;
+  margin: auto;
+}
+
+/******************** Footer.css ********************/
+
+.footer .social-icons {
+  color: var(--main-color);
+  font-size: 1.2em;
+  margin-left: 0.2em;
+  margin-right: 0.2em;
+  margin-bottom: -0.2em;
+}
+
+.footer .navbar-text {
+  font-family: 'Roboto';
+  font-size: 0.7em;
+  color: white;
+}
+
+/************ Home *********************/
+
+#home {
+  background-color: white;
+  padding: var(--padding-section);
+}
+
+#home .row {
+  padding-top: 3em;
+}
+
+#home hr {
+  border-color: black;
+  width: 50%;
+}
+
+#home p strong {
+  color: rgb(67, 147, 179);
+}
+
+#home h6 {
+  color: rgb(50, 112, 136);
+}
+
+/**************** Movie.css ********************/
+
+@import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
+
+#movie-search {
+    padding: var(--padding-section);
+}
+
+.input-movie {
+  width: 100%;
+  font-size: 12px;
+  margin: 8px 0;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border-bottom: 5px #59ba96;
+}
+
+.title {
+    font-size: 50px;
+    font-weight: bolder;
+    padding: 5px 15px;
+}
+
+.moviePoster {
+    width: 200px;
+}
+
+.movieTitle {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.movieYear {
+  font-size:20px;
+  font-style: italic;
+}
+
+.info {
+    font-size: 15px;
+}
+
+/********************* NavigationBar.css *******************/
+
+.navbar {
+  text-transform: uppercase;
+  padding: var(--padding-navbar);
+}
+
+.navbar-brand {
+  font-size: var(--font-size-navbar-brand);
+  font-family: var(--headers-strong-font-family);
+  font-weight: var(--headers-strong-font-weight);
+}
+
+.navbar .navbar-brand:hover {
+  color: var(--main-color);
+}
+
+.navbar .nav-link, .navbar .dropdown-item {
+  font-family: var(--body-strong-font-family);
+  font-weight: var(--body-strong-font-weight);
+}
+
+.navbar .dropdown-item {
+  font-size: 0.8em;
+}
+
+.navbar .navbar-nav li a:hover {
+  color: var(--main-color) !important;
+  background-color: transparent !important;
+}
+
+.navbar .navbar-nav li a:focus {
+  color: var(--main-color) !important;
+  background-color: transparent !important;
+}
+
+.navbar .navbar-toggler {
+  background-color: var(--navbar-background-color);
+}
+
+.navbar .navbar-toggler .burger-icon {
+  color: var(--main-color);
+}

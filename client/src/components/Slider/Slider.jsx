@@ -4,7 +4,7 @@ import SlideTwo from './SlideTwo.jsx';
 import SlideThree from './SlideThree.jsx';
 import RightArrow from './RightArrow.jsx';
 import LeftArrow from './LeftArrow.jsx';
-import '../../stylesheets/Slider/Slider.css';
+// import '../../stylesheets/Slider/Slider.css';
 
 // import AppActions from '../../Actions/AppActions.js';
 

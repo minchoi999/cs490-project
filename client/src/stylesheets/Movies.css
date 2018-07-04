@@ -4,7 +4,7 @@
     padding: var(--padding-section);
 }
 
-input {
+.input-movie {
     width: 100%;
     font-size: 12px;
     margin: 8px 0;
@@ -13,13 +13,13 @@ input {
     border-bottom: 5px #59ba96;
 }
 
-button {
+.button-movie {
     font-size: 12px;
     border-radius: 8px;
     padding: 15px;
     text-align: center;
     text-decoration: none;
-    }
+}
 
 .title {
     font-size: 50px;

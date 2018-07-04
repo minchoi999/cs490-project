@@ -60,7 +60,7 @@ class DashboardPage extends React.Component {
 
                 <Movie />
 
-                <Contact />
+                {/* <Contact /> */}
 
                 <Footer />
             </div>

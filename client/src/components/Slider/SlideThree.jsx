@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import oceans from '../../images/oceans-8.jpg';
-import '../../stylesheets/Slider/Slide.css';
+// import oceans from '../../images/oceans-8.jpg';
+// import '../../stylesheets/Slider/Slide.css';
 
 const SlideThree = (props) => {
   // const background = {
@@ -9,7 +9,7 @@ const SlideThree = (props) => {
   //   backgroundPosition: 'center',
   // };
 
-  return <img src={oceans} />;
+  return <img className="slide-img" src={'https://images2.alphacoders.com/724/724132.jpg'} />;
 };
 
 export default SlideThree;

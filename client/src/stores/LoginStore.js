@@ -29,7 +29,7 @@ export default _loginStore;
 
 _loginStore.dispatchToken = AppDispatcher.register(action => {
   switch (action.actionType) {
-    case "toggleShowLogin":
+    case "showLogin":
       _showLogin = !_showLogin;
       _loginStore.emitChange();
       break;

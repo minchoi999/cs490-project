@@ -2,9 +2,9 @@ import AppDispatcher from '../dispatcher/AppDispatcher.js';
 
 const LoginAction = {
 
-	toggleShowLogin: function() {
+	showLogin: function() {
 		AppDispatcher.dispatch( {
-			actionType: 'toggleShowLogin',
+			actionType: 'showLogin',
 		} );
 	}
 };

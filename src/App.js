@@ -3,7 +3,7 @@ import * as React from 'react';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Home from './components/Home';
-import Slider from './components/Slider/Slider';
+import Slider from './components/Slider';
 import Movie from './components/Movie';
 import NavigationBar from './components/NavigationBar';
 
@@ -19,7 +19,7 @@ class App extends React.Component {
 
         <Slider />
 
-				<Movie />
+        <Movie />
 
         <Contact />
 

@@ -29,7 +29,7 @@ module.exports = app => {
   passport.deserializeUser((id, done) => {
     User.findById({ _id: id })
       .then(user => done(null, user))
-      .catch(err => console.warn(`err at deserialize: ${err}`))
+      .catch(err => console.warn(`err at deserialize: ${err}`));
   });
 
   passport.use(Strategies.local);

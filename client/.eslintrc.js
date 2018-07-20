@@ -49,5 +49,8 @@ module.exports = {
     "react/destructuring-assignment": 0,
     "react/forbid-prop-types": 0,
     "react/jsx-boolean-value": 0,
+    "linebreak-style": 0,
+    "global-require": 0,
+    "eslint linebreak-style": [0, "error", "windows"],
   },
 };

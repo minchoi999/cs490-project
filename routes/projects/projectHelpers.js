@@ -1,16 +1,16 @@
-    // Function for setting properties of a Project schema object
-    const setProjectObj = (input, project) => {
-        project.title = input.title;
-        project.categories = input.categories;
-        project.description = input.description;
-        project.stack = input.stack;
-        project.status = input.status;
-        project.repoUrl = input.repoUrl;
-        project.img = input.img;
-        project.users = input.users;
-  
-        return project;
-      }
+// Function for setting properties of a Project schema object
+const setProjectObj = (input, project) => {
+    project.title = input.title;
+    project.categories = input.categories;
+    project.description = input.description;
+    project.stack = input.stack;
+    project.status = input.status;
+    project.repoUrl = input.repoUrl;
+    project.img = input.img;
+    project.users = input.users;
+
+    return project;
+};
 
       
 /*
@@ -28,4 +28,4 @@ function checkBodyForProperties (body) {
   return newObj;
 }*/
 
-      module.exports = setProjectObj;
+module.exports = setProjectObj;

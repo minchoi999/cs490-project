@@ -24,9 +24,9 @@ const ProjectsSchema = new Schema({
     },     //category of the project
     description: String,  //project description
     stack: [String],      //array of technologies used in the project
-    status: String,       //status of project, why it's stuck
+    status: String,       //status of project
     repoUrl: String,      //GitHub repo URL
-    img: [String],         //image URLs of screenshots
+    img: [String],        //image URLs of screenshots
     users: [ProjectUsersSchema]
 });
 

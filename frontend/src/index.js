@@ -14,7 +14,7 @@ let store = createStore(rootReducer);
 // Rendering the full app at root
 ReactDOM.render(
   <Provider store={store}>
-    <App/>
+    <App />
   </Provider>, 
   document.getElementById('root')
 );

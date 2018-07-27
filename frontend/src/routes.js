@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import {
-    BrowserRouter as Router,
-    Route,
-    Redirect
-  } from 'react-router-dom';
+  BrowserRouter as Router,
+  HashRouter,
+  Route,
+  Redirect,
+  Switch
+} from 'react-router-dom';
 import axios from 'axios';
 
 // Import Javascript functions
@@ -33,6 +35,9 @@ import About from "./components/organisms/About";
 import Footer from './components/molecules/Footer';
 import Dashboard from './components/molecules/Dashboard';
 
+import PopularMovies from './components/molecules/MoviePopular';
+import MovieDetail from './components/molecules/MovieDetail';
+
 // Loads environment variables with dotenv
 require('dotenv').load();
 
@@ -42,10 +47,10 @@ class App extends Component {
     super(props);
 
     // url is REACT_APP_APPURL if set, otherwise it's window.location.origin
-    const url = ( process.env.REACT_APP_APPURL ) ? 
-      ( process.env.REACT_APP_APPURL ) : 
-      ( window.location.origin );
-      
+    const url = (process.env.REACT_APP_APPURL) ?
+      (process.env.REACT_APP_APPURL) :
+      (window.location.origin);
+
     // component state has 
     this.state = {
       apiUrl: url
@@ -75,10 +80,10 @@ class App extends Component {
   // fetch all projcets
   allProjects = () => {
     apiCall.getAllProjects(res => {
-      if (res.error) {console.error(res.error)}
+      if (res.error) { console.error(res.error) }
       console.log('res.data', res.data);
       if (res.data) {
-        this.setState({projects: res.data}); // update state to response data
+        this.setState({ projects: res.data }); // update state to response data
         this.props.setProjects(res.data); // redux store
       }
     });
@@ -88,7 +93,7 @@ class App extends Component {
     // apiCall expects a "null" if projects are not loaded yet
     const projects = (this.state.projects.length > 0) ? this.state.projects : null;
     apiCall.getProjectById(projects, projectId, res => {
-      if (res.error) {console.error(res.error)}
+      if (res.error) { console.error(res.error) }
       next(res.data);
     });
   }
@@ -111,7 +116,7 @@ class App extends Component {
   // get one user profile by ID
   getOneUser = (id, next) => {
     apiCall.getUserById(id, res => {
-      if (res.error) {console.error(res.error)}
+      if (res.error) { console.error(res.error) }
       next(res.data);
     });
   }
@@ -127,9 +132,9 @@ class App extends Component {
     console.log('set user');
     apiCall.getCurrentUser(res => {
       console.log('set user response', res);
-      if (res.error) {console.error(res.error)}
+      if (res.error) { console.error(res.error) }
       if (res.data) {
-        this.setState({user: res.data});
+        this.setState({ user: res.data });
         // send data to redux store
         this.props.setUser(res.data);
       } else {
@@ -139,7 +144,7 @@ class App extends Component {
   }
   // logout the user by setting the app state.user as null
   logoutUser = () => { // logout user
-    axios.get('/auth/logout').then(()=> {
+    axios.get('/auth/logout').then(() => {
       this.setState({
         user: null
       });
@@ -156,7 +161,7 @@ class App extends Component {
     // copy state
     let { user } = this.state;
     let { followedProjects } = user;
-    
+
     // findindex of project that was followed
     const projectIndex = followedProjects.findIndex((e) => {
       return e === project_id;
@@ -164,134 +169,136 @@ class App extends Component {
 
     // if project exists on array, remove it else add it
     followedProjects = projectIndex !== -1
-      ? [ ...followedProjects.slice(0, projectIndex),
-          ...followedProjects.slice(projectIndex + 1)] 
-      : [...followedProjects, project_id]; 
+      ? [...followedProjects.slice(0, projectIndex),
+      ...followedProjects.slice(projectIndex + 1)]
+      : [...followedProjects, project_id];
 
     // save new state
-    user.followedProjects = followedProjects;  
+    user.followedProjects = followedProjects;
     this.setState({
       user
     });
   }
 
   render() {
-    return(
-      
-    <Router>
-      <div>
-        {/* Nav components get rendered in all pages. User is set to null when user logged out */}
-        <Nav user={this.props.user} logoutUser={this.logoutUser}/>
+    return (
 
-        {/* Routing for homepage */}
-        <Route exact
-          path="/"
-          render={(routeProps)=> (
-            /* If user is logged in, but user doesn't have username, redirect to user edit page */
-            ( this.props.user && !this.props.user.username ) ?
-            ( <Redirect to={{
-                pathname: '/user/edit/'
-              }}/> ) :
-            ( 
-              <div>
-                {/* If user is logged out, render Header, ProjectList and About components (Landing page) */ }
-                {/* Header component. */}
-                <Header user={this.props.user} />
+      <Router>
+        <div>
+          {/* Nav components get rendered in all pages. User is set to null when user logged out */}
+          <Nav user={this.props.user} logoutUser={this.logoutUser} />
 
-                {/* ProjectList inherits route props, plus App is passed on as ProjectList prop */}
-                <ProjectList 
-                  {...routeProps} 
-                  {...{
-                    projects: this.props.projects,
-                    user: this.props.user,
-                    updateProjects: this.allProjects
-                  }} 
-                />
-                {/* About component */}
-                <About user={this.props.user} />
-              </div>
-            )
-          )
-        }/>
-        {/* Shows single project */}
-        <Route path="/project/view/:id?" render={(routeProps)=> {
-          // ProjectInfo component shows single project. Functions defined at parent level
-          return <ProjectInfo 
-            {...routeProps} 
-            {...{
-              projects: this.props.projects,
-              user: this.props.user,
-              deleteProject: this.deleteProject,
-              allProjects: this.allProjects,
-              getOneProject: this.getOneProject,
-              getOneUser: this.getOneUser,
-              updateProjects: this.allProjects
-            }} />
-        }
-        }/>
-        {/* Shows user page */}
-        <Route path="/user/view/:id" render={(routeProps)=> {
-          return <UserInfo 
-            {...routeProps} 
-            {...{
-              user: this.props.user,
-              projects: this.props.projects,
-              getOneUser: this.getOneUser
-            }} />
-        }
-        }/>
-        {/* User can edit its own information when logged in */}
-        <Route path="/user/edit/" render={(routeProps)=> {
+          {/* Routing for homepage */}
+          <Route exact
+            path="/" render={(routeProps) => (
+              /* If user is logged in, but user doesn't have username, redirect to user edit page */
+              (this.props.user && !this.props.user.username) ?
+                (<Redirect to={{
+                  pathname: '/user/edit/'
+                }} />) :
+                (
+                  <div>
+                    {/* If user is logged out, render Header, ProjectList and About components (Landing page) */}
+                    {/* Header component. */}
+                    <Header user={this.props.user} />
+
+                    {/* ProjectList inherits route props, plus App is passed on as ProjectList prop */}
+                    <ProjectList
+                      {...routeProps}
+                      {...{
+                        projects: this.props.projects,
+                        user: this.props.user,
+                        updateProjects: this.allProjects
+                      }}
+                    />
+                    {/* About component */}
+                    <About user={this.props.user} />
+                  </div>
+                )
+            )}
+          />
+          {/* Shows single project */}
+          <Route path="/project/view/:id?" render={(routeProps) => {
+            // ProjectInfo component shows single project. Functions defined at parent level
+            return <ProjectInfo
+              {...routeProps}
+              {...{
+                projects: this.props.projects,
+                user: this.props.user,
+                deleteProject: this.deleteProject,
+                allProjects: this.allProjects,
+                getOneProject: this.getOneProject,
+                getOneUser: this.getOneUser,
+                updateProjects: this.allProjects
+              }} />
+          }} />
+          {/* Shows user page */}
+          <Route path="/user/view/:id" render={(routeProps) => {
+            return <UserInfo
+              {...routeProps}
+              {...{
+                user: this.props.user,
+                projects: this.props.projects,
+                getOneUser: this.getOneUser
+              }} />
+          }} />
+          {/* User can edit its own information when logged in */}
+          <Route path="/user/edit/" render={(routeProps) => {
             return <UserEdit {...routeProps} {...{
               user: this.props.user,
               onUserPost: this.postUser
             }} />
-          }
-        }/>
+          }} />
 
-        {/* Adds a project (only logged in users)  */}
-        <Route path="/project/add/" render={(routeProps)=> {
-              return <ProjectEdit
-                {...routeProps}
-                {...{
-                  user: this.props.user,
-                  handleSubmit: this.newProject
-                }} />
-          }
-        }/>
+          {/* Adds a project (only logged in users)  */}
+          <Route path="/project/add/" render={(routeProps) => {
+            return <ProjectEdit
+              {...routeProps}
+              {...{
+                user: this.props.user,
+                handleSubmit: this.newProject
+              }} />
+          }} />
 
-        {/* Edits a projects (only logged in users) */}
-        <Route path="/project/edit/:id" render={(routeProps)=> {
-              return <ProjectEdit
-                {...routeProps}
-                {...{
-                  user: this.props.user,
-                  handleSubmit: this.updateProject,
-                  getOneProject: this.getOneProject
-                }} />
-          }
-        }/>
+          {/* Edits a projects (only logged in users) */}
+          <Route path="/project/edit/:id" render={(routeProps) => {
+            return <ProjectEdit
+              {...routeProps}
+              {...{
+                user: this.props.user,
+                handleSubmit: this.updateProject,
+                getOneProject: this.getOneProject
+              }} />
+          }} />
 
-        <Route path="/dashboard" component={Dashboard} />
+          <Route path="/dashboard" component={Dashboard} />
 
-        {/* Shows contact form to contact project owner */}
-        <Route path="/contact/:userId/:projectId?" render={(routeProps)=> {
-              return <ContactForm 
-                {...routeProps} 
-                {...{
-                    user: this.props.user,
-                    handleSubmit: this.sendMessage,
-                    getOneProject: this.getOneProject,
-                    getOneUser: this.getOneUser
-              }}/>
-        }}/>
+          {/* Shows contact form to contact project owner */}
+          <Route path="/contact/:userId/:projectId?" render={(routeProps) => {
+            return <ContactForm
+              {...routeProps}
+              {...{
+                user: this.props.user,
+                handleSubmit: this.sendMessage,
+                getOneProject: this.getOneProject,
+                getOneUser: this.getOneUser
+              }} />
+          }} />
 
-        {/* Footer component gets shown in every single page */}
-      <Footer />
-      </div>
-     </Router>
-   )
- }
+          <HashRouter>
+            <Switch>
+              <Route path="/tmdb" component={(props) => <PopularMovies {...props} />} />
+              {/* <Route exact path="/tmdb" component={PopularMovies} /> */}
+              <Route exact path="/tmdb/movie/:id" component={(props) => <MovieDetail {...props}/>}/>
+            </Switch>
+          </HashRouter>
+
+          {/* Footer component gets shown in every single page */}
+          <Footer />
+        </div>
+      </Router>
+    )
+  }
 }
 
 

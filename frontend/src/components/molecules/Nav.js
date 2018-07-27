@@ -52,6 +52,8 @@ class Nav extends Component {
         break;
       case "dashboard":
         this.props.history.push("/dashboard");
+      case "tmdb":
+        this.props.history.push("/tmdb");
       default:
     }
   };
@@ -70,6 +72,9 @@ class Nav extends Component {
               {this.props.user ? <ul className="navbar-nav mr-auto">
                   <li className="nav-item">
                     <Button label="Add Favourites" id="add-project" redirect="/project/add" />
+                  </li>
+                  <li className="nav-item">
+                    <Button label="TMDB" id="tmdb" redirect="/tmdb" />
                   </li>
                 </ul> : null}
             </div>

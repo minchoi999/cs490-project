@@ -1,6 +1,5 @@
 import React from 'react';
 import { shape, string, number } from 'prop-types';
-// import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { URL_IMG, IMG_LARGE } from '../../const';
 

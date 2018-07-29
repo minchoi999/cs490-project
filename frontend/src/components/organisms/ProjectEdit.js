@@ -217,7 +217,7 @@ class ProjectEdit extends Component {
                   </fieldset>
                 </form>
               </div>
-              <Button label="Back to home" />
+              <Button label="To Main" redirect="/" />
             </div>
           </div>
         </div>

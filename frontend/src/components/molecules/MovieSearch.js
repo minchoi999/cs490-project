@@ -1,70 +1,63 @@
 import React, { Component } from 'react';
-import _debounce from 'lodash/debounce';
-import axios from 'axios';
-import styled from 'styled-components';
 import Autosuggest from 'react-autosuggest';
-import { Link } from 'react-router-dom';
-import { Navbar } from 'reactstrap';
-import TMDBlogo from "../../images/movie_logo.svg";
 import { URL_IMG, URL_SEARCH, API_KEY_ALT, IMG_XSMALL } from '../../const';
-
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import TMDBlogo from '../../images/movie_logo.svg';
 
 class MovieSearch extends Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
+
         this.state = {
             value: '',
-            suggestion: []
+            suggestions: []
         };
     }
 
-    onChange = (event, { newValue }) => {
+    onChange = (event, { newValue, method }) => {
         this.setState({
-            value: newValue
+            value: (method === 'click' || method === 'enter') ? '' : newValue
         });
     };
 
     // Autosuggest will call this function every time you need to update suggestions.
     // You already implemented this logic above, so just use it.
     onSuggestionsFetchRequested = ({ value }) => {
-        const inputValue = value.trim().toLowerCase();
-        const inputLength = inputValue.length;
-
-        const url = URL_SEARCH + inputValue + API_KEY_ALT;
-
-        return inputLength === 0
-            ? []
-            : axios
-                .get(url)
-                .then(response => {
-                    this.setState({ suggestions: response.data.results })
-                })
-                .catch(error => { console.log(`Error Message ${error}`) });
-    }
+        axios.get(URL_SEARCH + value + API_KEY_ALT).then((response) => {
+            this.setState({
+                // suggestions: response.data.results.map((result) => result.original_title)
+                suggestions: response.data.results
+            });
+        });
+    };
 
     // Autosuggest will call this function every time you need to clear suggestions.
     onSuggestionsClearRequested = () => {
         this.setState({
             suggestions: []
         });
-    }
+    };
 
     renderSuggestion = (suggestion) => {
         return (
-            <Link to={`/movie/${suggestion.id}`}>
-                <img className="searchResult-image" src={suggestion.poster_path === null ? TMDBlogo : URL_IMG + IMG_XSMALL + suggestion.poster_path} alt={`Poster Path ${suggestion.title}`} />
-                <div className="searchResult-text">
-                    <div className="searchResult-name">
-                        {suggestion.title}
+            <Link to={`tmdb/movie/${suggestion.id}`}>
+                <div>
+                    <img className="searchResult-image" src={suggestion.poster_path == null ? TMDBlogo : `${URL_IMG}${IMG_XSMALL}${suggestion.poster_path}`} alt="searchLogo" />
+                    <div className="searchResult-text">
+                        <div className="searchResult-name">{suggestion.title}</div>
+                        <div className="searchResult-date">{suggestion.release_date.slice(0, 4)}</div>
                     </div>
-                    {suggestion.year}
                 </div>
             </Link>
         );
     };
 
-    getSuggestionValue = (suggestion) => {
-        return suggestion.title;
+    onSuggestionSelected = (event, { suggestion, method }) => {
+        if (method === 'enter')
+            event.preventDefault();
+        // this.push('/movie/' + suggestion.id);
+        this.setState({ value: '' });
     };
 
     render() {
@@ -72,34 +65,25 @@ class MovieSearch extends Component {
 
         // Autosuggest will pass through all these props to the input.
         const inputProps = {
-            placeholder: 'Search Movie Title...',
+            placeholder: 'Search a movie tittle...',
             value,
             onChange: this.onChange
         };
 
-        const onSuggestionsFetchRequested = _debounce((term) => { this.onSuggestionsFetchRequested(term) }, 1000);
-
+        // Finally, render it!
         return (
-            <div>
-                {/* <Navbar.Header>
-                    <Navbar.Brand>
-                        <a href="#">
-                            <Brand />
-                            <Image alt="TMDB" src={TMDBlogo} />
-                        </a>
-                    </Navbar.Brand>
-                </Navbar.Header> */}
-                <Navbar.Form pullRight>
-                    <Autosuggest
-                        suggestions={suggestions}
-                        onSuggestionsFetchRequested={onSuggestionsFetchRequested}
-                        onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-                        getSuggestionValue={this.getSuggestionValue}
-                        renderSuggestion={this.renderSuggestion}
-                        inputProps={inputProps}
-                    />
-                </Navbar.Form>
-            </div>
+            <form class="form-inline justify-content-center sticky-top">
+                <Autosuggest
+                    suggestions={suggestions}
+                    onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+                    onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+                    getSuggestionValue={(suggestion) => suggestion.title}
+                    renderSuggestion={this.renderSuggestion}
+                    onSuggestionSelected={this.onSuggestionSelected}
+                    inputProps={inputProps}
+                />
+            </form>
+
         );
     }
 }

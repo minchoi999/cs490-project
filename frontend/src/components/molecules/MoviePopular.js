@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Container, Row } from 'reactstrap';
 import { URL_DETAIL, API_KEY, LANGUAGE_EN, POPULAR } from '../../const';
-import Search from './MovieSearch';
+import MovieSearch from './MovieSearch';
 import MovieCard from './MovieCard';
 
 
-class PopularMovies extends Component {
+class MoviePopular extends Component {
 
     constructor(props) {
         super(props);
@@ -17,6 +16,12 @@ class PopularMovies extends Component {
     }
 
     componentDidMount() {
+        if (!this.props.user) {
+            setTimeout(() => {
+                this.props.history.push('/');
+            }, 1000);
+        }
+
         axios
             // .get(`${URL_DETAIL}popular${API_KEY}&language=en-US&page=1`)
             .get(URL_DETAIL + POPULAR + API_KEY + LANGUAGE_EN)
@@ -27,20 +32,22 @@ class PopularMovies extends Component {
     }
 
     render() {
+        if (!this.props.user) {
+            return <h3>ERROR: Not logged in. Redirecting...</h3>;
+        }
+
         const movies = this.state.results.map(movie => (
             <MovieCard key={movie.id} movie={movie} />
         ));
         return (
-            <div className="search">
-                <Search />
-                <Container fluid={false}>
-                    <Row>
-                        {movies}
-                    </Row>
-                </Container>
+            <div className="popular-background">
+                <MovieSearch />
+                <div className="container">
+                    <div className="row">{movies}</div>
+                </div>
             </div>
         );
     }
 }
 
-export default PopularMovies;
+export default MoviePopular;

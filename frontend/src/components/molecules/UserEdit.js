@@ -28,7 +28,7 @@ class UserEditNew extends Component {
         if (!this.state) {
             setTimeout(() => {
                 this.props.history.push('/');
-            }, 3000);
+            }, 1000);
         }
     }
     shouldComponentUpdate(nextProps, nextState) {

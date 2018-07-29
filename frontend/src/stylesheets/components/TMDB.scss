@@ -1,0 +1,246 @@
+// * {
+//   box-sizing: border-box;
+// }
+
+// html {
+//   font-family: sans-serif; /* 1 */
+//   -ms-text-size-adjust: 100%; /* 2 */
+//   -webkit-text-size-adjust: 100%; /* 2 */
+//   height: 100%;
+//   color: #000;
+// }
+
+// body {
+//   height: 100%;
+//   background-repeat: repeat;
+//   background-size: cover;
+//   color: #000;
+//   font-family: 'Open Sans', sans-serif;
+// }
+@import "../base/helpers.scss";
+
+.poster-image {
+  width: 100%;
+  border-radius: 0 0 3px 3px;
+  padding-right: 30px;
+  float: left;
+}
+
+.navbar-form {border-top: transparent ; border-bottom: transparent}
+
+.movie-card-detail-image {
+  padding: 0;
+  width: 100%;
+	border-radius: 0 0 3px 3px;
+	float: left;
+}
+
+.movie-title {
+  text-transform: uppercase;
+  font-weight: $font-weight-heavy;
+  font-size: 1.5em;
+  color: $primary;
+}
+
+.movie-icons {
+  color: $primary;
+}
+
+.movie-item-list {
+  font-size: 1.1em;
+  font-weight: $font-weight-heavy;
+  list-style-type: none;
+}
+
+.movie-tagline{
+  display: block;
+  font-size: 1.3em;
+  font-weight: $font-weight-regular;
+  padding-bottom: 0.25em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.movie-overview {
+  // font-size: 0.85em;
+  font-weight: $font-weight-light;
+  padding-bottom: 1em;
+  // max-width: 500px;
+  // line-height: 2em;
+}
+
+.movie-subdetails {
+  font-size: 1.3em;
+  font-weight: $font-weight-regular;
+}
+
+.movie-metadata {
+  display: block;
+  color: #DCAF68;
+  font-size: 1em;
+}
+
+.popular-background {
+  background-color: $light-grey;
+}
+
+.popular-movie {
+  border-radius: 5px;
+  margin-bottom: 25px;
+  // padding-right: 10px;
+  overflow: hidden;
+  display: inline-block;
+  background-color: $dark-grey;
+  text-decoration: none;
+}
+
+.card-image {
+  width: 50%;
+  float: left;
+  height: auto;
+}
+
+.card-details {
+  display: block;
+  float: right;
+  width: 50%;
+  text-align: left;
+}
+
+.card-details > h3 {
+  color: $primary;
+  font-weight: $font-weight-heavy;
+  text-transform: uppercase;
+}
+
+.text-ellipsis {
+  color: $almost-white;
+  display: block;
+  display: -webkit-box;
+  max-width: 450px;
+  height: 10em;
+  margin: auto;
+  font-weight: $font-weight-regular;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.react-autosuggest__container {
+  position: relative;
+}
+
+.react-autosuggest__input {
+  width: 280px;
+  height: 35px;
+  padding: 10px 20px;
+  font-weight: $font-weight-regular;
+  font-size: 16px;
+  border: 4px solid $primary;
+  border-radius: 5px;
+}
+
+.react-autosuggest__input--focused {
+  outline: none;
+}
+
+.react-autosuggest__input--open {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.react-autosuggest__suggestions-container {
+  display: none;
+}
+
+.react-autosuggest__suggestions-container--open {
+  display: block;
+  position: absolute;
+  top: 38px;
+  width: 280px;
+  border: 1px solid $light-grey; 
+  background-color: $almost-white;
+  font-weight: $font-weight-regular;
+  font-size: 16px;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  z-index: 2;
+}
+
+.react-autosuggest__suggestions-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.react-autosuggest__suggestion {
+  cursor: pointer;
+  padding: 10px 20px;
+}
+
+.react-autosuggest__suggestion--highlighted {
+  background-color: $almost-white;
+}
+
+
+.searchResult-image {
+  width: 40px;
+  height: 50px;
+  float: left;
+  margin-right: 8px;
+}
+
+.searchResult-text {
+  // line-height: 21px;
+  overflow: hidden;
+  text-align: left;
+  white-space: nowrap;
+  display: block;
+}
+
+.searchResult-name {
+  font-weight: $font-weight-heavy;
+  color: black;
+}
+
+.searchResult-date {
+  font-weight: $font-weight-regular;
+  color: $dark-grey;
+}
+
+.searchResult-link {
+  display: block;
+  padding: 5px;
+  text-decoration: none;
+}
+
+.play-list {
+  cursor: pointer;
+}
+
+.wrapper {
+  overflow:hidden;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.85);
+  color: white;
+}
+
+/* ----------- Non-Retina Screens ----------- */
+// @media screen 
+//   and (min-device-width: 1200px) 
+//   and (max-device-width: 2000px)  { 
+
+//     .text-ellipsis {
+//       padding-top: 2rem;
+//       height: 20rem;
+//       font-size: 15px;
+//       line-height: 3rem;
+//       -webkit-line-clamp: 6;
+//       text-overflow: ellipsis;
+//     }
+    
+//     .card-details {
+//       margin-top: 1rem;
+//     }
+//   }

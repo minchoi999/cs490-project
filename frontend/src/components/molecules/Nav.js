@@ -7,7 +7,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import Button from '../atoms/Button';
-import { Modal, ModalHeader, ModalBody, Form, FormGroup, Input }  from "reactstrap";
+import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import logo from "../../images/logo.svg"
 import defaultAvatar from "../../images/default-avatar.png";
 import githubLogin from "../../images/github-login.svg";
@@ -52,40 +52,50 @@ class Nav extends Component {
         break;
       case "dashboard":
         this.props.history.push("/dashboard");
+        break;
       case "tmdb":
         this.props.history.push("/tmdb");
+        break;
       default:
     }
   };
   render() {
     console.log("Nav", this.props);
-    return <div>
+    return (
+      <div>
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
           <a id="navbar-brand" className="navbar-brand" onClick={this.handleClick}>
             <img id="navbar-brand" className="logo" src={logo} alt="M-Geeks" />
           </a>
+
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon" />
+            <span className="fas fa-bars burger-icon" />
           </button>
+
           <div className="collapse navbar-collapse justify-content-between">
             <div>
-              {this.props.user ? <ul className="navbar-nav mr-auto">
+              {this.props.user ?
+                <ul className="navbar-nav mr-auto">
                   <li className="nav-item">
                     <Button label="Add Favourites" id="add-project" redirect="/project/add" />
                   </li>
                   <li className="nav-item">
-                    <Button label="TMDB" id="tmdb" redirect="/tmdb" />
+                    <Button label="Popular" id="tmdb" redirect="/tmdb" />
                   </li>
-                </ul> : null}
+                </ul> :
+                null
+                // <Button label="Popular" id="tmdb" redirect="/tmdb" />
+              }
             </div>
+
             <div>
               <ul className="nav navbar-nav">
-                {this.props.user ? 
+                {this.props.user ?
                   <li className="dropdown">
                     <img id="avatar" alt="avatar" className="nav-avatar-img dropdown-toggle" data-toggle="dropdown" src={this.props.user.avatar} onError={e => {
-                        console.log("no avatar", e.target.src);
-                        e.target.src = defaultAvatar;
-                      }} width="50px" height="50px" />
+                      console.log("no avatar", e.target.src);
+                      e.target.src = defaultAvatar;
+                    }} width="50px" height="50px" />
                     <ul className="dropdown-menu dropdown-menu-right">
                       {this.state.items.map(item => {
                         return (
@@ -95,7 +105,7 @@ class Nav extends Component {
                         );
                       })}
                     </ul>
-                  </li> : 
+                  </li> :
                   <li>
                     <button className="btn" onClick={this.toggleModal}>
                       Login/Register
@@ -118,13 +128,11 @@ class Nav extends Component {
                         <p>
                           <strong>Sign in with your email</strong>
                         </p>
-                        <LoginForm submitWord='Login' url='/auth/login'/>
+                        <LoginForm submitWord='Login' url='/auth/login' />
                         <p>
-                          <strong>
-                            Don't have an account? Register with us
-                          </strong>
+                          <strong>Don't have an account? Register with us</strong>
                         </p>
-                        <LoginForm submitWord='Register' url='/auth/register'/>
+                        <LoginForm submitWord='Register' url='/auth/register' />
                       </ModalBody>
                     </Modal>
                   </li>}
@@ -132,27 +140,23 @@ class Nav extends Component {
             </div>
           </div>
         </nav>
-        <div className="collapse" id="navbarSupportedContent">
-          {this.props.user ? <ul className="navbar-nav mr-auto">
-              <li id="add-project" className="nav-dropdown-item" onClick={this.handleClick}>
-                Add a Project
-              </li>
-              <li id="profile" className="nav-dropdown-item" onClick={this.handleClick}>
-                Profile
-              </li>
-              <li id="dashboard" className="nav-dropdown-item" onClick={this.handleClick}>
-                Dashboard
-              </li>
-              <li id="logout" className="nav-dropdown-item" onClick={this.handleClick}>
-                Logout
-              </li>
-            </ul> : <ul className="navbar-nav mr-auto">
-              <li id="login" className="nav-dropdown-item" onClick={this.toggleModal}>
-                Login
-              </li>
+
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          {this.props.user ?
+            <ul className="navbar-nav mr-auto">
+              <li id="add-project" className="nav-dropdown-item" onClick={this.handleClick}>Add a Project</li>
+              <li id="profile" className="nav-dropdown-item" onClick={this.handleClick}>Profile</li>
+              <li id="dashboard" className="nav-dropdown-item" onClick={this.handleClick}>Dashboard</li>
+              <li id="tmdb" className="nav-dropdown-item" onClick={this.handleClick}>TMDB</li>
+              <li id="logout" className="nav-dropdown-item" onClick={this.handleClick}>Logout</li>
+            </ul> :
+            <ul className="navbar-nav mr-auto">
+              <li id="login" className="nav-dropdown-item" onClick={this.toggleModal}>Login</li>
             </ul>}
         </div>
-      </div>;
+
+      </div>
+    );
   }
 }
 

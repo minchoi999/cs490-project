@@ -15,9 +15,8 @@ class Modal extends Component {
     }
 
     componentWillMount() {
-        const id = this.props.modal;
         // const url = `${VIDEO_LINK}${id}/videos${API_KEY}`;
-        const url = URL_DETAIL+VIDEOS+API_KEY;
+        const url = `${URL_DETAIL}${this.props.modal}${VIDEOS}${API_KEY}`;
         axios.get(url).then(response => {
             this.setState({ videoID: response.data.results[0].key });
         });
@@ -40,10 +39,9 @@ class Modal extends Component {
                     videoId={videoID}
                     onClose={() => this.setState({ isOpen: false })}
                 />
-                <li className="col-m-4" onClick={this.openModal}>
-                    <i class="fas fa-play movie-icons"></i>Play Trailer
-                    {/* <Glyphicon className="green" glyph="play" /> Play Trailer */}
-        </li>
+                <div onClick={this.openModal}>
+                    <i class="fas fa-play movie-icons"></i> Play Trailer
+                </div>
             </div>
         );
     }

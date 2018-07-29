@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Grid, Row} from 'react-bootstrap';
-import {FormGroup, Button, InputGroup, Input} from 'reactstrap';
+import {FormGroup, Button, InputGroupAddon, InputGroup, Input} from 'reactstrap';
 import * as movieActions from './movie-browser.actions';
 import * as movieHelpers from './movie-browser.helpers';
 import MovieList from './movie-list/movie-list.component';
@@ -12,7 +12,7 @@ class MovieSearchBrowser extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      search: ""
+      currentMovies: []
     }
   }
 
@@ -31,21 +31,19 @@ class MovieSearchBrowser extends React.Component {
       <div>
         <Grid>
           <Row>
-          <FormGroup>
           <InputGroup>
                       <Input
                             id="search" 
                             placeholder = "Search for movies"
-                            onChange = { event => {
+                            onKeyPress = { event => {
                               console.log(event.target.value)
-                              if (!event.target.value == "")
+                              if (event.charCode === 13) {
                                 this.handleSearch(event.target.value)
+                              }
                             }
                           }
-                      > </Input >
-                      <Button>Search</Button>
+                      />
           </InputGroup>
-           </FormGroup>
           </Row>
           <Row>
             <MovieList movies={movies}/>

@@ -65,9 +65,9 @@ class MovieSearch extends Component {
 
         // Autosuggest will pass through all these props to the input.
         const inputProps = {
-            placeholder: 'Search a movie tittle...',
+            placeholder: "Search a movie tittle...",
             value,
-            onChange: this.onChange
+            onChange: this.onChange,
         };
 
         // Finally, render it!

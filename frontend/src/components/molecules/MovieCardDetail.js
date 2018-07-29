@@ -21,9 +21,9 @@ class DetailMovieCard extends Component {
             tagline,
             overview,
             release_date,
-            budget,
-            revenue,
-            runtime
+            budget = 0,
+            revenue = 0,
+            runtime = 0
         } = this.props.movie;
 
         let modalID;
@@ -33,6 +33,14 @@ class DetailMovieCard extends Component {
         else {
             modalID = <Modal modal={this.props.movie.id} />;
         }
+
+        const formattedRevenue = `$${revenue
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+        const formattedBudget = `$${budget
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+        const formattedRuntime = `${runtime} minutes`;
 
         return (
             <div className="container my-container">
@@ -61,17 +69,17 @@ class DetailMovieCard extends Component {
                                         </div>
                                         <div className="col">
                                             Running Time
-                                    <span className="movie-metadata">{runtime} mins</span>
+                                    <span className="movie-metadata">{formattedRuntime}</span>
                                         </div>
                                     </div>
                                     <div className="row">
                                         <div className="col">
-                                            Budget (millions USD)
-                                    <span className="movie-metadata">{(budget * 10 ** (-6)).toFixed(2)}</span>
+                                            Budget
+                                    <span className="movie-metadata">{formattedBudget}</span>
                                         </div>
                                         <div className="col">
-                                            Revenue (millions USD)
-                                    <span className="movie-metadata">{(revenue * 10 ** (-6)).toFixed(2)}</span>
+                                            Revenue
+                                    <span className="movie-metadata">{formattedRevenue}</span>
                                         </div>
                                     </div>
                                 </div>

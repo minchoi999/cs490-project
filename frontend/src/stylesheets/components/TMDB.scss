@@ -26,8 +26,6 @@
   float: left;
 }
 
-.navbar-form {border-top: transparent ; border-bottom: transparent}
-
 .movie-card-detail-image {
   padding: 0;
   width: 100%;
@@ -132,8 +130,8 @@
 }
 
 .react-autosuggest__input {
-  width: 280px;
-  height: 35px;
+  width: 350px;
+  height: 40px;
   padding: 10px 20px;
   font-weight: $font-weight-regular;
   font-size: 16px;
@@ -157,8 +155,8 @@
 .react-autosuggest__suggestions-container--open {
   display: block;
   position: absolute;
-  top: 38px;
-  width: 280px;
+  top: 40px;
+  width: 350px;
   border: 1px solid $light-grey; 
   background-color: $almost-white;
   font-weight: $font-weight-regular;

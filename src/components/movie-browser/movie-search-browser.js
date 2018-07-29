@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Grid, Row} from 'react-bootstrap';
-import {Button, InputGroup, Input} from 'reactstrap';
+import {FormGroup, Button, InputGroup, Input} from 'reactstrap';
 import * as movieActions from './movie-browser.actions';
 import * as movieHelpers from './movie-browser.helpers';
 import MovieList from './movie-list/movie-list.component';
@@ -16,45 +16,36 @@ class MovieSearchBrowser extends React.Component {
     }
   }
 
-  handleChange(query) {
-    this.setState({search: query});
-
-  }
-
-  handleSearch() {
-      if (!this.search == "")
-        this.props.searchMovies(this.state.currentPage, this.search);
+  handleSearch(query) {
+      this.props.searchMovies(this.state.currentPage, query);
       //Object.assign(this.state.currentMovies, this.props.searchMovies(this.state.currentPage, query));
       //this.setState({currentMovies: this.props.searchMovies(this.state.currentPage, query)});
       //update currentMovies state?
 }
 
   render() {
-    const movies = movieHelpers.getMoviesList(this.props.response);
+    const {topMovies} = this.props;
+    const movies = movieHelpers.getMoviesList(topMovies.response);
 
     return (
       <div>
         <Grid>
           <Row>
+          <FormGroup>
           <InputGroup>
                       <Input
                             id="search" 
                             placeholder = "Search for movies"
                             onChange = { event => {
                               console.log(event.target.value)
-                              this.handleChange(event.target.value)
-                              console.log(this.search)
+                              if (!event.target.value == "")
+                                this.handleSearch(event.target.value)
                             }
                           }
-                      />
-                      <Button
-                          onClick = { event => {
-                            console.log("Search")
-                            this.handleSearch()
-                          }
-                        }
-                          >Search</Button>
+                      > </Input >
+                      <Button>Search</Button>
           </InputGroup>
+           </FormGroup>
           </Row>
           <Row>
             <MovieList movies={movies}/>

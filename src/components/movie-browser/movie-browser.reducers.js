@@ -12,7 +12,6 @@ const moviesSuccessReducer = (state, action) => {
   // existing properties we want to persist
   return {
     ...state,
-    isLoading: false,
     response: {
       ...action.response,
       results: [
@@ -23,7 +22,6 @@ const moviesSuccessReducer = (state, action) => {
   };
 }
 
-// Combines our movie browser related reducers to build our movieBrowser reducer
 const movieBrowserReducer = combineReducers({
   movieWindow: movieWindowReducer,
   topMovies: createAsyncReducer(movieActionKeys.GET_TOP_MOVIES, {

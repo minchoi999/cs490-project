@@ -1,22 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Card, CardTitle, CardMedia} from 'material-ui';
+import { Card, CardImg, CardBody, CardTitle, Button } from 'reactstrap';
 import {openMovieWindow} from '../movie-window/movie-window.actions';
-
-const styles = {
-  cardMedia: {
-    maxHeight: 394,
-    overflow: 'hidden'
-  },
-  card: {
-    cursor: 'pointer',
-    height: 400,
-    overflow: 'hidden'
-  },
-  bgImage: {
-    width: '100%'
-  }
-};
 
 class MovieCardComponent extends React.Component {
   constructor(props) {
@@ -28,26 +13,14 @@ class MovieCardComponent extends React.Component {
   
   render() {
     const {movie, openMovieWindow} = this.props;
-    const subtitle = this.state.isMouseOver ? movie.overview : null;
 
     return (
-      <Card
-        style={styles.card}
-        onMouseOver={() => this.setState({isMouseOver: true})}
-        onMouseLeave={() => this.setState({isMouseOver: false})}
-        onClick= {() => openMovieWindow(movie.id)}
-      >
-        <CardMedia
-          style={styles.cardMedia}
-          overlay={
-            <CardTitle
-              title={movie.title} 
-              subtitle={subtitle} 
-            />
-          }
-        >
-          <img style={styles.bgImage} src={movie.poster_path} />
-        </CardMedia>
+      <Card>
+        <CardImg src={movie.poster_path}/>
+        <CardBody>
+          <CardTitle> {movie.title} </CardTitle>
+          <Button onClick={() => openMovieWindow(movie.id)}>Summary</Button>
+        </CardBody>
       </Card>
     );
   }

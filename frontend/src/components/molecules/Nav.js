@@ -151,7 +151,7 @@ class Nav extends Component {
               <li id="logout" className="nav-dropdown-item" onClick={this.handleClick}>Logout</li>
             </ul> :
             <ul className="navbar-nav mr-auto">
-              <li id="login" className="nav-dropdown-item" onClick={this.toggleModal}>Login</li>
+              <li className="nav-dropdown-item" onClick={this.toggleModal}>Login/Register</li>
             </ul>}
         </div>
 

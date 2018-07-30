@@ -1,5 +1,7 @@
 // BOOTSTRAP
 @import "../../node_modules/bootstrap/scss/bootstrap.scss";
+// REACT-MODAL-VIDEO
+@import 'node_modules/react-modal-video/scss/modal-video.scss';
 // VARIABLES AND MIXINS
 @import "base/helpers.scss";
 // LAYOUT
@@ -18,5 +20,6 @@
 @import "components/Categories.scss";
 //@import "components/Dashboard.scss";
 @import "components/SearchBox.scss";
+@import "components/TMDB.scss";
 // MEDIA QUERIES
 @import "base/media.scss";

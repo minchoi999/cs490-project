@@ -1,10 +1,9 @@
 // FONT VARIABLES
-$font-family: 'Work Sans',
-sans-serif;
+$font-family: 'Work Sans', sans-serif;
 $font-weight-light: 300;
 $font-weight-regular: 400;
 $font-weight-heavy: 700;
-$font-height: 1.4;
+$line-height: 1.4;
 // COLORS
 $primary: #DCAF68;
 $dark-grey: #707070;
@@ -22,41 +21,46 @@ $breakpoint-large: 60em; // 960px
     border-color: $primary;
     color: white;
     margin: 5px;
-    &:active,
+    &:active 
     &:hover {
         background-color: lighten( $primary, 10%);
         border-color: lighten( $primary, 10%);
         color: white;
     }
-    &--primary {
-        background-color: #F2F1EF;
-        color: #E63022;
-        border: none;
-        border-color: lighten( #E63022, 10%);
-        &:active,
-        &:hover {
-            background-color: #F2F1EF;
-            color: #E63022;
-            border-color: none;
-        }
-        &:focus {
-            border-color: darken( #F2F1EF, 10%);
-        }
+    &:focus {
+        outline: 0;
+        -webkit-box-shadow: 0 0 0 0.2rem darken( $primary, 20%);
+        box-shadow: 0 0 0 0.2rem darken( $primary, 20%);
     }
-    &--secondary {
-        background-color: #4D8FAC;
-        color: #EEEEEE;
-        border: none;
-        &:active,
-        &:hover {
-            background-color: #4D8FAC;
-            color: #EEEEEE;
-            border-color: none;
-        }
-        &:focus {
-            border-color: lighten( #4D8FAC, 10%);
-        }
-    }
+    // &--primary {
+    //     background-color: $primary;
+    //     color: $primary;
+    //     border: none;
+    //     border-color: lighten( $primary, 10%);
+    //     &:active,
+    //     &:hover {
+    //         background-color: $primary;
+    //         color: $primary;
+    //         border-color: none;
+    //     }
+    //     &:focus {
+    //         border-color: darken( $primary, 10%);
+    //     }
+    // }
+    // &--secondary {
+    //     background-color: #bd6924;
+    //     color: #EEEEEE;
+    //     border: none;
+    //     &:active,
+    //     &:hover {
+    //         background-color: #bd6924;
+    //         color: #EEEEEE;
+    //         border-color: none;
+    //     }
+    //     &:focus {
+    //         border-color: lighten(#bd6924, 10%);
+    //     }
+    // }
 }
 
 .material-card {

@@ -80,7 +80,7 @@ class Nav extends Component {
                     <Button label="Add a Review" id="add-project" redirect="/project/add" />
                   </li>
                   <li className="nav-item">
-                    <Button label="Popular" id="tmdb" redirect="/tmdb" />
+                    <Button label="Browse Movies" id="tmdb" redirect="/tmdb" />
                   </li>
                 </ul> :
                 null
@@ -147,7 +147,7 @@ class Nav extends Component {
               <li id="add-project" className="nav-dropdown-item" onClick={this.handleClick}>Add a Review</li>
               <li id="profile" className="nav-dropdown-item" onClick={this.handleClick}>Profile</li>
               <li id="dashboard" className="nav-dropdown-item" onClick={this.handleClick}>Dashboard</li>
-              <li id="tmdb" className="nav-dropdown-item" onClick={this.handleClick}>TMDB</li>
+              <li id="tmdb" className="nav-dropdown-item" onClick={this.handleClick}>Browse</li>
               <li id="logout" className="nav-dropdown-item" onClick={this.handleClick}>Logout</li>
             </ul> :
             <ul className="navbar-nav mr-auto">

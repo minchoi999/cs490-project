@@ -8,7 +8,7 @@ import Button from '../atoms/Button.js';
 import Input from '../atoms/Input';
 import Categories from '../molecules/Categories.js';
 
-class ProjectEdit extends Component {
+class ReviewEdit extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,10 +16,9 @@ class ProjectEdit extends Component {
       owner: "",
       categories: [],
       description: "",
-      stack: [],
+      tags: [],
       status: "",
-      repoUrl: "",
-      img: [],
+      tmdb: "",
       users: [],
       active: false,
     };
@@ -33,11 +32,11 @@ class ProjectEdit extends Component {
       }, 1000);
     } 
     else if (this.props.match.params.id) {
-      // if editing a project, retrieve project data based on URL
+      // if editing a review, retrieve review data based on URL
       this.getProjectData();
     } 
     else {
-      // if creating a new project, set owner based on props
+      // if creating a new review, set owner based on props
       // NOTE I've changed the owner info to user ID, because displayname can be changed
       // and therefore cannot be used to identify the user.
       this.setState({
@@ -69,7 +68,7 @@ class ProjectEdit extends Component {
 
   onInputChange = (name, value) => {
     const newValue = {};
-    if (name === 'img' || name === 'stack') {
+    if (name === 'tags') {
       newValue[name] = value.split(',');
     } else {
       newValue[name] = value;
@@ -89,10 +88,9 @@ class ProjectEdit extends Component {
         title: "",
         categories: [],
         description: "",
-        stack: "",
+        tags: [],
         status: "",
-        repoUrl: "",
-        img: [],
+        tmdb: "",
         users: [],
         active: false,
       });
@@ -154,40 +152,33 @@ class ProjectEdit extends Component {
           value: this.state.categories
         },
         {
-          label: 'Description',
+          label: 'Premise',
           tag: 'textarea',
           name: 'description',
-          placeholder: 'e.g. IT tells a story about a "clown"',
+          placeholder: 'Brief description of the movie\'s context and storyline - no spoilers!',
           value: this.state.description,
           required: true
         },
         {
-          label: 'Review Status',
+          label: 'Review',
           tag: 'textarea',
           name: 'status',
-          placeholder: 'e.g. This is the coolest movie ever',
+          placeholder: 'Rating out of ten, and what did you like or dislike about the movie?',
           value: this.state.status,
           required: true
         },
         {
-          label: 'Key',
-          name: 'stack',
+          label: 'Tags',
+          name: 'tags',
           type: 'text',
-          placeholder: 'sad, happy, wedding... separate by comma',
-          value: this.state.stack
+          placeholder: 'Keywords and tags, separated by commas',
+          value: this.state.tags
         },
         {
-          label: 'Movie IMDB',
-          name: 'repoUrl',
-          placeholder: 'https://www.imdb.com/title/tt4786282/?ref_=rvi_tt',
-          value: this.state.repoUrl,
-          required: true
-        },
-        {
-          label: 'Screenshots URL',
-          name: 'img',
-          placeholder: 'e.g. https://www.imdb.com/title/tt4786282/mediaviewer/rm100620544',
-          value: this.state.img
+          label: 'Movie Database Link',
+          name: 'tmdb',
+          placeholder: 'http://cs490-project-movie.herokuapp.com/tmdb/movie/299536',
+          value: this.state.tmdb,
         }
       ];
       return (
@@ -195,14 +186,14 @@ class ProjectEdit extends Component {
           <div className="row">
             <div className="col">
               <div className="material-card">
-                <h1>{(this.props.match.params.id) ? 'Edit a Project' : 'Create New Movie'}</h1>
+                <h1>{(this.props.match.params.id) ? 'Edit a Review' : 'Write a Review'}</h1>
                 <form onSubmit={this.onFormSubmit}>
                   <fieldset>
                     {inputFields.map(item => {
                       if (item.name === 'categories') {
                         return (
                           <div>
-                            <label className="control-label">Categories</label>
+                            <label className="control-label">Genres</label>
                             <Categories removeTag={this.removeTag} categories={this.state.categories} setActive={this.setActive} handleClick={this.handleClick} active={this.state.active} />
                           </div>
                         )
@@ -227,4 +218,4 @@ class ProjectEdit extends Component {
   }
 }
 
-export default ProjectEdit;
+export default ReviewEdit;

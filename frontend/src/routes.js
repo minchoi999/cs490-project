@@ -24,9 +24,9 @@ import "./stylesheets/main.css";
 // Import custom components
 import Nav from './components/molecules/Nav';
 import Header from './components/molecules/Header';
-import ProjectList from './components/organisms/ProjectList';
-import ProjectInfo from './components/molecules/ProjectInfo';
-import ProjectEdit from './components/organisms/ProjectEdit';
+import ReviewList from './components/organisms/ReviewList';
+import ReviewInfo from './components/molecules/ReviewInfo';
+import ReviewEdit from './components/organisms/ReviewEdit';
 import UserInfo from './components/molecules/UserInfo';
 import UserEdit from './components/molecules/UserEdit';
 import ContactForm from './components/molecules/ContactForm';
@@ -201,12 +201,12 @@ class App extends Component {
                     }} />) :
                     (
                       <div>
-                        {/* If user is logged out, render Header, ProjectList and About components (Landing page) */}
+                        {/* If user is logged out, render Header, ReviewList and About components (Landing page) */}
                         {/* Header component. */}
                         <Header user={this.props.user} />
 
-                        {/* ProjectList inherits route props, plus App is passed on as ProjectList prop */}
-                        <ProjectList
+                        {/* ReviewList inherits route props, plus App is passed on as ReviewList prop */}
+                        <ReviewList
                           {...routeProps}
                           {...{
                             projects: this.props.projects,
@@ -222,8 +222,8 @@ class App extends Component {
               />
               {/* Shows single project */}
               <Route path="/project/view/:id?" render={(routeProps) => {
-                // ProjectInfo component shows single project. Functions defined at parent level
-                return <ProjectInfo
+                // ReviewInfo component shows single project. Functions defined at parent level
+                return <ReviewInfo
                   {...routeProps}
                   {...{
                     projects: this.props.projects,
@@ -253,9 +253,9 @@ class App extends Component {
                 }} />
               }} />
 
-              {/* Adds a project (only logged in users)  */}
+              {/* Adds a review (only logged in users)  */}
               <Route path="/project/add/" render={(routeProps) => {
-                return <ProjectEdit
+                return <ReviewEdit
                   {...routeProps}
                   {...{
                     user: this.props.user,
@@ -263,9 +263,9 @@ class App extends Component {
                   }} />
               }} />
 
-              {/* Edits a projects (only logged in users) */}
+              {/* Edits a review (only logged in users) */}
               <Route path="/project/edit/:id" render={(routeProps) => {
-                return <ProjectEdit
+                return <ReviewEdit
                   {...routeProps}
                   {...{
                     user: this.props.user,
@@ -276,7 +276,7 @@ class App extends Component {
 
               <Route path="/dashboard" component={Dashboard} />
 
-              {/* Shows contact form to contact project owner */}
+              {/* Shows contact form to contact review owner */}
               <Route path="/contact/:userId/:projectId?" render={(routeProps) => {
                 return <ContactForm
                   {...routeProps}

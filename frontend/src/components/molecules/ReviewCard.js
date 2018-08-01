@@ -10,7 +10,7 @@ import FollowSmall from '../atoms/FollowSmall';
 
 import projectStatus from '../../js/projectStatus';
 
-const ProjectCard = ({user, project, onClick, onFollow}) => (
+const ReviewCard = ({user, project, onClick, onFollow}) => (
     <div className="col-md-3 card"
         key={project._id}
         id={project._id}>
@@ -36,4 +36,4 @@ const ProjectCard = ({user, project, onClick, onFollow}) => (
     </div>  
 );
 
-export default ProjectCard;
+export default ReviewCard;

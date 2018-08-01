@@ -1,6 +1,6 @@
 /*----------------------
-    PROJECT List COMPONENT:
-    shows list of ProjectCards containing brief info on eac project,
+    REVIEW LIST COMPONENT:
+    shows list of cards containing brief info on each review,
     as well as a search box in full list view.
 ------------------------*/
 
@@ -9,10 +9,10 @@ import axios from 'axios';
 import Button from '../atoms/Button';
 import Loader from "../atoms/Loader";
 
-import ProjectCard from '../molecules/ProjectCard';
+import ReviewCard from '../molecules/ReviewCard';
 import SearchBox from '../molecules/SearchBox';
 
-class ProjectList extends Component {
+class ReviewList extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -30,7 +30,7 @@ class ProjectList extends Component {
             filters.forEach(filter => {
                 let regex = new RegExp('\\b' + filter + '\\b', 'i');
                 projects = projects.filter(project => {
-                    let text = project.stack.join(' ')
+                    let text = project.tags.join(' ')
                         .concat(' ' + project.title)
                         .concat(' ' + project.category);
                     return regex.test(text);
@@ -71,7 +71,7 @@ class ProjectList extends Component {
                         {projects.map((project, i) => {
                             if (!partial || i < this.state.limit) {
                                 return (
-                                    <ProjectCard 
+                                    <ReviewCard 
                                         key={project._id}
                                         user={this.props.user}
                                         project={project}
@@ -99,4 +99,4 @@ class ProjectList extends Component {
     }
 }
 
-export default ProjectList;
+export default ReviewList;

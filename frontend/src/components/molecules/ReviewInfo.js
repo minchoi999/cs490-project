@@ -6,13 +6,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import ProjectList from '../organisms/ProjectList';
+import ReviewList from '../organisms/ReviewList';
 import FollowLarge from '../atoms/FollowLarge';
 import Button from "../atoms/Button.js";
 import Loader from "../atoms/Loader";
 import projectStatus from '../../js/projectStatus';
 
-class ProjectInfo extends Component {
+class ReviewInfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -79,7 +79,7 @@ class ProjectInfo extends Component {
     console.log('render', project);
     if (!projectId) {
       //this is the '/projects/view/' route without projectId
-      return <ProjectList {...this.props} />;
+      return <ReviewList {...this.props} />;
     } else {
       if (!project) {
         return <Loader />;
@@ -139,33 +139,19 @@ class ProjectInfo extends Component {
               <p>{project.description}</p>
               <div className="row justify-content-between">
                 <div className="project-tech col-md-8">
-                  <h3>Review Status</h3>
+                  <h3>Review</h3>
                   <p>{project.status}</p>
                 </div>
                 <div className="project-tech col-md-4">
-                  <h3>Key</h3>
+                  <h3>Tags</h3>
                   <ul>
-                    {project.stack.map(item => {
+                    {project.tags.map(item => {
                       return <li key={item}>{item}</li>;
                     })}
                   </ul>
-                  <h3>Movie IMDB</h3>
-                  <a href={project.repoUrl}>{project.repoUrl}</a>
+                  <h3>Movie Database Link</h3>
+                  <a href={project.tmdb}>{project.tmdb}</a>
                 </div>
-              </div>
-              <div className="row d-flex justify-content-center">
-                {project.img.map(imgUrl => {
-                  return (
-                    <div key={imgUrl}>
-                      <img
-                        src={imgUrl}
-                        className="img-fluid screenshots"
-                        width="300px"
-                        alt="Project"
-                      />
-                    </div>
-                  );
-                })}
               </div>
               {buttons}
             </div>
@@ -177,4 +163,4 @@ class ProjectInfo extends Component {
   }
 }
 
-export default ProjectInfo;
+export default ReviewInfo;

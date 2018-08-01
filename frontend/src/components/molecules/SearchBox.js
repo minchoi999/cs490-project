@@ -20,7 +20,7 @@ class SearchBox extends Component {
     if (newProps.projects) {
       let text = [];
       newProps.projects.forEach(project => {
-        let newWords = [...project.stack, project.title, project.category]
+        let newWords = [...project.tags, project.title, project.category]
         newWords = newWords.filter((word, i) => {
           return text.indexOf(word) === -1;
         });

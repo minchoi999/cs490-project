@@ -23,10 +23,9 @@ const ProjectsSchema = new Schema({
         required: true
     },     //category of the project
     description: String,  //project description
-    stack: [String],      //array of technologies used in the project
-    status: String,       //status of project
-    repoUrl: String,      //GitHub repo URL
-    img: [String],        //image URLs of screenshots
+    tags: [String],      //movie tags
+    status: String,       //review status
+    tmdb: String,         // hosted TMDB url
     users: [ProjectUsersSchema]
 });
 

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import ProjectList from '../organisms/ProjectList';
+import ReviewList from '../organisms/ReviewList';
 
 import projectStatus from '../../js/projectStatus';
 
@@ -23,7 +23,7 @@ class Dashboard extends Component {
                         Dashboard
                     </h2>
                     <div className="dashboard">
-                        <ProjectList limit={this.props.limit} updateProjects={this.props.updateProjects} projects={projects} user={this.props.user} />
+                        <ReviewList limit={this.props.limit} updateProjects={this.props.updateProjects} projects={projects} user={this.props.user} />
                     </div>
                 </div>
             )

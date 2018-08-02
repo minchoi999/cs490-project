@@ -1,6 +1,6 @@
 /*----------------------
-    PROJECT INFO COMPONENT:
-    shows details of project. Owners can also access edit and delete features
+    review INFO COMPONENT:
+    shows details of review. Owners can also access edit and delete features
 ------------------------*/
 
 import React, { Component } from 'react';
@@ -10,34 +10,34 @@ import ReviewList from '../organisms/ReviewList';
 import FollowLarge from '../atoms/FollowLarge';
 import Button from "../atoms/Button.js";
 import Loader from "../atoms/Loader";
-import projectStatus from '../../js/projectStatus';
+import reviewStatus from '../../js/reviewStatus';
 
 class ReviewInfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      project: null,
+      review: null,
       owner: null
     };
   }
   componentDidMount() {
     const id = this.props.match.params.id;
-    this.getProject(id);
+    this.getReview(id);
   }
   componentWillReceiveProps(nextProps) {
     const id = nextProps.match.params.id;
     if (id) {
-      this.getProject(id);
+      this.getReview(id);
     }
   }
-  getProject = projectId => {
-    if (projectId) {
-      this.props.getOneProject(projectId, project => {
-        if (project) {
+  getReview = reviewId => {
+    if (reviewId) {
+      this.props.getOneReview(reviewId, review => {
+        if (review) {
           this.setState({
-            project: project
+            review: review
           });
-          this.getOwner(projectStatus.getOwner(project));
+          this.getOwner(reviewStatus.getOwner(review));
         }
       });
     }
@@ -52,11 +52,11 @@ class ReviewInfo extends Component {
     });
   };
 
-  handleClick = (project_id, e) => {
+  handleClick = (review_id, e) => {
     e.stopPropagation();
     if (this.props.user) {
-        axios.post(`/api/follow/${project_id}`).then(res => {
-            this.props.updateProjects(project_id);
+        axios.post(`/api/follow/${review_id}`).then(res => {
+            this.props.p(review_id);
         });
     } else {
         // Return 
@@ -65,30 +65,30 @@ class ReviewInfo extends Component {
   };
 
   handleDelete = () => {
-    this.props.deleteProject(this.state.project);
+    this.props.deleteReview(this.state.review);
     this.props.history.push('/');
   };
   render() {  
-    const projectId = this.props.match.params.id;
-    const project = this.state.project;
+    const reviewId = this.props.match.params.id;
+    const review = this.state.review;
     const owner = this.state.owner;
     const user = this.props.user;
     const isOwner = user && owner && user._id === owner._id;
     let buttons = null;
 
-    console.log('render', project);
-    if (!projectId) {
-      //this is the '/projects/view/' route without projectId
+    console.log('render', review);
+    if (!reviewId) {
+      //this is the '/reviews/view/' route without reviewId
       return <ReviewList {...this.props} />;
     } else {
-      if (!project) {
+      if (!review) {
         return <Loader />;
       }
 
       if (isOwner) {
         buttons = (
           <div className="d-flex justify-content-around btn-section">
-            <Button label="Edit" redirect={"/project/edit/" + project._id} />
+            <Button label="Edit" redirect={"/review/edit/" + review._id} />
             <Button label="Delete" onClick={this.handleDelete} />
           </div>
         );
@@ -102,7 +102,7 @@ class ReviewInfo extends Component {
               />
               <Button
                 label="Contact Reviewer"
-                redirect={"/contact/" + owner._id + "/" + project._id}
+                redirect={"/contact/" + owner._id + "/" + review._id}
               />
             </div>
           ) : (
@@ -116,15 +116,15 @@ class ReviewInfo extends Component {
         <div className="row ">
           <div className="col">
             <div className="material-card">
-              <div className="project-meta row">
+              <div className="review-meta row">
                   <div className="flex-row">
                       {
-                        project.categories.map(category => {
+                        review.categories.map(category => {
                           return <p className="mr-1">{category}</p>
                         })
                       }
                   </div>
-                <p className="project-owner col text-md-right">
+                <p className="review-owner col text-md-right">
                   {owner ? owner.displayName : "No Owner Info"}
                 </p>
                 <hr />
@@ -132,27 +132,27 @@ class ReviewInfo extends Component {
               <div class="float-right">
               {!isOwner && user && (
                 <FollowLarge
-                  follow={projectStatus.getFollowers(project).includes(user._id)}
-                  onFollow={this.handleClick.bind(this, projectId)}
+                  follow={reviewStatus.getFollowers(review).includes(user._id)}
+                  onFollow={this.handleClick.bind(this, reviewId)}
                 />
               )}
               </div>
-              <h1>{project.title}</h1>
-              <p>{project.description}</p>
+              <h1>{review.title}</h1>
+              <p>{review.description}</p>
               <div className="row justify-content-between">
-                <div className="project-tech col-md-8">
-                  <h3>{project.rating}/10 - {project.tagline}</h3>
-                  <p>{project.status}</p>
+                <div className="review-tech col-md-8">
+                  <h3>{review.rating}/10 - {review.tagline}</h3>
+                  <p>{review.status}</p>
                 </div>
-                <div className="project-tech col-md-4">
+                <div className="review-tech col-md-4">
                   <h3>Tags</h3>
                   <ul>
-                    {project.tags.map(item => {
+                    {review.tags.map(item => {
                       return <li key={item}>{item}</li>;
                     })}
                   </ul>
                   <h3>Movie Database Link</h3>
-                  <a href={project.tmdb}>{project.tmdb}</a>
+                  <a href={review.tmdb}>{review.tmdb}</a>
                 </div>
               </div>
               {buttons}

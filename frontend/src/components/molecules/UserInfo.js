@@ -7,14 +7,14 @@ import React, { Component } from 'react';
 import Button from '../atoms/Button.js';
 import Loader from "../atoms/Loader.js";
 import defaultAvatar from "../../images/default-avatar.png";
-import projectStatus from '../../js/projectStatus';
+import reviewStatus from '../../js/reviewStatus';
 
 class UserInfo extends Component {
     constructor(props) {
         super(props);
         this.state = {
             user: null,
-            projects: null
+            reviews: null
         };
     }
     componentDidMount() {
@@ -22,31 +22,31 @@ class UserInfo extends Component {
     }
     componentWillReceiveProps(nextProps) {
         if (this.state.user) {
-            this.getProjects(nextProps.projects, this.state.user);
+            this.getReviews(nextProps.reviews, this.state.user);
         }
     }
     getUserInfo = () => {
         // Get user ID from URL path, and retrieve user data from server
         const userId = this.props.match.params.id;
         this.props.getOneUser(userId, profile => {
-            this.getProjects(this.props.projects, profile);
+            this.getReviews(this.props.reviews, profile);
             this.setState({
                 user: profile
             });
         });
     }
-    getProjects = (allProjects, user) => {
-        if (allProjects.length > 0) {
-            let userProjects = projectStatus.userProjects(allProjects, user._id);
+    getReviews = (allReviews, user) => {
+        if (allReviews.length > 0) {
+            let userReviews = reviewStatus.userReviews(allReviews, user._id);
             this.setState({
-                projects: userProjects
+                reviews: userReviews
             });
         }
     }
     handleClick = (e) => {
-        this.props.history.push('/project/view/' + e.target.id);
+        this.props.history.push('/review/view/' + e.target.id);
     }
-    renderInfo = (user, projects) => {
+    renderInfo = (user, reviews) => {
         if (user) {
             return (
                 <div className='user-info'>
@@ -90,12 +90,12 @@ class UserInfo extends Component {
                         <div className='col'>
                             <h4>My Reviews</h4>
                             <ul>
-                                {(projects) ? (
-                                    projects.map(item => {
+                                {(reviews) ? (
+                                    reviews.map(item => {
                                         return (
-                                            <li key={item.projectId}>
-                                                <a id={item.projectId} onClick={this.handleClick}>
-                                                    {`${item.projectTitle} (${item.status})`}
+                                            <li key={item.reviewId}>
+                                                <a id={item.reviewId} onClick={this.handleClick}>
+                                                    {`${item.reviewTittle} (${item.status})`}
                                                 </a>
                                             </li>
                                         ); 
@@ -122,12 +122,12 @@ class UserInfo extends Component {
     }
     render() {
         let user = this.state.user;
-        let projects = this.state.projects;
+        let reviews = this.state.reviews;
         return (
             <div className='container'>
                 <div className='row'>
                     <div className='col'>
-                        {this.renderInfo(user, projects)}
+                        {this.renderInfo(user, reviews)}
                         <Button label='To Main' redirect='/' />
                     </div>
                 </div>

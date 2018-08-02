@@ -2,7 +2,7 @@ const express = require('express');
 const routes = express.Router();
 
 const auth = require('./auth/auth.js');
-const projects = require('./projects/projects.js');
+const reviews = require('./reviews/reviews.js');
 const users = require('./users/users.js');
 const follow = require('./follow/follow.js');
 
@@ -33,7 +33,7 @@ routes.get('/api', function(req, res) {
 });
 
 routes.use('/api/users', users);
-routes.use('/api/projects', projects);
+routes.use('/api/reviews', reviews);
 routes.use('/api/follow', follow);
 
 module.exports = routes;

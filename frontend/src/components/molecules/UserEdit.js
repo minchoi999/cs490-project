@@ -67,7 +67,7 @@ class UserEditNew extends Component {
             genres: this.state.genres,
             movies: this.state.movies,
             email: this.state.email,
-            projects: this.props.user.projects
+            reviews: this.props.user.reviews
         });
         this.props.history.push('/user/view/'+this.props.user._id);
     }

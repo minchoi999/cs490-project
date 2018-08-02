@@ -13,7 +13,7 @@ import apiCall from './js/apiCalls';
 
 // Actions
 import { setUser, logoutUser } from './actions/users.js';
-import { setProjects } from './actions/projects.js';
+import { setReviews } from './actions/reviews.js';
 
 // Connects component to Store state & dispatch actions to store
 import { connect } from 'react-redux';
@@ -59,8 +59,8 @@ class App extends Component {
   }
   // Once the app is mounted
   componentDidMount() {
-    // load all projects 
-    this.allProjects();
+    // load all reviews 
+    this.allReviews();
     this.setUser();
     // Get redirect cookie and redirect if exists
     const redirect = getCookie('redirect');
@@ -78,40 +78,40 @@ class App extends Component {
   once Redux is implemented in children)
   */
 
-  // fetch all projcets
-  allProjects = () => {
-    apiCall.getAllProjects(res => {
+  // fetch all reviews
+  allReviews = () => {
+    apiCall.getAllReviews(res => {
       if (res.error) { console.error(res.error) }
       console.log('res.data', res.data);
       if (res.data) {
-        this.setState({ projects: res.data }); // update state to response data
-        this.props.setProjects(res.data); // redux store
+        this.setState({ reviews: res.data }); // update state to response data
+        this.props.setReviews(res.data); // redux store
       }
     });
   }
-  // get one project by ID
-  getOneProject = (projectId, next) => {
-    // apiCall expects a "null" if projects are not loaded yet
-    const projects = (typeof this.state.projects !== 'undefined') ? this.state.projects : null;
-    apiCall.getProjectById(projects, projectId, res => {
+  // get one review by ID
+  getOneReview = (reviewId, next) => {
+    // apiCall expects a "null" if reviews are not loaded yet
+    const reviews = (typeof this.state.reviews !== 'undefined') ? this.state.reviews : null;
+    apiCall.getReviewById(reviews, reviewId, res => {
       if (res.error) { console.error(res.error) }
       next(res.data);
     });
   }
-  // creates new project
-  newProject = (data) => {
-    // This is now identical to this.updateProject()...
-    // newProject will eventually be deleted.
-    this.updateProject(data);
+  // creates new review
+  newReview = (data) => {
+    // This is now identical to this.updateReview()...
+    // newReview will eventually be deleted.
+    this.updateReview(data);
   }
-  // update project
-  updateProject = (data) => {
-    console.log('updateProject', data);
-    apiCall.postProject(data, this.allProjects());
+  // update review
+  updateReview = (data) => {
+    console.log('updateReview', data);
+    apiCall.postReview(data, this.allReviews());
   }
-  // delete project
-  deleteProject = (data) => {
-    apiCall.deleteProject(data, this.allProjects());
+  // delete review
+  deleteReview = (data) => {
+    apiCall.deleteReview(data, this.allReviews());
   }
 
   // get one user profile by ID
@@ -124,7 +124,7 @@ class App extends Component {
   // updates user data 
   postUser = (data) => {
     apiCall.postUser(data, () => {
-      this.allProjects();
+      this.allReviews();
       this.setUser();
     });
   }
@@ -157,25 +157,25 @@ class App extends Component {
 
 
 
-  // once project is unfollowed or followed, matches the db value without calling db
-  updateUserProjects = (project_id) => {
+  // once review is unfollowed or followed, matches the db value without calling db
+  updateUserReviews = (review_id) => {
     // copy state
     let { user } = this.state;
-    let { followedProjects } = user;
+    let { followedReviews } = user;
 
-    // findindex of project that was followed
-    const projectIndex = followedProjects.findIndex((e) => {
-      return e === project_id;
+    // findindex of review that was followed
+    const reviewIndex = followedReviews.findIndex((e) => {
+      return e === review_id;
     });
 
-    // if project exists on array, remove it else add it
-    followedProjects = projectIndex !== -1
-      ? [...followedProjects.slice(0, projectIndex),
-      ...followedProjects.slice(projectIndex + 1)]
-      : [...followedProjects, project_id];
+    // if review exists on array, remove it else add it
+    followedReviews = reviewIndex !== -1
+      ? [...followedReviews.slice(0, reviewIndex),
+      ...followedReviews.slice(reviewIndex + 1)]
+      : [...followedReviews, review_id];
 
     // save new state
-    user.followedProjects = followedProjects;
+    user.followedReviews = followedReviews;
     this.setState({
       user
     });
@@ -209,9 +209,9 @@ class App extends Component {
                         <ReviewList
                           {...routeProps}
                           {...{
-                            projects: this.props.projects,
+                            reviews: this.props.reviews,
                             user: this.props.user,
-                            updateProjects: this.allProjects
+                            updateReviews: this.allReviews
                           }}
                         />
                         {/* About component */}
@@ -220,19 +220,19 @@ class App extends Component {
                     )
                 )}
               />
-              {/* Shows single project */}
-              <Route path="/project/view/:id?" render={(routeProps) => {
-                // ReviewInfo component shows single project. Functions defined at parent level
+              {/* Shows single review */}
+              <Route path="/review/view/:id?" render={(routeProps) => {
+                // ReviewInfo component shows single review. Functions defined at parent level
                 return <ReviewInfo
                   {...routeProps}
                   {...{
-                    projects: this.props.projects,
+                    reviews: this.props.reviews,
                     user: this.props.user,
-                    deleteProject: this.deleteProject,
-                    allProjects: this.allProjects,
-                    getOneProject: this.getOneProject,
+                    deleteReview: this.deleteReview,
+                    allReviews: this.allReviews,
+                    getOneReview: this.getOneReview,
                     getOneUser: this.getOneUser,
-                    updateProjects: this.allProjects
+                    updateReviews: this.allReviews
                   }} />
               }} />
               {/* Shows user page */}
@@ -241,7 +241,7 @@ class App extends Component {
                   {...routeProps}
                   {...{
                     user: this.props.user,
-                    projects: this.props.projects,
+                    reviews: this.props.reviews,
                     getOneUser: this.getOneUser
                   }} />
               }} />
@@ -254,36 +254,36 @@ class App extends Component {
               }} />
 
               {/* Adds a review (only logged in users)  */}
-              <Route path="/project/add/" render={(routeProps) => {
+              <Route path="/review/add/" render={(routeProps) => {
                 return <ReviewEdit
                   {...routeProps}
                   {...{
                     user: this.props.user,
-                    handleSubmit: this.newProject
+                    handleSubmit: this.newReview
                   }} />
               }} />
 
               {/* Edits a review (only logged in users) */}
-              <Route path="/project/edit/:id" render={(routeProps) => {
+              <Route path="/review/edit/:id" render={(routeProps) => {
                 return <ReviewEdit
                   {...routeProps}
                   {...{
                     user: this.props.user,
-                    handleSubmit: this.updateProject,
-                    getOneProject: this.getOneProject
+                    handleSubmit: this.updateReview,
+                    getOneReview: this.getOneReview
                   }} />
               }} />
 
               <Route path="/dashboard" component={Dashboard} />
 
               {/* Shows contact form to contact review owner */}
-              <Route path="/contact/:userId/:projectId?" render={(routeProps) => {
+              <Route path="/contact/:userId/:reviewId?" render={(routeProps) => {
                 return <ContactForm
                   {...routeProps}
                   {...{
                     user: this.props.user,
                     handleSubmit: this.sendMessage,
-                    getOneProject: this.getOneProject,
+                    getOneReview: this.getOneReview,
                     getOneUser: this.getOneUser
                   }} />
               }} />
@@ -316,7 +316,7 @@ class App extends Component {
 // Takes the state from store and maps it to this.props
 const mapStateToProps = (state) => {
   return {
-    projects: state.projectReducer.projects,
+    reviews: state.reviewReducer.reviews,
     user: state.userReducer.user
   }
 };
@@ -327,8 +327,8 @@ const mapDispatchToProps = (dispatch) => {
     setUser: (user) => {
       dispatch(setUser(user));
     },
-    setProjects: (projects) => {
-      dispatch(setProjects(projects));
+    setReviews: (reviews) => {
+      dispatch(setReviews(reviews));
     },
     logoutUser: () => {
       dispatch(logoutUser());

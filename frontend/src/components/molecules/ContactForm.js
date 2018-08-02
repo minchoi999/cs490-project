@@ -10,14 +10,14 @@ import Button from '../atoms/Button';
 import Input from '../atoms/Input';
 import Loader from '../atoms/Loader.js';
 
-import projectStatus from '../../js/projectStatus';
+import reviewStatus from '../../js/reviewStatus';
 
 class ContactForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
             contact: null,
-            project: null,
+            review: null,
             subject: '',
             body: ''
         }    
@@ -26,23 +26,23 @@ class ContactForm extends Component {
         const params = this.props.match.params;
         console.log('Contact form did mount', params);
         this.setContact(params.userId);
-        this.setProject(params.projectId);
+        this.setReview(params.reviewId);
     }
     shouldComponentUpdate() {
         return true;
     }
-    setProject = (projectId) => {
-        console.log('setProject', projectId, this.props);
-        this.props.getOneProject(projectId, project => {
-            console.log('project found', project);
-            if (project) {
+    setReview = (reviewId) => {
+        console.log('setReview', reviewId, this.props);
+        this.props.getOneReview(reviewId, review => {
+            console.log('review found', review);
+            if (review) {
                 this.setState({
-                    project: project,
-                    subject: 'RE: ' + project.title
+                    review: review,
+                    subject: 'RE: ' + review.title
                 });
-                this.setContact(projectStatus.getOwner(project));
+                this.setContact(reviewStatus.getOwner(review));
             } else {
-                console.log('setProject could not find project');
+                console.log('setReview could not find review');
             }
         })
     }
@@ -96,7 +96,7 @@ class ContactForm extends Component {
     }
     render() {
         const contact = this.state.contact;
-        const project = this.state.project;
+        const review = this.state.review;
         const inputFields = [
                 {
                   label: 'Subject',
@@ -122,8 +122,8 @@ class ContactForm extends Component {
                         <div className="col">
                             <div className='material-card' >
                                 <h1>Contact Form</h1>
-                                {(project) ? 
-                                    (<p>You want to know more about the project <b>{project.title}</b>? Great!</p>) : 
+                                {(review) ? 
+                                    (<p>You want to know more about the review <b>{review.title}</b>? Great!</p>) : 
                                     (null)
                                 }
                                 <p>Fill out the form below to get in touch with <b>{contact.displayName}</b></p>

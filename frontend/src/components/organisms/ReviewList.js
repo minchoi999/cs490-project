@@ -20,23 +20,23 @@ class ReviewList extends Component {
           limit: (this.props.match.path === '/' && !this.props.user) ? (6) : (null)
         };
     }
-    // for filtering projects to show, by filter state
-    filterProjects = (projects, filters) => {
-        if (projects.length < 1) { return null }
-        // if no filter is set, display all projects
+    // for filtering reviews to show, by filter state
+    filterReviews = (reviews, filters) => {
+        if (reviews.length < 1) { return null }
+        // if no filter is set, display all reviews
         if (!filters || filters.length < 1) {
-            return projects;
+            return reviews;
         } else {
             filters.forEach(filter => {
                 let regex = new RegExp('\\b' + filter + '\\b', 'i');
-                projects = projects.filter(project => {
-                    let text = project.tags.join(' ')
-                        .concat(' ' + project.title)
-                        .concat(' ' + project.category);
+                reviews = reviews.filter(review => {
+                    let text = review.tags.join(' ')
+                        .concat(' ' + review.title)
+                        .concat(' ' + review.category);
                     return regex.test(text);
                 });
             })
-            return projects;   
+            return reviews;   
         }
     }
     handleFilterUpdate = (filterArray) => {
@@ -44,39 +44,39 @@ class ReviewList extends Component {
           filters: filterArray
         });
     }
-    handleClick = (project_id, e) => {
+    handleClick = (review_id, e) => {
         console.log(e, 'this is e');
         // Prevents link from activating router
         //e.stopPropagation();
-        return axios.post(`/api/follow/${project_id}`)
+        return axios.post(`/api/follow/${review_id}`)
             .then(res => {
                 console.log('Follow response', res);
-                this.props.updateProjects(project_id);
+                this.props.updateReviews(review_id);
             });
     }
     render() {
         const partial = Boolean(this.state.limit);
-        let projects = this.filterProjects(this.props.projects, this.state.filters);
+        let reviews = this.filterReviews(this.props.reviews, this.state.filters);
 
-        if (projects) {
+        if (reviews) {
             return (
-                <div className={partial ? "container" : "container project-cards-full"}
+                <div className={partial ? "container" : "container review-cards-full"}
                 >
                     {(!partial) ? (
-                        <SearchBox projects={this.props.projects} filters={this.state.filters} onTagsUpdate={this.handleFilterUpdate}/>
+                        <SearchBox reviews={this.props.reviews} filters={this.state.filters} onTagsUpdate={this.handleFilterUpdate}/>
                     ) : (
                         null
                     )}
                     <div className="row justify-content-center">
-                        {projects.map((project, i) => {
+                        {reviews.map((review, i) => {
                             if (!partial || i < this.state.limit) {
                                 return (
                                     <ReviewCard 
-                                        key={project._id}
+                                        key={review._id}
                                         user={this.props.user}
-                                        project={project}
-                                        onClick={() => this.props.history.push('/project/view/' + project._id)}
-                                        onFollow={this.handleClick.bind(this, project._id)}
+                                        review={review}
+                                        onClick={() => this.props.history.push('/review/view/' + review._id)}
+                                        onFollow={this.handleClick.bind(this, review._id)}
                                     />
                                 );
                             } else {
@@ -86,7 +86,7 @@ class ReviewList extends Component {
                     </div>
                     <div className="text-center">
                         {(partial) ? 
-                            (<Button label="All Movies" redirect="/project/view/"/>) :
+                            (<Button label="All Movies" redirect="/review/view/"/>) :
                             (<Button label="To Main" redirect="/" />)
                         }
                     </div>

@@ -1,6 +1,6 @@
 /*----------------------
-    PROJECT CARD COMPONENT:
-    shows little card with basic project info
+    REVIEW CARD COMPONENT:
+    shows little card with basic review info
 ------------------------*/
 
 import React from 'react';
@@ -8,16 +8,16 @@ import Dotdotdot from 'react-dotdotdot';
 import Button from '../atoms/Button';
 import FollowSmall from '../atoms/FollowSmall';
 
-import projectStatus from '../../js/projectStatus';
+import reviewStatus from '../../js/reviewStatus';
 
-const ReviewCard = ({user, project, onClick, onFollow}) => (
+const ReviewCard = ({user, review, onClick, onFollow}) => (
     <div className="col-md-3 card"
-        key={project._id}
-        id={project._id}>
+        key={review._id}
+        id={review._id}>
         {/* Follow button shows only if user is logged in and not the owner */}
-        {(user && projectStatus.getOwner(project) !== user._id) ? (
+        {(user && reviewStatus.getOwner(review) !== user._id) ? (
                 <FollowSmall 
-                    follow={projectStatus.getFollowers(project).includes(user._id)} 
+                    follow={reviewStatus.getFollowers(review).includes(user._id)} 
                     onFollow={onFollow} 
                 />
             ) : (
@@ -25,12 +25,12 @@ const ReviewCard = ({user, project, onClick, onFollow}) => (
             )
         }
         <div className="card-body">
-        <img className="card-img" top width="225px" height="335px"  src={project.poster}/>
-            <p className="card-category">{project.category}</p>
-            <h4 className="card-title">{project.title}</h4>
+        <img className="card-img" top width="225px" height="335px"  src={review.poster}/>
+            <p className="card-category">{review.category}</p>
+            <h4 className="card-title">{review.title}</h4>
                 <Dotdotdot clamp={4}>
                 <p className="card-text">
-                    {project.rating}/10 - {project.tagline}</p>
+                    {review.rating}/10 - {review.tagline}</p>
                 </Dotdotdot>
             <Button className="align-self-end btn btn-lg btn-block btn-primary"
                 label="More" onClick={onClick}/>

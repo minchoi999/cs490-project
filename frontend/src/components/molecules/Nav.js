@@ -1,6 +1,6 @@
 /*----------------------
     NAV COMPONENT:
-    if user is logged in, shows add project button and edit user options. 
+    if user is logged in, shows add review button and edit user options. 
     Otherwise, shows option to log in.
 ------------------------*/
 
@@ -37,8 +37,8 @@ class Nav extends Component {
   handleClick = e => {
     console.log("handleclick: ", e.target.id);
     switch (e.target.id) {
-      case "add-project":
-        this.props.history.push("/project/add/");
+      case "add-review":
+        this.props.history.push("/review/add/");
         break;
       case "profile":
         this.props.history.push("/user/view/" + this.props.user._id);
@@ -77,7 +77,7 @@ class Nav extends Component {
               {this.props.user ?
                 <ul className="navbar-nav mr-auto">
                   <li className="nav-item">
-                    <Button label="Add a Review" id="add-project" redirect="/project/add" />
+                    <Button label="Add a Review" id="add-review" redirect="/review/add" />
                   </li>
                   <li className="nav-item">
                     <Button label="Browse Movies" id="tmdb" redirect="/tmdb" />
@@ -144,7 +144,7 @@ class Nav extends Component {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           {this.props.user ?
             <ul className="navbar-nav mr-auto">
-              <li id="add-project" className="nav-dropdown-item" onClick={this.handleClick}>Add a Review</li>
+              <li id="add-review" className="nav-dropdown-item" onClick={this.handleClick}>Add a Review</li>
               <li id="profile" className="nav-dropdown-item" onClick={this.handleClick}>Profile</li>
               <li id="dashboard" className="nav-dropdown-item" onClick={this.handleClick}>Dashboard</li>
               <li id="tmdb" className="nav-dropdown-item" onClick={this.handleClick}>Browse</li>

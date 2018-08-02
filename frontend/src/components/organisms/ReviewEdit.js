@@ -1,6 +1,6 @@
 /*----------------------
-    PROJECT EDIT COMPONENT:
-    owners can edit their own projects from here.
+    REVIEW EDIT COMPONENT:
+    owners can edit their own reviews from here.
 ------------------------*/
 
 import React, { Component } from 'react';
@@ -33,11 +33,11 @@ class ReviewEdit extends Component {
       setTimeout(() => {
         this.props.history.push('/');
       }, 1000);
-    } 
+    }
     else if (this.props.match.params.id) {
       // if editing a review, retrieve review data based on URL
-      this.getProjectData();
-    } 
+      this.getReviewData();
+    }
     else {
       // if creating a new review, set owner based on props
       // NOTE I've changed the owner info to user ID, because displayname can be changed
@@ -53,9 +53,9 @@ class ReviewEdit extends Component {
   shouldComponentUpdate() {
     return true;
   }
-  getProjectData = () => {
-    const projectId = this.props.match.params.id;
-    this.props.getOneProject(projectId, res => {
+  getReviewData = () => {
+    const reviewId = this.props.match.params.id;
+    this.props.getOneReview(reviewId, res => {
       this.setState(res);
     });
   }
@@ -172,7 +172,7 @@ class ReviewEdit extends Component {
           type: 'text',
           placeholder: 'Out of ten',
           value: this.state.rating,
-          required:true
+          required: true
         },
         {
           label: 'Review',

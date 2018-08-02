@@ -97,11 +97,11 @@ class ReviewInfo extends Component {
           owner ? (
             <div className="d-flex justify-content-around btn-section">
               <Button
-                label="View Owner Profile"
+                label="View Reviewer Profile"
                 redirect={"/user/view/" + owner._id}
               />
               <Button
-                label="Contact Project Owner"
+                label="Contact Reviewer"
                 redirect={"/contact/" + owner._id + "/" + project._id}
               />
             </div>
@@ -129,17 +129,19 @@ class ReviewInfo extends Component {
                 </p>
                 <hr />
               </div>
+              <div class="float-right">
               {!isOwner && user && (
                 <FollowLarge
                   follow={projectStatus.getFollowers(project).includes(user._id)}
                   onFollow={this.handleClick.bind(this, projectId)}
                 />
               )}
+              </div>
               <h1>{project.title}</h1>
               <p>{project.description}</p>
               <div className="row justify-content-between">
                 <div className="project-tech col-md-8">
-                  <h3>Review</h3>
+                  <h3>{project.rating}/10 - {project.tagline}</h3>
                   <p>{project.status}</p>
                 </div>
                 <div className="project-tech col-md-4">

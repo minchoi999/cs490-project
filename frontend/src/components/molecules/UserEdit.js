@@ -47,7 +47,7 @@ class UserEditNew extends Component {
         }
         this.setState(obj);
     }
-    handleReset = () => {
+    handleClear = () => {
         this.setState({
             username: '',
             displayName: '',
@@ -137,7 +137,7 @@ class UserEditNew extends Component {
                                         })}
                                         <div className='row d-flex justify-content-around btn-section'>
                                             <input type='submit' className='col btn' value='Submit' />
-                                            <input type='reset' className='col btn' value='Reset' onClick={this.handleReset}/>
+                                            <input type='clear' className='col btn' value='Clear' onClick={this.handleClear}/>
                                             <Button className='col' label='Cancel' redirect={'/user/view/'+this.props.user._id} />
                                         </div>
                                     </fieldset>

@@ -22,10 +22,13 @@ const ProjectsSchema = new Schema({
         type: [String],
         required: true
     },     //category of the project
-    description: String,  //project description
+    description: String, //project description
+    rating: String,      //rating out of ten
+    tagline: String,     //review title
     tags: [String],      //movie tags
-    status: String,       //review status
-    tmdb: String,         // hosted TMDB url
+    status: String,      //review status
+    poster: String,      //movie poster
+    tmdb: String,        // hosted TMDB url
     users: [ProjectUsersSchema]
 });
 

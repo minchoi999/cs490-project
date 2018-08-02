@@ -29,7 +29,7 @@ class About extends Component{
                <div className="col-md-6 text-center">
                     <img className="about-icon" src={reel} alt=""/>
                     <h2 className="white-text mt-0">Discover movies</h2>
-                    <p className="white-text">Find something new with our extensive movie database</p>
+                    <p className="white-text">Find something new with our movie database and review system.</p>
                </div>
             </div>
             <div className="row join">

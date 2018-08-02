@@ -16,8 +16,11 @@ class ReviewEdit extends Component {
       owner: "",
       categories: [],
       description: "",
+      rating: "",
+      tagline: "",
       tags: [],
       status: "",
+      poster: "",
       tmdb: "",
       users: [],
       active: false,
@@ -80,18 +83,22 @@ class ReviewEdit extends Component {
     this.props.handleSubmit(this.state);
     this.props.history.push('/');
   }
-  onFormReset = () => {
+  onFormClear = () => {
     if (this.props.match.params.id) {
-      this.getProjectData();
-    } else {
       this.setState({
         title: "",
         categories: [],
         description: "",
+        rating: "0",
+        tagline: "",
         tags: [],
         status: "",
+        poster: "http://via.placeholder.com/225x335",
         tmdb: "",
-        users: [],
+        users: [{
+          _id: this.props.user._id,
+          status: 'owner'
+        }],
         active: false,
       });
     }
@@ -160,11 +167,26 @@ class ReviewEdit extends Component {
           required: true
         },
         {
+          label: 'Rating',
+          name: 'rating',
+          type: 'text',
+          placeholder: 'Out of ten',
+          value: this.state.rating,
+          required:true
+        },
+        {
           label: 'Review',
           tag: 'textarea',
           name: 'status',
-          placeholder: 'Rating out of ten, and what did you like or dislike about the movie?',
+          placeholder: 'What did you like or dislike about the movie?',
           value: this.state.status,
+          required: true
+        },
+        {
+          label: 'Tagline',
+          name: 'tagline',
+          placeholder: 'Final thoughts in 120 characters or less!',
+          value: this.state.tagline,
           required: true
         },
         {
@@ -175,7 +197,13 @@ class ReviewEdit extends Component {
           value: this.state.tags
         },
         {
-          label: 'Movie Database Link',
+          label: 'Movie Poster URL',
+          name: 'poster',
+          placeholder: "http://via.placeholder.com/225x335",
+          value: this.state.poster,
+        },
+        {
+          label: 'Movie Database URL',
           name: 'tmdb',
           placeholder: 'http://cs490-project-movie.herokuapp.com/tmdb/movie/299536',
           value: this.state.tmdb,
@@ -203,7 +231,7 @@ class ReviewEdit extends Component {
                     })}
                     <div className='d-flex justify-content-around btn-section'>
                       <input type='submit' className='btn' value='Submit' />
-                      <input type='reset' className='btn' value='Reset' onClick={this.onFormReset} />
+                      <input type='reset' className='btn' value='Clear' onClick={this.onFormClear} />
                     </div>
                   </fieldset>
                 </form>

@@ -12,8 +12,7 @@ module.exports = function(passport) {
       {
         clientID: process.env.GITHUB_CLIENT_ID,
         clientSecret: process.env.GITHUB_CLIENT_SECRET,
-        callbackURL: process.env.GITHUB_CALLBACK,
-        proxy: true
+        callbackURL: process.env.GITHUB_CALLBACK
       },
       function(accessToken, refreshToken, profile, done) {
         // Look for the user in existing database

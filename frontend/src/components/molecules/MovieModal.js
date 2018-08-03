@@ -41,7 +41,7 @@ class Modal extends Component {
         />
         <button className="btn btn-sm" onClick={this.openModal}>
           <div className="movie-item-list">
-            <i class="fas fa-play" /> <span>Trailer</span>
+            <i className="fas fa-play" /> <span>Trailer</span>
           </div>
         </button>
       </div>

@@ -94,7 +94,7 @@ class ReviewEdit extends Component {
         tags: [],
         status: "",
         poster: "http://via.placeholder.com/225x335",
-        tmdb: "",
+        tmdb: "http://cs490-project-movie.herokuapp.com/tmdb",
         users: [{
           _id: this.props.user._id,
           status: 'owner'
@@ -112,12 +112,11 @@ class ReviewEdit extends Component {
     let { categories } = this.state;
     const index = categories.indexOf(item.title);
 
-    categories = index === -1 ? [...categories, item.title]
-      : [...categories.slice(0, index), ...categories.slice(index + 1)]
+    categories = (index === -1) ?
+      [...categories, item.title] :
+      [...categories.slice(0, index), ...categories.slice(index + 1)];
 
-    return this.setState({
-      categories
-    });
+    return this.setState({ categories });
   }
 
   removeTag = (name) => {
@@ -127,9 +126,7 @@ class ReviewEdit extends Component {
     categories = index === -1 ? [...categories, name]
       : [...categories.slice(0, index), ...categories.slice(index + 1)]
 
-    return this.setState({
-      categories
-    });
+    return this.setState({ categories });
   }
 
   removeFocus = () => {
@@ -161,9 +158,9 @@ class ReviewEdit extends Component {
         {
           label: 'Premise',
           tag: 'textarea',
-          name: 'description',
+          name: 'status',
           placeholder: 'Brief description of the movie\'s context and storyline - no spoilers!',
-          value: this.state.description,
+          value: this.state.status,
           required: true
         },
         {
@@ -177,9 +174,9 @@ class ReviewEdit extends Component {
         {
           label: 'Review',
           tag: 'textarea',
-          name: 'status',
+          name: 'description',
           placeholder: 'What did you like or dislike about the movie?',
-          value: this.state.status,
+          value: this.state.description,
           required: true
         },
         {
@@ -220,23 +217,23 @@ class ReviewEdit extends Component {
                     {inputFields.map(item => {
                       if (item.name === 'categories') {
                         return (
-                          <div>
+                          <div key={item.name}>
                             <label className="control-label">Genres</label>
                             <Categories removeTag={this.removeTag} categories={this.state.categories} setActive={this.setActive} handleClick={this.handleClick} active={this.state.active} />
                           </div>
                         )
                       }
-
-                      return <Input onChange={this.onInputChange} data={item} />;
+                      return <Input key={item.name} onChange={this.onInputChange} data={item} />;
                     })}
-                    <div className='d-flex justify-content-around btn-section'>
-                      <input type='submit' className='btn' value='Submit' />
-                      <input type='reset' className='btn' value='Clear' onClick={this.onFormClear} />
+                    <div className="d-flex justify-content-around btn-section">
+                      <button type="submit" className="btn">Submit</button>
+                      <button type="button" className="btn" onClick={this.onFormClear}>Clear</button>
+                      <Button label="Cancel" redirect={`/review/view/${this.props.match.params.id}`} />
                     </div>
                   </fieldset>
                 </form>
               </div>
-              <Button label="To Main" redirect="/" />
+              <Button label="To Main" redirect={`/`} />
             </div>
           </div>
         </div>

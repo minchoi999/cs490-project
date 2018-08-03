@@ -8,9 +8,14 @@ body {
     margin-top: 30px;
 }
 
-.review-category,
+.review-category {
+    color: $dark-grey;
+    font-weight: $font-weight-regular;
+}
+
 .review-owner {
-    color: $light-grey;
+    color: $primary;
+    font-weight: $font-weight-heavy;
 }
 
 .screenshots {

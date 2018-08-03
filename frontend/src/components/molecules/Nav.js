@@ -14,6 +14,7 @@ import githubLogin from "../../images/github-login.svg";
 import facebookLogin from "../../images/facebook-login.svg";
 import googleLogin from "../../images/google-login.svg";
 import LoginForm from './LoginForm';
+import RegisterForm from './RegisterForm';
 
 
 class Nav extends Component {
@@ -116,7 +117,7 @@ class Nav extends Component {
                         Login/Register
                       </ModalHeader>
                       <ModalBody className="text-center">
-                        <a href={window.location.origin + "/auth/github/"}>
+                        <a href={`${window.location.origin}/auth/github/`}>
                           <img src={githubLogin} className="social-login" alt="Sign in with GitHub" />
                         </a>
                         <a href={`${window.location.origin}/auth/google/`}>
@@ -132,7 +133,7 @@ class Nav extends Component {
                         <p>
                           <strong>Don't have an account? Register with us</strong>
                         </p>
-                        <LoginForm submitWord='Register' url='/auth/register' />
+                        <RegisterForm submitWord='Register' url='/auth/register' />
                       </ModalBody>
                     </Modal>
                   </li>}

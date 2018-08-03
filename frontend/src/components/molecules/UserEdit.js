@@ -9,7 +9,7 @@ import Button from '../atoms/Button';
 import Input from '../atoms/Input';
 
 
-class UserEditNew extends Component {
+class UserEdit extends Component {
     constructor(props) {
         super(props);
         if (this.props.user) {
@@ -69,7 +69,7 @@ class UserEditNew extends Component {
             email: this.state.email,
             reviews: this.props.user.reviews
         });
-        this.props.history.push('/user/view/'+this.props.user._id);
+        this.props.history.push(`/user/view/${this.props.user._id}`);
     }
     render() {
         if (!this.state) {
@@ -128,22 +128,22 @@ class UserEditNew extends Component {
                 <div className="container">
                     <div className="row">
                         <div className="col">
-                            <div className='material-card' >
+                            <div className="material-card">
                                 <h1>Edit User Profile</h1>
                                 <form onSubmit={this.handleSubmit}>
                                     <fieldset>
                                         {inputFields.map(item => {
-                                            return <Input data={item} onChange={this.handleChange} />
+                                            return <Input key={item.name} data={item} onChange={this.handleChange} />
                                         })}
-                                        <div className='row d-flex justify-content-around btn-section'>
-                                            <input type='submit' className='col btn' value='Submit' />
-                                            <input type='clear' className='col btn' value='Clear' onClick={this.handleClear}/>
-                                            <Button className='col' label='Cancel' redirect={'/user/view/'+this.props.user._id} />
+                                        <div className="d-flex justify-content-around btn-section">
+                                            <button type="submit" className="btn">Submit</button>
+                                            <button type="button" className="btn" onClick={this.handleClear}>Clear</button>
+                                            <Button label="Cancel" redirect={`/user/view/${this.props.user._id}`} />
                                         </div>
                                     </fieldset>
                                 </form>
                             </div>
-                            <Button label='To Main' redirect='/' />
+                            <Button label="To Main" redirect={`/`} />
                         </div>
                     </div>
                 </div>
@@ -153,4 +153,4 @@ class UserEditNew extends Component {
     }
 }
 
-export default UserEditNew;
+export default UserEdit;

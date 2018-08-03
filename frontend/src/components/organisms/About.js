@@ -6,8 +6,6 @@
 
 import React, { Component } from 'react';
 import Button from '../atoms/Button.js';
-import target from "../../images/target.svg";
-import startup from "../../images/startup.svg";
 import reel from "../../images/kaye_movie_icn-01.svg";
 import seat from "../../images/kaye_movie_icn-05.svg";
 

@@ -72,7 +72,7 @@ class MovieSearch extends Component {
 
         // Finally, render it!
         return (
-            <form class="form-inline justify-content-center sticky-top">
+            <form className="form-inline justify-content-center sticky-top">
                 <Autosuggest
                     suggestions={suggestions}
                     onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}

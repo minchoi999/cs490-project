@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
   Route,
-  Redirect,
-  Switch
+  Redirect
 } from 'react-router-dom';
 import axios from 'axios';
 
@@ -33,7 +32,6 @@ import ContactForm from './components/molecules/ContactForm';
 import About from "./components/organisms/About";
 import Footer from './components/molecules/Footer';
 import Dashboard from './components/molecules/Dashboard';
-import {NotFound} from './components/molecules/NotFound';
 
 import MoviePopular from './components/molecules/MoviePopular';
 import MovieDetail from './components/molecules/MovieDetail';
@@ -186,126 +184,123 @@ class App extends Component {
 
       <Router>
         <ScrollToTop>
-          <Switch>
-            <div>
-              {/* Nav components get rendered in all pages. User is set to null when user logged out */}
-              <Nav user={this.props.user} logoutUser={this.logoutUser} />
+          <div>
+            {/* Nav components get rendered in all pages. User is set to null when user logged out */}
+            <Nav user={this.props.user} logoutUser={this.logoutUser} />
 
-              {/* Routing for homepage */}
-              <Route exact
-                path="/" render={(routeProps) => (
-                  /* If user is logged in, but user doesn't have username, redirect to user edit page */
-                  (this.props.user && !this.props.user.username) ?
-                    (<Redirect to={{
-                      pathname: '/user/edit/'
-                    }} />) :
-                    (
-                      <div>
-                        {/* If user is logged out, render Header, ReviewList and About components (Landing page) */}
-                        {/* Header component. */}
-                        <Header user={this.props.user} />
+            {/* Routing for homepage */}
+            <Route exact
+              path="/" render={(routeProps) => (
+                /* If user is logged in, but user doesn't have username, redirect to user edit page */
+                (this.props.user && !this.props.user.username) ?
+                  (<Redirect to={{
+                    pathname: '/user/edit/'
+                  }} />) :
+                  (
+                    <div>
+                      {/* If user is logged out, render Header, ReviewList and About components (Landing page) */}
+                      {/* Header component. */}
+                      <Header user={this.props.user} />
 
-                        {/* ReviewList inherits route props, plus App is passed on as ReviewList prop */}
-                        <ReviewList
-                          {...routeProps}
-                          {...{
-                            reviews: this.props.reviews,
-                            user: this.props.user,
-                            updateReviews: this.allReviews
-                          }}
-                        />
-                        {/* About component */}
-                        <About user={this.props.user} />
-                      </div>
-                    )
-                )}
-              />
-              {/* Shows single review */}
-              <Route path="/review/view/:id?" render={(routeProps) => {
-                // ReviewInfo component shows single review. Functions defined at parent level
-                return <ReviewInfo
-                  {...routeProps}
-                  {...{
-                    reviews: this.props.reviews,
-                    user: this.props.user,
-                    deleteReview: this.deleteReview,
-                    allReviews: this.allReviews,
-                    getOneReview: this.getOneReview,
-                    getOneUser: this.getOneUser,
-                    updateReviews: this.allReviews
-                  }} />
-              }} />
-              {/* Shows user page */}
-              <Route path="/user/view/:id" render={(routeProps) => {
-                return <UserInfo
-                  {...routeProps}
-                  {...{
-                    user: this.props.user,
-                    reviews: this.props.reviews,
-                    getOneUser: this.getOneUser
-                  }} />
-              }} />
-              {/* User can edit its own information when logged in */}
-              <Route path="/user/edit/" render={(routeProps) => {
-                return <UserEdit {...routeProps} {...{
+                      {/* ReviewList inherits route props, plus App is passed on as ReviewList prop */}
+                      <ReviewList
+                        {...routeProps}
+                        {...{
+                          reviews: this.props.reviews,
+                          user: this.props.user,
+                          updateReviews: this.allReviews
+                        }}
+                      />
+                      {/* About component */}
+                      <About user={this.props.user} />
+                    </div>
+                  )
+              )}
+            />
+            {/* Shows single review */}
+            <Route path="/review/view/:id?" render={(routeProps) => {
+              // ReviewInfo component shows single review. Functions defined at parent level
+              return <ReviewInfo
+                {...routeProps}
+                {...{
+                  reviews: this.props.reviews,
                   user: this.props.user,
-                  onUserPost: this.postUser
+                  deleteReview: this.deleteReview,
+                  allReviews: this.allReviews,
+                  getOneReview: this.getOneReview,
+                  getOneUser: this.getOneUser,
+                  updateReviews: this.allReviews
                 }} />
+            }} />
+            {/* Shows user page */}
+            <Route path="/user/view/:id" render={(routeProps) => {
+              return <UserInfo
+                {...routeProps}
+                {...{
+                  user: this.props.user,
+                  reviews: this.props.reviews,
+                  getOneUser: this.getOneUser
+                }} />
+            }} />
+            {/* User can edit its own information when logged in */}
+            <Route path="/user/edit/" render={(routeProps) => {
+              return <UserEdit {...routeProps} {...{
+                user: this.props.user,
+                onUserPost: this.postUser
               }} />
+            }} />
 
-              {/* Adds a review (only logged in users)  */}
-              <Route path="/review/add/" render={(routeProps) => {
-                return <ReviewEdit
-                  {...routeProps}
-                  {...{
-                    user: this.props.user,
-                    handleSubmit: this.newReview
-                  }} />
-              }} />
+            {/* Adds a review (only logged in users)  */}
+            <Route path="/review/add/" render={(routeProps) => {
+              return <ReviewEdit
+                {...routeProps}
+                {...{
+                  user: this.props.user,
+                  handleSubmit: this.newReview
+                }} />
+            }} />
 
-              {/* Edits a review (only logged in users) */}
-              <Route path="/review/edit/:id" render={(routeProps) => {
-                return <ReviewEdit
-                  {...routeProps}
-                  {...{
-                    user: this.props.user,
-                    handleSubmit: this.updateReview,
-                    getOneReview: this.getOneReview
-                  }} />
-              }} />
+            {/* Edits a review (only logged in users) */}
+            <Route path="/review/edit/:id" render={(routeProps) => {
+              return <ReviewEdit
+                {...routeProps}
+                {...{
+                  user: this.props.user,
+                  handleSubmit: this.updateReview,
+                  getOneReview: this.getOneReview
+                }} />
+            }} />
 
-              <Route path="/dashboard" component={Dashboard} />
+            <Route path="/dashboard" component={Dashboard} />
 
-              {/* Shows contact form to contact review owner */}
-              <Route path="/contact/:userId/:reviewId?" render={(routeProps) => {
-                return <ContactForm
-                  {...routeProps}
-                  {...{
-                    user: this.props.user,
-                    handleSubmit: this.sendMessage,
-                    getOneReview: this.getOneReview,
-                    getOneUser: this.getOneUser
-                  }} />
-              }} />
-              <Route exact path="/tmdb" render={(routeProps) => {
-                return <MoviePopular
-                  {...routeProps}
-                  {...{
-                    user: this.props.user
-                  }} />
-              }} />
-              <Route exact path="/tmdb/movie/:id" render={(routeProps) => {
-                return <MovieDetail
-                  {...routeProps}
-                  {...{
-                    user: this.props.user
-                  }} />
-              }} />
-              {/* Footer component gets shown in every single page */}
-              <Footer />
-            </div>
-            <Route component={NotFound} />
-          </Switch>
+            {/* Shows contact form to contact review owner */}
+            <Route path="/contact/:userId/:reviewId?" render={(routeProps) => {
+              return <ContactForm
+                {...routeProps}
+                {...{
+                  user: this.props.user,
+                  handleSubmit: this.sendMessage,
+                  getOneReview: this.getOneReview,
+                  getOneUser: this.getOneUser
+                }} />
+            }} />
+            <Route exact path="/tmdb" render={(routeProps) => {
+              return <MoviePopular
+                {...routeProps}
+                {...{
+                  user: this.props.user
+                }} />
+            }} />
+            <Route exact path="/tmdb/movie/:id" render={(routeProps) => {
+              return <MovieDetail
+                {...routeProps}
+                {...{
+                  user: this.props.user
+                }} />
+            }} />
+            {/* Footer component gets shown in every single page */}
+            <Footer />
+          </div>
         </ScrollToTop>
       </Router>
     )

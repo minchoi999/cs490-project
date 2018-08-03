@@ -20,7 +20,7 @@ class ContactForm extends Component {
             review: null,
             subject: '',
             body: ''
-        }    
+        }
     }
     componentDidMount() {
         const params = this.props.match.params;
@@ -61,7 +61,7 @@ class ContactForm extends Component {
     }
     handleChange = (name, value) => {
         let obj = {};
-        obj[name] = value;            
+        obj[name] = value;
         this.setState(obj);
     }
     handleReset = () => {
@@ -77,8 +77,8 @@ class ContactForm extends Component {
             alert('Please log in first!');
             this.props.history.push('/');
         } else {
-            console.log('state',this.state);
-            const url = 'https://formspree.io/' + this.state.contact.email;
+            console.log('state', this.state);
+            const url = `https://formspree.io/${this.state.contact.email}`;
             const body = {
                 name: this.props.user.username,
                 _replyto: this.props.user.email,
@@ -87,43 +87,43 @@ class ContactForm extends Component {
             };
             console.log('message ready to be sent', url, body);
             axios.post(url, body)
-            .then(res => {
-                console.log('message submitted', res);
-                alert('Message sent successfully!');
-            })
-            .catch(err => { if (err) throw err; });
+                .then(res => {
+                    console.log('message submitted', res);
+                    alert('Message sent successfully!');
+                })
+                .catch(err => { if (err) throw err; });
         }
     }
     render() {
         const contact = this.state.contact;
         const review = this.state.review;
         const inputFields = [
-                {
-                  label: 'Subject',
-                  name: 'subject',
-                  placeholder: 'Enter your subject here',
-                  value: this.state.subject,
-                  required: true
-                },
-                {
-                  tag: 'textarea',
-                  label: 'Message',
-                  name: 'body',
-                  placeholder: 'Enter your message here',
-                  value: this.state.body,
-                  required: true
-                }
+            {
+                label: 'Subject',
+                name: 'subject',
+                placeholder: 'Enter your subject here',
+                value: this.state.subject,
+                required: true
+            },
+            {
+                tag: 'textarea',
+                label: 'Message',
+                name: 'body',
+                placeholder: 'Enter your message here',
+                value: this.state.body,
+                required: true
+            }
         ];
-        
+
         if (contact) {
             return (
                 <div className="container">
                     <div className="row">
                         <div className="col">
-                            <div className='material-card' >
+                            <div className="material-card">
                                 <h1>Contact Form</h1>
-                                {(review) ? 
-                                    (<p>You want to know more about the review <b>{review.title}</b>? Great!</p>) : 
+                                {(review) ?
+                                    (<p>You want to know more about the review <b>{review.title}</b>? Great!</p>) :
                                     (null)
                                 }
                                 <p>Fill out the form below to get in touch with <b>{contact.displayName}</b></p>
@@ -132,23 +132,23 @@ class ContactForm extends Component {
                                         {inputFields.map(item => {
                                             return <Input key={item.name} data={item} onChange={this.handleChange} />
                                         })}
-                                        <div className='row d-flex justify-content-around'>
-                                            <input type='submit' className='btn' value='Submit' />
-                                            <input type='reset' className='btn' value='Reset' onClick={this.handleReset} />
-                                            <Button label='Cancel' redirect={'/'} />
+                                        <div className="d-flex justify-content-around">
+                                            <button type="submit" className="btn">Submit</button>
+                                            <button className="btn" onClick={this.handleReset}>Clear</button>
+                                            <Button label="Cancel" redirect={'/'} />
                                         </div>
                                     </fieldset>
                                 </form>
                             </div>
-                            <Button label='To Main' redirect='/' />
+                            <Button label="To Main" redirect={`/`} />
                         </div>
                     </div>
                 </div>
-            );            
+            );
         } else {
             return <Loader />
         }
-        
+
     }
 }
 

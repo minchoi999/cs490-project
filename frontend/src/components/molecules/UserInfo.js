@@ -44,7 +44,7 @@ class UserInfo extends Component {
         }
     }
     handleClick = (e) => {
-        this.props.history.push('/review/view/' + e.target.id);
+        this.props.history.push(`/review/view/${e.target.id}`);
     }
     renderInfo = (user, reviews) => {
         if (user) {
@@ -55,80 +55,86 @@ class UserInfo extends Component {
                     </div>
                     <div className='row'>
                         <div>
-                            <img 
-                                key={user.avatar} 
-                                src={user.avatar} 
+                            <img
+                                key={user.avatar}
+                                src={user.avatar}
                                 onError={(e) => {
                                     e.target.src = defaultAvatar;
-                                }} 
-                                className="img-fluid avatar" 
+                                }}
+                                className="img-fluid avatar"
                                 alt="User Avatar" />
-                            </div>
+                        </div>
                         <div><h1>{user.displayName}</h1></div>
                     </div>
-                    <div className='row'>
-                        <div className='col'>
-                            <table>
-                                <tr>
-                                    <td>Username:</td>
-                                    <td>{user.username}</td>
-                                </tr>
-                                <tr>
-                                    <td>Favourite Genres:</td>
-                                    <td>{user.genres.map(item => {
-                                        return <tr>{item}</tr>;
-                                    })}</td>
-                                </tr>
-                                <tr>
-                                    <td>Favourite Movies:</td>
-                                    <td>{user.movies.map(item => {
-                                        return <tr>{item}</tr>;
-                                    })}</td>
-                                </tr>
-                            </table>
+                    <div className="row">
+                        <div className="col">
+                            <div className="row">
+                                <strong className="col"><u>Username:</u></strong>
+                                <div className="col user-info-detail">{user.username}</div>
+                            </div>
+                            <div className="row">
+                                <strong className="col"><u>Favourite Genres:</u></strong>
+                                <div className="col user-info-detail">
+                                    {
+                                        user.genres.map(item => {
+                                            return <div key={item}>{item}</div>;
+                                        })
+                                    }
+                                </div>
+                            </div>
+                            <div className="row">
+                                <strong className="col"><u>Favourite Movies:</u></strong>
+                                <div className="col user-info-detail">
+                                    {
+                                        user.movies.map(item => {
+                                            return <div key={item}>{item}</div>;
+                                        })
+                                    }
+                                </div>
+                            </div>
                         </div>
-                        <div className='col'>
+                        <div className="col">
                             <h4>My Reviews</h4>
                             <ul>
-                                {(reviews) ? (
-                                    reviews.map(item => {
-                                        return (
-                                            <li key={item.reviewId}>
-                                                <a id={item.reviewId} onClick={this.handleClick}>
-                                                    {`${item.reviewTittle} (${item.status})`}
-                                                </a>
-                                            </li>
-                                        ); 
-                                    }) 
-                                ) : (
-                                    'No reviews yet'
-                                )}
+                                {
+                                    (reviews) ?
+                                        (
+                                            reviews.map(item => {
+                                                return (
+                                                    <li key={item.reviewId} className="user-info-reviews">
+                                                        <a id={item.reviewId} onClick={this.handleClick}>
+                                                            {`${item.reviewTitle} (${item.status})`}
+                                                        </a>
+                                                    </li>
+                                                );
+                                            })
+                                        ) :
+                                        ('No reviews yet')
+                                }
                             </ul>
                         </div>
                     </div>
                     <div className='d-flex justify-content-around btn-section'>
-                        {(this.props.user && user._id === this.props.user._id) ? 
-                            (<Button label='Edit Profile' redirect='/user/edit/' />) : 
-                            (<Button label={'Contact ' + user.displayName} redirect={'/contact/'+user._id} />)
+                        {
+                            (this.props.user && user._id === this.props.user._id) ?
+                                (<Button label="Edit Profile" redirect={`/user/edit/`} />) :
+                                (<Button label={`Contact ${user.displayName}`} redirect={`/contact/${user._id}`} />)
                         }
                     </div>
                 </div>
             );
         }
-        else {
-            return <Loader />
-        }
-        
+        else return <Loader />
     }
     render() {
         let user = this.state.user;
         let reviews = this.state.reviews;
         return (
-            <div className='container'>
-                <div className='row'>
-                    <div className='col'>
+            <div className="container">
+                <div className="row">
+                    <div className="col">
                         {this.renderInfo(user, reviews)}
-                        <Button label='To Main' redirect='/' />
+                        <Button label="To Main" redirect={`/`} />
                     </div>
                 </div>
             </div>

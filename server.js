@@ -21,7 +21,7 @@ const port = process.env.PORT || 5000;
 // Connect to MongoDB database
 const mongoDB = process.env.MONGODB_URI;
 mongoose.connect(mongoDB, { useNewUrlParser: true }).then(
-  ()  => { console.log('MongoDB is connected') },
+  () => { console.log('MongoDB is connected') },
   err => { console.log('Cannot connect to MongoDB') + err }
 );
 
@@ -31,9 +31,9 @@ app.use(bodyParser.json());
 
 // Initialize Express Session
 app.use(session({
-    secret: 'bears-20',
-	resave: false,
-	saveUninitialized: true
+  secret: 'bears-20',
+  resave: false,
+  saveUninitialized: true
 }));
 
 // Initialize Passport for authentication
@@ -41,7 +41,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Set Headers to allow Cross Origin Requests
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT,DELETE');
@@ -64,6 +64,6 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'frontend', 'build', 'index.html'));
 });
 
-app.listen(port, function() {
- console.log(`API running on port ${port}`);
+app.listen(port, function () {
+  console.log(`API running on port ${port}`);
 });

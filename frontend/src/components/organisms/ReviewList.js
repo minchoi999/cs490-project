@@ -16,8 +16,8 @@ class ReviewList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          filters: [],
-          limit: (this.props.match.path === '/' && !this.props.user) ? (6) : (null)
+            filters: [],
+            limit: (this.props.match.path === '/' && !this.props.user) ? (6) : (null)
         };
     }
     // for filtering reviews to show, by filter state
@@ -26,7 +26,8 @@ class ReviewList extends Component {
         // if no filter is set, display all reviews
         if (!filters || filters.length < 1) {
             return reviews;
-        } else {
+        } 
+        else {
             filters.forEach(filter => {
                 let regex = new RegExp('\\b' + filter + '\\b', 'i');
                 reviews = reviews.filter(review => {
@@ -36,12 +37,12 @@ class ReviewList extends Component {
                     return regex.test(text);
                 });
             })
-            return reviews;   
+            return reviews;
         }
     }
     handleFilterUpdate = (filterArray) => {
         this.setState({
-          filters: filterArray
+            filters: filterArray
         });
     }
     handleClick = (review_id, e) => {
@@ -60,42 +61,46 @@ class ReviewList extends Component {
 
         if (reviews) {
             return (
-                <div className={partial ? "container" : "container review-cards-full"}
-                >
-                    {(!partial) ? (
-                        <SearchBox reviews={this.props.reviews} filters={this.state.filters} onTagsUpdate={this.handleFilterUpdate}/>
-                    ) : (
-                        null
-                    )}
+                <div className={partial ? "container" : "container review-cards-full"}>
+                    {
+                        (!partial) ?
+                            (
+                                <SearchBox
+                                    reviews={this.props.reviews}
+                                    filters={this.state.filters}
+                                    onTagsUpdate={this.handleFilterUpdate}
+                                />
+                            ) :
+                            (null)
+                    }
                     <div className="row justify-content-center">
-                        {reviews.map((review, i) => {
-                            if (!partial || i < this.state.limit) {
-                                return (
-                                    <ReviewCard 
-                                        key={review._id}
-                                        user={this.props.user}
-                                        review={review}
-                                        onClick={() => this.props.history.push('/review/view/' + review._id)}
-                                        onFollow={this.handleClick.bind(this, review._id)}
-                                    />
-                                );
-                            } else {
-                                return null
-                            }
-                        })}
+                        {
+                            reviews.map((review, i) => {
+                                if (!partial || i < this.state.limit) {
+                                    return (
+                                        <ReviewCard
+                                            key={review._id}
+                                            user={this.props.user}
+                                            review={review}
+                                            onClick={() => this.props.history.push(`/review/view/${review._id}`)}
+                                            onFollow={this.handleClick.bind(this, review._id)}
+                                        />
+                                    );
+                                }
+                                else return null;
+                            })
+                        }
                     </div>
                     <div className="text-center">
-                        {(partial) ? 
-                            (<Button label="All Movies" redirect="/review/view/"/>) :
-                            (<Button label="To Main" redirect="/" />)
+                        {
+                            (partial) ?
+                                (<Button label="All Movies" redirect={`/review/view/`} />) :
+                                (<Button label="To Main" redirect={`/`} />)
                         }
                     </div>
                 </div>
             );
-        } else {
-            return <Loader />
-        }
-        
+        } else return <Loader />;
     }
 }
 

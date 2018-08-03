@@ -45,7 +45,7 @@ class ReviewInfo extends Component {
   getOwner = ownerId => {
     console.log('get owner', ownerId);
     this.props.getOneUser(ownerId, profile => {
-      let owner = profile && profile.displayName ? profile : null;
+      let owner = (profile && profile.displayName) ? profile : null;
       this.setState({
         owner: owner
       });
@@ -55,12 +55,13 @@ class ReviewInfo extends Component {
   handleClick = (review_id, e) => {
     e.stopPropagation();
     if (this.props.user) {
-        axios.post(`/api/follow/${review_id}`).then(res => {
-            this.props.p(review_id);
-        });
-    } else {
-        // Return 
-        return false;
+      axios.post(`/api/follow/${review_id}`).then(res => {
+        this.props.p(review_id);
+      });
+    }
+    else {
+      // Return 
+      return false;
     }
   };
 
@@ -68,19 +69,20 @@ class ReviewInfo extends Component {
     this.props.deleteReview(this.state.review);
     this.props.history.push('/');
   };
-  render() {  
+  render() {
     const reviewId = this.props.match.params.id;
     const review = this.state.review;
     const owner = this.state.owner;
     const user = this.props.user;
-    const isOwner = user && owner && user._id === owner._id;
+    const isOwner = user && owner && (user._id === owner._id);
     let buttons = null;
 
     console.log('render', review);
     if (!reviewId) {
       //this is the '/reviews/view/' route without reviewId
       return <ReviewList {...this.props} />;
-    } else {
+    }
+    else {
       if (!review) {
         return <Loader />;
       }
@@ -88,26 +90,26 @@ class ReviewInfo extends Component {
       if (isOwner) {
         buttons = (
           <div className="d-flex justify-content-around btn-section">
-            <Button label="Edit" redirect={"/review/edit/" + review._id} />
+            <Button label="Edit" redirect={`/review/edit/${review._id}`} />
             <Button label="Delete" onClick={this.handleDelete} />
           </div>
         );
-      } else {
-        buttons = 
-          owner ? (
+      }
+      else {
+        buttons = owner ?
+          (
             <div className="d-flex justify-content-around btn-section">
               <Button
                 label="View Reviewer Profile"
-                redirect={"/user/view/" + owner._id}
+                redirect={`/user/view/${owner._id}`}
               />
               <Button
                 label="Contact Reviewer"
-                redirect={"/contact/" + owner._id + "/" + review._id}
+                redirect={`/contact/${owner._id}/${review._id}`}
               />
             </div>
-          ) : (
-            null
-          )
+          ) : 
+          (null)
       }
     }
 
@@ -117,32 +119,32 @@ class ReviewInfo extends Component {
           <div className="col">
             <div className="material-card">
               <div className="review-meta row">
-                  <div className="flex-row">
-                      {
-                        review.categories.map(category => {
-                          return <p className="mr-1">{category}</p>
-                        })
-                      }
-                  </div>
+                <div className="flex-row">
+                  {
+                    review.categories.map(category => {
+                      return <p key={category} className="mr-1 review-category">{category}</p>
+                    })
+                  }
+                </div>
                 <p className="review-owner col text-md-right">
                   {owner ? owner.displayName : "No Owner Info"}
                 </p>
                 <hr />
               </div>
-              <div class="float-right">
-              {!isOwner && user && (
-                <FollowLarge
-                  follow={reviewStatus.getFollowers(review).includes(user._id)}
-                  onFollow={this.handleClick.bind(this, reviewId)}
-                />
-              )}
+              <div className="float-right">
+                {!isOwner && user && (
+                  <FollowLarge
+                    follow={reviewStatus.getFollowers(review).includes(user._id)}
+                    onFollow={this.handleClick.bind(this, reviewId)}
+                  />
+                )}
               </div>
               <h1>{review.title}</h1>
-              <p>{review.description}</p>
+              <p>{review.status}</p>
               <div className="row justify-content-between">
                 <div className="review-tech col-md-8">
                   <h3>{review.rating}/10 - {review.tagline}</h3>
-                  <p>{review.status}</p>
+                  <p>{review.description}</p>
                 </div>
                 <div className="review-tech col-md-4">
                   <h3>Tags</h3>
@@ -157,7 +159,7 @@ class ReviewInfo extends Component {
               </div>
               {buttons}
             </div>
-            <Button label="To Main" redirect={'/'}/>
+            <Button label="To Main" redirect={`/`} />
           </div>
         </div>
       </div>

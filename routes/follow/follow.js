@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const reviewsModel = require('../../model/reviews');
+const Review = require('../../model/reviews');
 
 router.route("/:review_id").post(function (req, res) {
 
@@ -9,7 +9,7 @@ router.route("/:review_id").post(function (req, res) {
   const { review_id } = req.params;
 
   // Find existing review
-  reviewsModel.findById(review_id, function (err, review) {
+  Review.findById(review_id, function (err, review) {
     if (err) return res.err(err);
     // Find status of user for this review
     let userStatus = review.users.id(user_id);

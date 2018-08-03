@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Form, FormGroup, Input }  from 'reactstrap';
 import axios from 'axios';
 
-class LoginForm extends Component {
+class RegisterForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -58,12 +58,12 @@ class LoginForm extends Component {
                 window.location = res.request.responseURL;
             })
             .catch(err => {
-                console.log('Login error:', err);
+                console.log('Register error:', err);
                 this.setState({
                     email: '',
                     password: '',
                     passwordConfirm: '',
-                    message: 'Email does not exist!'
+                    message: 'Email already exists!'
                 })
             });
 
@@ -122,4 +122,4 @@ class LoginForm extends Component {
     }
 }
 
-export default LoginForm;
+export default RegisterForm;

@@ -26,7 +26,7 @@ const ReviewSchema = new Schema({
     rating: String,      //rating out of ten
     tagline: String,     //review title
     tags: [String],      //movie tags
-    status: String,      //review status
+    status: String,      //review status/premise
     poster: String,      //movie poster
     tmdb: String,        //hosted TMDB url
     users: [ReviewUserSchema]

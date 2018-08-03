@@ -19,43 +19,42 @@ module.exports = function(passport) {
         // Look for the user in existing database
         User.findOne(
           {
-            "email": profile._json.email
+            "email": profile.emails[0].value
           },
           function(err, user) {
-            if (err) {
-              return cb(err);
-            }
-            // No user was found... so create a new user with values from github
-            console.log('No user found. Create new profile');
+            if (err) return done(err);
+
             if (!user) {
+              console.log('No user found. Create new profile from GitHub');
               user = new User();
               user.github.id = profile.id;
-              user.displayName = profile._json.name;
-              user.email = profile._json.email;
-              user.username = profile._json.login;
-              user.avatar = profile._json.avatar_url;
+              user.email = profile.emails[0].value;
+              user.displayName = profile.displayName;
+              user.username = profile.username;
+              user.avatar = profile.photos[0].value;
 
               user.save(function(err) {
                 if (err) console.log(err);
                 return done(err, user);
               });
-            } else {
-              // Found user, but github id does not exist
-              console.log('User found but no GitHub ID');
+            } 
+            else {          
               if (!user.github.id) {
+                console.log('User found but no GitHub ID');
                 user.github.id = profile.id;
                 // if no avatar is set, use the GitHub avatar URL
                 if (user.avatar === '') {
-                  user.avatar = profile._json.avatar_url;
+                  user.avatar = profile.photos[0].value;
                 }
 
                 user.save(function(err) {
                   if (err) console.log(err);
                   return done(null, user);
                 })
-              } else {
+              } 
+              else {
                 // Found user with existing registered github id
-                console.log('User already exists with this GitHub ID');
+                console.log('User exists with this GitHub ID');
                 return done(null, user);
               }
             }
@@ -88,31 +87,31 @@ module.exports = function(passport) {
               if (err) return done(err);
 
               if (!user) {
-                // if the user isnt in our database, create a new user
                 console.log('No user found. Creating new profile from Google');
                 user = new User();
                 user.google.id = profile.id;
+                user.email = profile.emails[0].value;
                 user.displayName = profile.displayName;
                 user.username = profile.displayName;
-                user.email = profile.emails[0].value;
-                // save the user
+                user.avatar = profile.photos[0].value;
+
                 user.save(function(err) {
                   if (err) throw err;
                   return done(null, user);
                 });
-              } else {
-                // if a user is found but no google id is stored
-                console.log('User found but no Google ID');
+              } 
+              else {
                 if (!user.google.id) {
+                  console.log('User found but no Google ID');
                   user.google.id = profile.id;
 
                   user.save(function(err) {
                     if (err) console.log(err);
                     return done(null, user);
                   })
-                } else {
-                  // if a user is found, log them in
-                  console.log('User already exists with this Google ID');
+                } 
+                else {
+                  console.log('User exists with this Google ID');
                   return done(null, user);
                 }
               }
@@ -144,7 +143,7 @@ module.exports = function(passport) {
           // find the user in the database based on their facebook id
           User.findOne(
             {
-              "email": profile._json.email
+              "email": profile.emails[0].value
             },
             function(err, user) {
               // if there is an error, stop everything and return that
@@ -158,9 +157,11 @@ module.exports = function(passport) {
                 user = new User();
                 // set all of the facebook information in our user model
                 user.facebook.id = profile.id; // set the users facebook id
+                user.email = profile.emails[0].value;
                 user.displayName = profile.displayName;
-                user.username = profile._json.name;
-                user.email = profile._json.email;
+                user.username = profile.displayName;
+                user.avatar = profile.photos[0].value;
+                
                 // save our user to the database
                 user.save(function(err) {
                   if (err) console.log(err);
@@ -193,8 +194,7 @@ module.exports = function(passport) {
   // LOCAL SIGNUP ============================================================
   // =========================================================================
 
-  passport.use(
-    "local-signup",
+  passport.use("local-signup",
     new LocalStrategy(
       {
         // override with email instead of email instead of userame
@@ -220,9 +220,9 @@ module.exports = function(passport) {
               if (user) {
                 return done(null, false);
 
-              } else {
-                // if there is no user with that email
-                // create the user
+              } 
+              else {
+                // if there is no user with that email, create the user
                 var newUser = new User();
 
                 // set the user's local credentials
@@ -242,8 +242,7 @@ module.exports = function(passport) {
     )
   );
 
-  passport.use(
-    "local-login",
+  passport.use("local-login",
     new LocalStrategy(
       {
         // by default, local strategy uses username and password, we will override with email
@@ -265,17 +264,12 @@ module.exports = function(passport) {
             if (err) return done(err);
 
             // if no user is found, return the message
-            if (!user)
-              return done(
-                null,
-                false ); 
+            if (!user) return done(null, false, { message: 'Email doesn\'t exist' }); 
 
             // if the user is found but the password is wrong
-            if (!user.validPassword(password))
-              return done(
-                null,
-                false    ); // create the loginMessage 
-
+            if (!user.validPassword(password)) {
+              return done(null, false, { message: 'Incorrect email or password' }); // create the loginMessage 
+            }
             // all is well, return successful user
             return done(null, user);
           }

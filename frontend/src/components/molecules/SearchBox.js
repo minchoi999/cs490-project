@@ -17,10 +17,10 @@ class SearchBox extends Component {
     };
   }
   componentWillReceiveProps(newProps) {
-    if (newProps.projects) {
+    if (newProps.reviews) {
       let text = [];
-      newProps.projects.forEach(project => {
-        let newWords = [...project.stack, project.title, project.category]
+      newProps.reviews.forEach(review => {
+        let newWords = [...review.tags, review.title, review.category]
         newWords = newWords.filter((word, i) => {
           return text.indexOf(word) === -1;
         });

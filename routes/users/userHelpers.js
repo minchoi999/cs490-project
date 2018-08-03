@@ -42,7 +42,8 @@ const setUserObj = (input, user) => {
     user.username = input.username;
     user.displayName = input.displayName;
     user.avatar = input.avatar || '';
-    user.skillset = input.skillset;
+    user.genres = input.genres;
+    user.movies = input.movies;
     user.email = input.email;
 
     return user;

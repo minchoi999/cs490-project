@@ -7,10 +7,10 @@ const apiUrl = process.env.REACT_APP_APPURL || '';
 console.log('apiUrl', apiUrl);
 
 const apiCall = {
-  // Retrieve all projects from server
-  getAllProjects(next) {
-    // get projects from api
-    axios.get(apiUrl + '/api/projects')
+  // Retrieve all reviews from server
+  getAllReviews(next) {
+    // get reviews from api
+    axios.get(apiUrl + '/api/reviews')
     .then(res => {
       next({data: res.data});
     })
@@ -21,20 +21,20 @@ const apiCall = {
       }
     });  
   },
-  // Retrieve one project by ID
-  getProjectById(projects, projectId, next) {
-    // In case projects data already exists
-    if (projects) {
-      const project = projects.find(item => {
-        return item._id === projectId;
+  // Retrieve one review by ID
+  getReviewById(reviews, reviewId, next) {
+    // In case reviews data already exists
+    if (reviews) {
+      const review = reviews.find(item => {
+        return item._id === reviewId;
       });
-      if (project) {
-        next({data: project});
+      if (review) {
+        next({data: review});
       } else {
-        next({error: 'Project not found!'});
+        next({error: 'review not found!'});
       }
     } else {
-      axios.get(apiUrl + '/api/projects/' + projectId)
+      axios.get(apiUrl + '/api/reviews/' + reviewId)
       .then(res => {
         next({data: res.data});
       })
@@ -89,13 +89,13 @@ const apiCall = {
     });
   },
 
-  // creates new project or updates a project
-  postProject(data, next) {
+  // creates new review or updates a review
+  postReview(data, next) {
     const id = data._id || '';
-    console.log('api call update project id', id, 'data', data);
-    axios.put(apiUrl + '/api/projects/' + id, data)
+    console.log('api call update review id', id, 'data', data);
+    axios.put(apiUrl + '/api/reviews/' + id, data)
     .then(res => {
-      console.log('api call update project success', res.data);
+      console.log('api call update review success', res.data);
       next({data: res.data});
     })
     .catch(err => {
@@ -105,9 +105,9 @@ const apiCall = {
     });
   },
 
-  // delete project
-  deleteProject(data, next) {
-    axios.delete(apiUrl + '/api/projects/' + data._id)
+  // delete review
+  deleteReview(data, next) {
+    axios.delete(apiUrl + '/api/reviews/' + data._id)
     .then(res => {
       next({data: res.data});
     })

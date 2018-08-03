@@ -18,17 +18,14 @@ class Header extends Component{
           <div className="jumbotron jumbotron-fluid">
             <div className="container">
               <div className="header text-center">
-    
-                <h1 className="header-heading display-3">Build more. Together.</h1>
-                <p className="header-lead lead">Discover interesting movies. Find like-minded. Share favourites.</p>
-                <Button label="Find Movies" redirect="/project/view/"/>
-    
+                <h1 className="header-heading display-3">Lights, Camera, Action!</h1>
+                <p className="header-lead lead">Review interesting movies. Share new favourites.</p>
+                <Button label="Browse Movie Reviews" redirect="/review/view/"/>
               </div>
             </div>
           </div>
-        ) : (
-          null
-        )
+        ) :
+        ( null )
       }
       </div>
 

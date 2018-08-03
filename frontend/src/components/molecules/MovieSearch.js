@@ -65,14 +65,14 @@ class MovieSearch extends Component {
 
         // Autosuggest will pass through all these props to the input.
         const inputProps = {
-            placeholder: "Search a movie tittle...",
+            placeholder: "Search for a movie title...",
             value,
             onChange: this.onChange,
         };
 
         // Finally, render it!
         return (
-            <form class="form-inline justify-content-center sticky-top">
+            <form className="form-inline justify-content-center sticky-top">
                 <Autosuggest
                     suggestions={suggestions}
                     onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}

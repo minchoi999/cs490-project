@@ -3,16 +3,25 @@ import FaAngleUp from 'react-icons/lib/fa/angle-up';
 
 const items = [
     {
-        title: 'Romance'
+        title: 'Action'
     },
     {
-        title: 'Horror'
+        title: 'Adventure'
     },
     {
         title: 'Comedy'
     },
     {
-        title: 'Action'
+        title: 'Crime'
+    },
+    {
+        title: 'Drama'
+    },
+    {
+        title: 'Horror'
+    },
+    {
+        title: 'Romance'
     },
     {
         title: 'Sci-fi'
@@ -26,7 +35,7 @@ const Dropdown = (props) => {
  
     const listItems = items.map(e => {
         let isActive = props.categories.includes(e.title);
-        return <div className={`item-container ${isActive ? 'item-container--active' : ''}`} onClick={(element)=> { props.setActive(e, element); }}><li className="dropdown-item">{e.title}</li></div>
+        return <div key={e.title} className={`item-container ${isActive ? 'item-container--active' : ''}`} onClick={(element)=> { props.setActive(e, element); }}><li className="dropdown-item">{e.title}</li></div>
     });
     
     return (

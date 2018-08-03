@@ -1,6 +1,6 @@
 /*----------------------
     NAV COMPONENT:
-    if user is logged in, shows add project button and edit user options. 
+    if user is logged in, shows add review button and edit user options. 
     Otherwise, shows option to log in.
 ------------------------*/
 
@@ -14,6 +14,7 @@ import githubLogin from "../../images/github-login.svg";
 import facebookLogin from "../../images/facebook-login.svg";
 import googleLogin from "../../images/google-login.svg";
 import LoginForm from './LoginForm';
+import RegisterForm from './RegisterForm';
 
 
 class Nav extends Component {
@@ -37,8 +38,8 @@ class Nav extends Component {
   handleClick = e => {
     console.log("handleclick: ", e.target.id);
     switch (e.target.id) {
-      case "add-project":
-        this.props.history.push("/project/add/");
+      case "add-review":
+        this.props.history.push("/review/add/");
         break;
       case "profile":
         this.props.history.push("/user/view/" + this.props.user._id);
@@ -77,10 +78,10 @@ class Nav extends Component {
               {this.props.user ?
                 <ul className="navbar-nav mr-auto">
                   <li className="nav-item">
-                    <Button label="Add Favourites" id="add-project" redirect="/project/add" />
+                    <Button label="Add a Review" id="add-review" redirect="/review/add" />
                   </li>
                   <li className="nav-item">
-                    <Button label="Popular" id="tmdb" redirect="/tmdb" />
+                    <Button label="Browse Movies" id="tmdb" redirect="/tmdb" />
                   </li>
                 </ul> :
                 null
@@ -116,7 +117,7 @@ class Nav extends Component {
                         Login/Register
                       </ModalHeader>
                       <ModalBody className="text-center">
-                        <a href={window.location.origin + "/auth/github/"}>
+                        <a href={`${window.location.origin}/auth/github/`}>
                           <img src={githubLogin} className="social-login" alt="Sign in with GitHub" />
                         </a>
                         <a href={`${window.location.origin}/auth/google/`}>
@@ -132,7 +133,7 @@ class Nav extends Component {
                         <p>
                           <strong>Don't have an account? Register with us</strong>
                         </p>
-                        <LoginForm submitWord='Register' url='/auth/register' />
+                        <RegisterForm submitWord='Register' url='/auth/register' />
                       </ModalBody>
                     </Modal>
                   </li>}
@@ -144,10 +145,10 @@ class Nav extends Component {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           {this.props.user ?
             <ul className="navbar-nav mr-auto">
-              <li id="add-project" className="nav-dropdown-item" onClick={this.handleClick}>Add a Project</li>
+              <li id="add-review" className="nav-dropdown-item" onClick={this.handleClick}>Add a Review</li>
               <li id="profile" className="nav-dropdown-item" onClick={this.handleClick}>Profile</li>
               <li id="dashboard" className="nav-dropdown-item" onClick={this.handleClick}>Dashboard</li>
-              <li id="tmdb" className="nav-dropdown-item" onClick={this.handleClick}>TMDB</li>
+              <li id="tmdb" className="nav-dropdown-item" onClick={this.handleClick}>Browse</li>
               <li id="logout" className="nav-dropdown-item" onClick={this.handleClick}>Logout</li>
             </ul> :
             <ul className="navbar-nav mr-auto">

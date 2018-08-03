@@ -9,7 +9,7 @@ import Button from '../atoms/Button';
 import Input from '../atoms/Input';
 
 
-class UserEditNew extends Component {
+class UserEdit extends Component {
     constructor(props) {
         super(props);
         if (this.props.user) {
@@ -17,7 +17,8 @@ class UserEditNew extends Component {
                 username: this.props.user.username,
                 displayName: this.props.user.displayName,
                 avatar: this.props.user.avatar,
-                skillset: this.props.user.skillset,
+                genres: this.props.user.genres,
+                movies: this.props.user.movies,
                 email: this.props.user.email
             }    
         }
@@ -38,7 +39,7 @@ class UserEditNew extends Component {
     }
     handleChange = (name, value) => {
         let obj = {};
-        if (name === 'skillset') {
+        if (name === 'genres' || name === 'movies') {
             let arr = value.split(',');
             obj[name] = arr;
         } else {
@@ -46,12 +47,13 @@ class UserEditNew extends Component {
         }
         this.setState(obj);
     }
-    handleReset = () => {
+    handleClear = () => {
         this.setState({
-            username: this.props.user.username,
-            displayName: this.props.user.displayName,
-            avatar: this.props.user.avatar,
-            skillset: this.props.user.skillset,
+            username: '',
+            displayName: '',
+            avatar: '',
+            genres: '',
+            movies: '',
             email: this.props.user.email
         });
     }
@@ -62,19 +64,24 @@ class UserEditNew extends Component {
             username: this.state.username,
             displayName: this.state.displayName,
             avatar: this.state.avatar,
-            skillset: this.state.skillset,
+            genres: this.state.genres,
+            movies: this.state.movies,
             email: this.state.email,
-            projects: this.props.user.projects
+            reviews: this.props.user.reviews
         });
-        this.props.history.push('/user/view/'+this.props.user._id);
+        this.props.history.push(`/user/view/${this.props.user._id}`);
     }
     render() {
         if (!this.state) {
             return <h3>ERROR: No user data. Redirecting...</h3>;
         } else {
-            let skillset = 'Enter data, separating values by commas.';
-            if (typeof this.state.skillset === 'object') {
-                skillset = this.state.skillset.toString();
+            let genres = 'Enter data, separating values by commas.';
+            let movies = 'Enter movies, sepating values by commas.';
+            if (typeof this.state.genres === 'object') {
+                genres = this.state.genres.toString();
+            }
+            if (typeof this.state.movies === 'object') {
+                movies = this.state.movies.toString();
             }
             let inputFields = [
                 {
@@ -99,10 +106,16 @@ class UserEditNew extends Component {
                   required: true
                 },
                 {
-                  label: 'Skillset',
-                  name: 'skillset',
-                  value: skillset,
-                  placeholder: 'Separate values by commas'
+                  label: 'Favourite Genres',
+                  name: 'genres',
+                  value: genres,
+                  placeholder: 'Separate movie genres by commas'
+                },
+                {
+                  label: 'Favourite Movies',
+                  name: 'movies',
+                  value: movies,
+                  placeholder: 'Separate movies by commas'
                 },
                 {
                   label: 'Avatar URL',
@@ -115,22 +128,22 @@ class UserEditNew extends Component {
                 <div className="container">
                     <div className="row">
                         <div className="col">
-                            <div className='material-card' >
+                            <div className="material-card">
                                 <h1>Edit User Profile</h1>
                                 <form onSubmit={this.handleSubmit}>
                                     <fieldset>
                                         {inputFields.map(item => {
-                                            return <Input data={item} onChange={this.handleChange} />
+                                            return <Input key={item.name} data={item} onChange={this.handleChange} />
                                         })}
-                                        <div className='row d-flex justify-content-around btn-section'>
-                                            <input type='submit' className='col btn' value='Submit' />
-                                            <input type='reset' className='col btn' value='Reset' onClick={this.handleReset}/>
-                                            <Button className='col' label='Cancel' redirect={'/user/view/'+this.props.user._id} />
+                                        <div className="d-flex justify-content-around btn-section">
+                                            <button type="submit" className="btn">Submit</button>
+                                            <button type="button" className="btn" onClick={this.handleClear}>Clear</button>
+                                            <Button label="Cancel" redirect={`/user/view/${this.props.user._id}`} />
                                         </div>
                                     </fieldset>
                                 </form>
                             </div>
-                            <Button label='To Main' redirect='/' />
+                            <Button label="To Main" redirect={`/`} />
                         </div>
                     </div>
                 </div>
@@ -140,4 +153,4 @@ class UserEditNew extends Component {
     }
 }
 
-export default UserEditNew;
+export default UserEdit;

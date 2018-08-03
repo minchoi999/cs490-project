@@ -15,7 +15,7 @@ const Footer = () => {
       </div>
       
       <div className="navbar-text">
-        MERN project - Bang Chi Duong © {new Date().getFullYear()}
+        CPSC 490 - MERN Project - {new Date().getFullYear()}
       </div>
     </nav>
   );

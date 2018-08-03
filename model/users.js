@@ -7,19 +7,20 @@ const Schema = mongoose.Schema;
 
 //create new instance of the mongoose.schema. the schema takes an object that shows
 //the shape of your database entries.
-const UsersSchema = new Schema({
-  username: { type: String, default: '', 
-    
-  }, //username
+const UserSchema = new Schema({
+  username: {
+    type: String, default: '',
+  },
   email: String,
   displayName: {
     type: String,
-  }, 
+  },
   avatar: {
     type: String,
     default: ''
   },
-  skillset: [String], //array of strings, like "React" and "Nodejs"
+  genres: [String], //array of strings
+  movies: [String], //array of strings
   google: {
     id: String,
     //username: String,
@@ -45,15 +46,15 @@ const UsersSchema = new Schema({
 });
 
 
-UsersSchema.methods.generateHash = function(password) {
+UserSchema.methods.generateHash = function (password) {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
 
-UsersSchema.methods.validPassword = function(password) {
+UserSchema.methods.validPassword = function (password) {
   return bcrypt.compareSync(password, this.local.password);
 };
 
-UsersSchema.pre('save', function (next) {
+UserSchema.pre('save', function (next) {
 
   let user = this;
 
@@ -63,14 +64,12 @@ UsersSchema.pre('save', function (next) {
   };
   // checker username does not already exist
   user.constructor.findOne()
-    .or([{username: user.username}, { displayName: user.displayName}])
+    .or([{ username: user.username }, { displayName: user.displayName }])
     .exec((err, doc) => {
       if (err) return next(err);
       // no results
-      if (!doc) {
-        return next();
-      }
-      
+      if (!doc) return next();
+
       // if document has a username, reset
       if (doc.username === user.username) {
         user.username = "";
@@ -87,4 +86,4 @@ UsersSchema.pre('save', function (next) {
 });
 
 //export our module to use in server.js
-module.exports = mongoose.model('User', UsersSchema);
+module.exports = mongoose.model('User', UserSchema);

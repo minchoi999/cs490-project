@@ -23,14 +23,14 @@ $breakpoint-large: 60em; // 960px
     margin: 5px;
     &:active 
     &:hover {
-        background-color: lighten( $primary, 10%);
-        border-color: lighten( $primary, 10%);
+        background-color: lighten($primary, 10%);
+        border-color: lighten($primary, 10%);
         color: white;
     }
     &:focus {
         outline: 0;
-        -webkit-box-shadow: 0 0 0 0.2rem darken( $primary, 20%);
-        box-shadow: 0 0 0 0.2rem darken( $primary, 20%);
+        -webkit-box-shadow: 0 0 0 0.2rem darken($primary, 20%);
+        box-shadow: 0 0 0 0.2rem darken($primary, 20%);
     }
     // &--primary {
     //     background-color: $primary;

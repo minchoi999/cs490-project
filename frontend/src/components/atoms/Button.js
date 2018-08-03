@@ -18,10 +18,8 @@ class Button extends Component {
   }
   render(){
     const style = this.props.style || null;
-
-    console.log("Button style: ", style);
     return(
-      <button className="btn" style={style} onClick={this.handleClick}>{this.props.label}</button>
+      <button type="button" className="btn" style={style} onClick={this.handleClick}>{this.props.label}</button>
     )
   }
 }

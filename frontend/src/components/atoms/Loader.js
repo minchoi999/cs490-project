@@ -10,6 +10,8 @@ import loader from "../../images/loader.gif";
 const Loader = () => (
   <div className="text-center">
     <img className="loader" src={loader} alt="Loading..."/>
+    <p></p>
+    <p></p>
   </div>
  );
 

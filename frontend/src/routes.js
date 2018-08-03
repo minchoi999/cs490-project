@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
   Route,
-  Redirect,
-  Switch
+  Redirect
 } from 'react-router-dom';
 import axios from 'axios';
 
@@ -13,7 +12,7 @@ import apiCall from './js/apiCalls';
 
 // Actions
 import { setUser, logoutUser } from './actions/users.js';
-import { setProjects } from './actions/projects.js';
+import { setReviews } from './actions/reviews.js';
 
 // Connects component to Store state & dispatch actions to store
 import { connect } from 'react-redux';
@@ -24,16 +23,15 @@ import "./stylesheets/main.css";
 // Import custom components
 import Nav from './components/molecules/Nav';
 import Header from './components/molecules/Header';
-import ProjectList from './components/organisms/ProjectList';
-import ProjectInfo from './components/molecules/ProjectInfo';
-import ProjectEdit from './components/organisms/ProjectEdit';
+import ReviewList from './components/organisms/ReviewList';
+import ReviewInfo from './components/molecules/ReviewInfo';
+import ReviewEdit from './components/organisms/ReviewEdit';
 import UserInfo from './components/molecules/UserInfo';
 import UserEdit from './components/molecules/UserEdit';
 import ContactForm from './components/molecules/ContactForm';
 import About from "./components/organisms/About";
 import Footer from './components/molecules/Footer';
 import Dashboard from './components/molecules/Dashboard';
-import {NotFound} from './components/molecules/NotFound';
 
 import MoviePopular from './components/molecules/MoviePopular';
 import MovieDetail from './components/molecules/MovieDetail';
@@ -59,8 +57,8 @@ class App extends Component {
   }
   // Once the app is mounted
   componentDidMount() {
-    // load all projects 
-    this.allProjects();
+    // load all reviews 
+    this.allReviews();
     this.setUser();
     // Get redirect cookie and redirect if exists
     const redirect = getCookie('redirect');
@@ -78,40 +76,40 @@ class App extends Component {
   once Redux is implemented in children)
   */
 
-  // fetch all projcets
-  allProjects = () => {
-    apiCall.getAllProjects(res => {
+  // fetch all reviews
+  allReviews = () => {
+    apiCall.getAllReviews(res => {
       if (res.error) { console.error(res.error) }
       console.log('res.data', res.data);
       if (res.data) {
-        this.setState({ projects: res.data }); // update state to response data
-        this.props.setProjects(res.data); // redux store
+        this.setState({ reviews: res.data }); // update state to response data
+        this.props.setReviews(res.data); // redux store
       }
     });
   }
-  // get one project by ID
-  getOneProject = (projectId, next) => {
-    // apiCall expects a "null" if projects are not loaded yet
-    const projects = (typeof this.state.projects !== 'undefined') ? this.state.projects : null;
-    apiCall.getProjectById(projects, projectId, res => {
+  // get one review by ID
+  getOneReview = (reviewId, next) => {
+    // apiCall expects a "null" if reviews are not loaded yet
+    const reviews = (typeof this.state.reviews !== 'undefined') ? this.state.reviews : null;
+    apiCall.getReviewById(reviews, reviewId, res => {
       if (res.error) { console.error(res.error) }
       next(res.data);
     });
   }
-  // creates new project
-  newProject = (data) => {
-    // This is now identical to this.updateProject()...
-    // newProject will eventually be deleted.
-    this.updateProject(data);
+  // creates new review
+  newReview = (data) => {
+    // This is now identical to this.updateReview()...
+    // newReview will eventually be deleted.
+    this.updateReview(data);
   }
-  // update project
-  updateProject = (data) => {
-    console.log('updateProject', data);
-    apiCall.postProject(data, this.allProjects());
+  // update review
+  updateReview = (data) => {
+    console.log('updateReview', data);
+    apiCall.postReview(data, this.allReviews());
   }
-  // delete project
-  deleteProject = (data) => {
-    apiCall.deleteProject(data, this.allProjects());
+  // delete review
+  deleteReview = (data) => {
+    apiCall.deleteReview(data, this.allReviews());
   }
 
   // get one user profile by ID
@@ -124,7 +122,7 @@ class App extends Component {
   // updates user data 
   postUser = (data) => {
     apiCall.postUser(data, () => {
-      this.allProjects();
+      this.allReviews();
       this.setUser();
     });
   }
@@ -157,25 +155,25 @@ class App extends Component {
 
 
 
-  // once project is unfollowed or followed, matches the db value without calling db
-  updateUserProjects = (project_id) => {
+  // once review is unfollowed or followed, matches the db value without calling db
+  updateUserReviews = (review_id) => {
     // copy state
     let { user } = this.state;
-    let { followedProjects } = user;
+    let { followedReviews } = user;
 
-    // findindex of project that was followed
-    const projectIndex = followedProjects.findIndex((e) => {
-      return e === project_id;
+    // findindex of review that was followed
+    const reviewIndex = followedReviews.findIndex((e) => {
+      return e === review_id;
     });
 
-    // if project exists on array, remove it else add it
-    followedProjects = projectIndex !== -1
-      ? [...followedProjects.slice(0, projectIndex),
-      ...followedProjects.slice(projectIndex + 1)]
-      : [...followedProjects, project_id];
+    // if review exists on array, remove it else add it
+    followedReviews = reviewIndex !== -1
+      ? [...followedReviews.slice(0, reviewIndex),
+      ...followedReviews.slice(reviewIndex + 1)]
+      : [...followedReviews, review_id];
 
     // save new state
-    user.followedProjects = followedProjects;
+    user.followedReviews = followedReviews;
     this.setState({
       user
     });
@@ -186,126 +184,123 @@ class App extends Component {
 
       <Router>
         <ScrollToTop>
-          <Switch>
-            <div>
-              {/* Nav components get rendered in all pages. User is set to null when user logged out */}
-              <Nav user={this.props.user} logoutUser={this.logoutUser} />
+          <div>
+            {/* Nav components get rendered in all pages. User is set to null when user logged out */}
+            <Nav user={this.props.user} logoutUser={this.logoutUser} />
 
-              {/* Routing for homepage */}
-              <Route exact
-                path="/" render={(routeProps) => (
-                  /* If user is logged in, but user doesn't have username, redirect to user edit page */
-                  (this.props.user && !this.props.user.username) ?
-                    (<Redirect to={{
-                      pathname: '/user/edit/'
-                    }} />) :
-                    (
-                      <div>
-                        {/* If user is logged out, render Header, ProjectList and About components (Landing page) */}
-                        {/* Header component. */}
-                        <Header user={this.props.user} />
+            {/* Routing for homepage */}
+            <Route exact
+              path="/" render={(routeProps) => (
+                /* If user is logged in, but user doesn't have username, redirect to user edit page */
+                (this.props.user && !this.props.user.username) ?
+                  (<Redirect to={{
+                    pathname: '/user/edit/'
+                  }} />) :
+                  (
+                    <div>
+                      {/* If user is logged out, render Header, ReviewList and About components (Landing page) */}
+                      {/* Header component. */}
+                      <Header user={this.props.user} />
 
-                        {/* ProjectList inherits route props, plus App is passed on as ProjectList prop */}
-                        <ProjectList
-                          {...routeProps}
-                          {...{
-                            projects: this.props.projects,
-                            user: this.props.user,
-                            updateProjects: this.allProjects
-                          }}
-                        />
-                        {/* About component */}
-                        <About user={this.props.user} />
-                      </div>
-                    )
-                )}
-              />
-              {/* Shows single project */}
-              <Route path="/project/view/:id?" render={(routeProps) => {
-                // ProjectInfo component shows single project. Functions defined at parent level
-                return <ProjectInfo
-                  {...routeProps}
-                  {...{
-                    projects: this.props.projects,
-                    user: this.props.user,
-                    deleteProject: this.deleteProject,
-                    allProjects: this.allProjects,
-                    getOneProject: this.getOneProject,
-                    getOneUser: this.getOneUser,
-                    updateProjects: this.allProjects
-                  }} />
-              }} />
-              {/* Shows user page */}
-              <Route path="/user/view/:id" render={(routeProps) => {
-                return <UserInfo
-                  {...routeProps}
-                  {...{
-                    user: this.props.user,
-                    projects: this.props.projects,
-                    getOneUser: this.getOneUser
-                  }} />
-              }} />
-              {/* User can edit its own information when logged in */}
-              <Route path="/user/edit/" render={(routeProps) => {
-                return <UserEdit {...routeProps} {...{
+                      {/* ReviewList inherits route props, plus App is passed on as ReviewList prop */}
+                      <ReviewList
+                        {...routeProps}
+                        {...{
+                          reviews: this.props.reviews,
+                          user: this.props.user,
+                          updateReviews: this.allReviews
+                        }}
+                      />
+                      {/* About component */}
+                      <About user={this.props.user} />
+                    </div>
+                  )
+              )}
+            />
+            {/* Shows single review */}
+            <Route path="/review/view/:id?" render={(routeProps) => {
+              // ReviewInfo component shows single review. Functions defined at parent level
+              return <ReviewInfo
+                {...routeProps}
+                {...{
+                  reviews: this.props.reviews,
                   user: this.props.user,
-                  onUserPost: this.postUser
+                  deleteReview: this.deleteReview,
+                  allReviews: this.allReviews,
+                  getOneReview: this.getOneReview,
+                  getOneUser: this.getOneUser,
+                  updateReviews: this.allReviews
                 }} />
+            }} />
+            {/* Shows user page */}
+            <Route path="/user/view/:id" render={(routeProps) => {
+              return <UserInfo
+                {...routeProps}
+                {...{
+                  user: this.props.user,
+                  reviews: this.props.reviews,
+                  getOneUser: this.getOneUser
+                }} />
+            }} />
+            {/* User can edit its own information when logged in */}
+            <Route path="/user/edit/" render={(routeProps) => {
+              return <UserEdit {...routeProps} {...{
+                user: this.props.user,
+                onUserPost: this.postUser
               }} />
+            }} />
 
-              {/* Adds a project (only logged in users)  */}
-              <Route path="/project/add/" render={(routeProps) => {
-                return <ProjectEdit
-                  {...routeProps}
-                  {...{
-                    user: this.props.user,
-                    handleSubmit: this.newProject
-                  }} />
-              }} />
+            {/* Adds a review (only logged in users)  */}
+            <Route path="/review/add/" render={(routeProps) => {
+              return <ReviewEdit
+                {...routeProps}
+                {...{
+                  user: this.props.user,
+                  handleSubmit: this.newReview
+                }} />
+            }} />
 
-              {/* Edits a projects (only logged in users) */}
-              <Route path="/project/edit/:id" render={(routeProps) => {
-                return <ProjectEdit
-                  {...routeProps}
-                  {...{
-                    user: this.props.user,
-                    handleSubmit: this.updateProject,
-                    getOneProject: this.getOneProject
-                  }} />
-              }} />
+            {/* Edits a review (only logged in users) */}
+            <Route path="/review/edit/:id" render={(routeProps) => {
+              return <ReviewEdit
+                {...routeProps}
+                {...{
+                  user: this.props.user,
+                  handleSubmit: this.updateReview,
+                  getOneReview: this.getOneReview
+                }} />
+            }} />
 
-              <Route path="/dashboard" component={Dashboard} />
+            <Route path="/dashboard" component={Dashboard} />
 
-              {/* Shows contact form to contact project owner */}
-              <Route path="/contact/:userId/:projectId?" render={(routeProps) => {
-                return <ContactForm
-                  {...routeProps}
-                  {...{
-                    user: this.props.user,
-                    handleSubmit: this.sendMessage,
-                    getOneProject: this.getOneProject,
-                    getOneUser: this.getOneUser
-                  }} />
-              }} />
-              <Route exact path="/tmdb" render={(routeProps) => {
-                return <MoviePopular
-                  {...routeProps}
-                  {...{
-                    user: this.props.user
-                  }} />
-              }} />
-              <Route exact path="/tmdb/movie/:id" render={(routeProps) => {
-                return <MovieDetail
-                  {...routeProps}
-                  {...{
-                    user: this.props.user
-                  }} />
-              }} />
-              {/* Footer component gets shown in every single page */}
-              <Footer />
-            </div>
-            <Route component={NotFound} />
-          </Switch>
+            {/* Shows contact form to contact review owner */}
+            <Route path="/contact/:userId/:reviewId?" render={(routeProps) => {
+              return <ContactForm
+                {...routeProps}
+                {...{
+                  user: this.props.user,
+                  handleSubmit: this.sendMessage,
+                  getOneReview: this.getOneReview,
+                  getOneUser: this.getOneUser
+                }} />
+            }} />
+            <Route exact path="/tmdb" render={(routeProps) => {
+              return <MoviePopular
+                {...routeProps}
+                {...{
+                  user: this.props.user
+                }} />
+            }} />
+            <Route exact path="/tmdb/movie/:id" render={(routeProps) => {
+              return <MovieDetail
+                {...routeProps}
+                {...{
+                  user: this.props.user
+                }} />
+            }} />
+            {/* Footer component gets shown in every single page */}
+            <Footer />
+          </div>
         </ScrollToTop>
       </Router>
     )
@@ -316,7 +311,7 @@ class App extends Component {
 // Takes the state from store and maps it to this.props
 const mapStateToProps = (state) => {
   return {
-    projects: state.projectReducer.projects,
+    reviews: state.reviewReducer.reviews,
     user: state.userReducer.user
   }
 };
@@ -327,8 +322,8 @@ const mapDispatchToProps = (dispatch) => {
     setUser: (user) => {
       dispatch(setUser(user));
     },
-    setProjects: (projects) => {
-      dispatch(setProjects(projects));
+    setReviews: (reviews) => {
+      dispatch(setReviews(reviews));
     },
     logoutUser: () => {
       dispatch(logoutUser());

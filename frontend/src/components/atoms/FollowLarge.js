@@ -21,7 +21,7 @@ class FollowLarge extends Component {
             : "#9E9E9E";
         const style = {
             backgroundColor: color,
-            borderColor: color
+            borderColor: color,
         };
         return (
             <Button 

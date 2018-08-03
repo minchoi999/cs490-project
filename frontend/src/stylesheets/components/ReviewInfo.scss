@@ -1,0 +1,28 @@
+@import "../base/helpers.scss";
+body {
+    background: $almost-white;
+}
+
+.review-meta {
+    text-transform: uppercase;
+    margin-top: 30px;
+}
+
+.review-category {
+    color: $dark-grey;
+    font-weight: $font-weight-regular;
+}
+
+.review-owner {
+    color: $primary;
+    font-weight: $font-weight-heavy;
+}
+
+.screenshots {
+    margin: 20px;
+}
+
+.follow {
+    float: right;
+    display: inline-block;
+}

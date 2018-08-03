@@ -17,11 +17,20 @@ body {
 .user-info-meta {
     text-transform: uppercase;
     margin-top: 30px;
+    font-weight: $font-weight-heavy;
 }
 
-td {
-    vertical-align: top;
-    width: 150px;
+.user-info-detail {
+    font-weight: $font-weight-regular;
+}
+
+.user-info-reviews {
+    font-weight: $font-weight-regular;
+    color: $primary;
+    &:hover {
+        color: darken($primary, 20%);
+        cursor: pointer;
+    }
 }
 
 .avatar {

@@ -7,14 +7,14 @@ import React, { Component } from 'react';
 import Button from '../atoms/Button.js';
 import Loader from "../atoms/Loader.js";
 import defaultAvatar from "../../images/default-avatar.png";
-import projectStatus from '../../js/projectStatus';
+import reviewStatus from '../../js/reviewStatus';
 
 class UserInfo extends Component {
     constructor(props) {
         super(props);
         this.state = {
             user: null,
-            projects: null
+            reviews: null
         };
     }
     componentDidMount() {
@@ -22,31 +22,31 @@ class UserInfo extends Component {
     }
     componentWillReceiveProps(nextProps) {
         if (this.state.user) {
-            this.getProjects(nextProps.projects, this.state.user);
+            this.getReviews(nextProps.reviews, this.state.user);
         }
     }
     getUserInfo = () => {
         // Get user ID from URL path, and retrieve user data from server
         const userId = this.props.match.params.id;
         this.props.getOneUser(userId, profile => {
-            this.getProjects(this.props.projects, profile);
+            this.getReviews(this.props.reviews, profile);
             this.setState({
                 user: profile
             });
         });
     }
-    getProjects = (allProjects, user) => {
-        if (allProjects.length > 0) {
-            let userProjects = projectStatus.userProjects(allProjects, user._id);
+    getReviews = (allReviews, user) => {
+        if (allReviews.length > 0) {
+            let userReviews = reviewStatus.userReviews(allReviews, user._id);
             this.setState({
-                projects: userProjects
+                reviews: userReviews
             });
         }
     }
     handleClick = (e) => {
-        this.props.history.push('/project/view/' + e.target.id);
+        this.props.history.push(`/review/view/${e.target.id}`);
     }
-    renderInfo = (user, projects) => {
+    renderInfo = (user, reviews) => {
         if (user) {
             return (
                 <div className='user-info'>
@@ -55,74 +55,86 @@ class UserInfo extends Component {
                     </div>
                     <div className='row'>
                         <div>
-                            <img 
-                                key={user.avatar} 
-                                src={user.avatar} 
+                            <img
+                                key={user.avatar}
+                                src={user.avatar}
                                 onError={(e) => {
                                     e.target.src = defaultAvatar;
-                                }} 
-                                className="img-fluid avatar" 
+                                }}
+                                className="img-fluid avatar"
                                 alt="User Avatar" />
-                            </div>
+                        </div>
                         <div><h1>{user.displayName}</h1></div>
                     </div>
-                    <div className='row'>
-                        <div className='col'>
-                            <table>
-                                <tr>
-                                    <td>Username:</td>
-                                    <td>{user.username}</td>
-                                </tr>
-                                <tr>
-                                    <td>skillset:</td>
-                                    <td>{user.skillset.map(item => {
-                                        return <tr>{item}</tr>;
-                                    })}</td>
-                                </tr>
-                            </table>
+                    <div className="row">
+                        <div className="col">
+                            <div className="row">
+                                <strong className="col"><u>Username:</u></strong>
+                                <div className="col user-info-detail">{user.username}</div>
+                            </div>
+                            <div className="row">
+                                <strong className="col"><u>Favourite Genres:</u></strong>
+                                <div className="col user-info-detail">
+                                    {
+                                        user.genres.map(item => {
+                                            return <div key={item}>{item}</div>;
+                                        })
+                                    }
+                                </div>
+                            </div>
+                            <div className="row">
+                                <strong className="col"><u>Favourite Movies:</u></strong>
+                                <div className="col user-info-detail">
+                                    {
+                                        user.movies.map(item => {
+                                            return <div key={item}>{item}</div>;
+                                        })
+                                    }
+                                </div>
+                            </div>
                         </div>
-                        <div className='col'>
-                            <h4>My Projects</h4>
+                        <div className="col">
+                            <h4>My Reviews</h4>
                             <ul>
-                                {(projects) ? (
-                                    projects.map(item => {
-                                        return (
-                                            <li key={item.projectId}>
-                                                <a id={item.projectId} onClick={this.handleClick}>
-                                                    {`${item.projectTitle} (${item.status})`}
-                                                </a>
-                                            </li>
-                                        ); 
-                                    }) 
-                                ) : (
-                                    'No projects yet'
-                                )}
+                                {
+                                    (reviews) ?
+                                        (
+                                            reviews.map(item => {
+                                                return (
+                                                    <li key={item.reviewId} className="user-info-reviews">
+                                                        <a id={item.reviewId} onClick={this.handleClick}>
+                                                            {`${item.reviewTitle} (${item.status})`}
+                                                        </a>
+                                                    </li>
+                                                );
+                                            })
+                                        ) :
+                                        ('No reviews yet')
+                                }
                             </ul>
                         </div>
                     </div>
                     <div className='d-flex justify-content-around btn-section'>
-                        {(this.props.user && user._id === this.props.user._id) ? 
-                            (<Button label='Edit Profile' redirect='/user/edit/' />) : 
-                            (<Button label={'Contact ' + user.displayName} redirect={'/contact/'+user._id} />)
+                        {
+                            (this.props.user && user._id === this.props.user._id) ?
+                                (<Button label="Edit Profile" redirect={`/user/edit/`} />) :
+                                (<Button label={`Contact ${user.displayName}`} redirect={`/contact/${user._id}`} />)
                         }
                     </div>
                 </div>
             );
         }
-        else {
-            return <Loader />
-        }
-        
+        else return <Loader />
     }
     render() {
         let user = this.state.user;
-        let projects = this.state.projects;
+        let reviews = this.state.reviews;
         return (
-            <div className='container'>
-                <div className='row'>
-                    <div className='col'>
-                        {this.renderInfo(user, projects)}
-                        <Button label='To Main' redirect='/' />
+            <div className="container">
+                <div className="row">
+                    <div className="col">
+                        {this.renderInfo(user, reviews)}
+                        <Button label="To Main" redirect={`/`} />
                     </div>
                 </div>
             </div>

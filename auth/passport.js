@@ -160,7 +160,6 @@ module.exports = function(passport) {
                 user.email = profile.emails[0].value;
                 user.displayName = profile.displayName;
                 user.username = profile.displayName;
-                user.avatar = profile.photos[0].value;
                 
                 // save our user to the database
                 user.save(function(err) {

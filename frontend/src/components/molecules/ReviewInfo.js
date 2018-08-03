@@ -153,8 +153,7 @@ class ReviewInfo extends Component {
                       return <li key={item}>{item}</li>;
                     })}
                   </ul>
-                  <h3>Movie Database Link</h3>
-                  <a href={review.tmdb}>{review.tmdb}</a>
+                  <h3><a href={review.tmdb}>Movie Link</a></h3>
                 </div>
               </div>
               {buttons}

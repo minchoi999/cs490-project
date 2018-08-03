@@ -7,9 +7,7 @@ import TMDBlogo from "../../images/movie_logo.svg";
 
 class DetailMovieCard extends Component {
   componentDidUpdate() {
-    document.body.style.backgroundImage = `url(${URL_IMG}${IMG_BACKGROUND}${
-      this.props.movie.backdrop_path
-    })`;
+    document.body.style.backgroundImage = `url(${URL_IMG}${IMG_BACKGROUND}${this.props.movie.backdrop_path})`;
   }
 
   render() {

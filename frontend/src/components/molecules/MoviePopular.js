@@ -16,12 +16,6 @@ class MoviePopular extends Component {
     }
 
     componentDidMount() {
-        if (!this.props.user) {
-            setTimeout(() => {
-                this.props.history.push('/');
-            }, 1000);
-        }
-
         axios
             // .get(`${URL_DETAIL}popular${API_KEY}&language=en-US&page=1`)
             .get(URL_DETAIL + POPULAR + API_KEY + LANGUAGE_EN)
@@ -32,10 +26,6 @@ class MoviePopular extends Component {
     }
 
     render() {
-        if (!this.props.user) {
-            return <h3>ERROR: Not logged in. Redirecting...</h3>;
-        }
-
         const movies = this.state.results.map(movie => (
             <MovieCard key={movie.id} movie={movie} />
         ));

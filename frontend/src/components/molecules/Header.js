@@ -20,7 +20,8 @@ class Header extends Component{
               <div className="header text-center">
                 <h1 className="header-heading display-3">Lights, Camera, Action!</h1>
                 <p className="header-lead lead">Review interesting movies. Share new favourites.</p>
-                <Button label="Browse Movie Reviews" redirect="/review/view/"/>
+                <Button label="Browse Movie Reviews" redirect={`/review/view/`} />
+                <Button label="Browse Movies" redirect={`/tmdb/`} />
               </div>
             </div>
           </div>

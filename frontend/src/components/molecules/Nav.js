@@ -78,10 +78,10 @@ class Nav extends Component {
               {this.props.user ?
                 <ul className="navbar-nav mr-auto">
                   <li className="nav-item">
-                    <Button label="Add a Review" id="add-review" redirect="/review/add" />
+                    <Button label="Add a Review" id="add-review" redirect={`/review/add`} />
                   </li>
                   <li className="nav-item">
-                    <Button label="Browse Movies" id="tmdb" redirect="/tmdb" />
+                    <Button label="Browse Movies" id="tmdb" redirect={`/tmdb`} />
                   </li>
                 </ul> :
                 null

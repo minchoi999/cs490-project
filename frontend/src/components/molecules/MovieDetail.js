@@ -12,26 +12,16 @@ class MovieDetail extends Component {
     }
 
     componentDidMount() {
-        if (!this.props.user) {
-            setTimeout(() => {
-                this.props.history.push('/');
-            }, 1000);
-        }
-
         const { id } = this.props.match.params;
 
         axios
-            .get(URL_DETAIL + id + API_KEY + LANGUAGE_EN)
+            .get(`${URL_DETAIL}${id}${API_KEY}${LANGUAGE_EN}`)
             .then(response => {
                 this.setState({ movieData: response.data });
             });
     }
 
     render() {
-        if (!this.props.user) {
-            return <h3>ERROR: Not logged in. Redirecting...</h3>;
-        }
-        
         let movieData;
 
         if (

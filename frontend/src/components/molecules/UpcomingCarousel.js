@@ -61,13 +61,8 @@ class UpcomingCarousel extends Component {
       .then((items) => {
         items.forEach((item) => {
           this.getVideoKey(item).then((videoKey) => {
-            console.log('got promise');
             item.videoKey = videoKey;
-            console.log(item.videoKey);
-            console.log(this.state.items);
           });
-          console.log('before set state');
-          console.log(item.videoKey);
         });
 
         this.setState({ items });
@@ -90,9 +85,7 @@ class UpcomingCarousel extends Component {
           return '';
         });
       return videoKey;
-    } catch (error) {
-      console.error(error);
-    }
+    } catch (error) {}
   };
 
   openModal() {

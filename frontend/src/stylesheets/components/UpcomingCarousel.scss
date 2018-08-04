@@ -1,0 +1,29 @@
+@import "../base/helpers.scss";
+
+.caption-info {
+  z-index: 1;
+  position: absolute;
+  opacity: 0.9;
+  bottom: 12%;
+  padding: 1em;
+  background: rgba(0,0,0,0.5);
+}
+
+.caption-title {
+  font-size: 1.5em;
+  margin: 0;
+  color: $primary;
+  font-weight: $font-weight-heavy;
+  text-transform: uppercase;
+}
+
+.caption-overview {
+  //font-size: 14px;
+  //margin-bottom: 1em;
+  color: $almost-white;
+  font-weight: $font-weight-regular;
+}
+
+.caption-link {
+  font-weight: $font-weight-heavy;
+}

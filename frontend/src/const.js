@@ -9,3 +9,4 @@ export const IMG_XSMALL = 'w45/';
 export const VIDEOS = '/videos';
 export const LANGUAGE_EN = '&language=en-US&page=1';
 export const POPULAR = 'popular';
+export const UPCOMING = 'upcoming';

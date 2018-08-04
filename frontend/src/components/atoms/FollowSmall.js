@@ -20,7 +20,7 @@ class FollowSmall extends Component {
                 className={this.state.follow
                         ? "follow-icon active-icon" 
                         : "follow-icon"} 
-                size={32} 
+                size={30} 
                 color={this.state.follow
                         ? "#B7140E"
                         : "#9E9E9E"} 

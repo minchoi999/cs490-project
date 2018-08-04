@@ -37,7 +37,7 @@ class UpcomingCarousel extends Component {
   }
 
   componentWillMount() {
-    axios
+    const itemsPromise = axios
       .get(URL_DETAIL + UPCOMING + API_KEY + LANGUAGE_EN)
       .then((response) => {
         // ex. response.data.results has [movie1, movie2, ...]
@@ -62,11 +62,16 @@ class UpcomingCarousel extends Component {
         items.forEach((item) => {
           this.getVideoKey(item).then((videoKey) => {
             item.videoKey = videoKey;
+            console.log('test1');
           });
         });
-
-        this.setState({ items });
+        return items;
       });
+
+    itemsPromise.then((items) => {
+      this.setState({ items });
+      console.log('test2');
+    });
   }
 
   getVideoKey = (item) => {
@@ -162,6 +167,7 @@ class UpcomingCarousel extends Component {
           activeIndex={activeIndex}
           next={this.next}
           previous={this.previous}
+          interval={false}
         >
           <CarouselIndicators
             items={this.state.items}

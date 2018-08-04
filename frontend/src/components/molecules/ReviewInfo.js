@@ -5,7 +5,7 @@
 
 import React, { Component } from "react";
 import axios from "axios";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 import ReviewList from "../organisms/ReviewList";
 import FollowLarge from "../atoms/FollowLarge";
@@ -156,12 +156,12 @@ class ReviewInfo extends Component {
                       return <li key={item}>{item}</li>;
                     })}
                   </ul>
-                  {review.tmdb === "" || !review.tmdb ? (
-                    <h3>
-                      <Link to={review.tmdb}>Movie Link</Link>
-                    </h3>
-                  ) : (
+                  {!review.tmdb || review.tmdb === "" ? (
                     <h3>No Movie Link provided</h3>
+                  ) : (
+                    <h3>
+                      <a href={review.tmdb}>Movie Link</a>
+                    </h3>
                   )}
                 </div>
               </div>

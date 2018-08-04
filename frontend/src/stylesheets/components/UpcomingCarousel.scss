@@ -1,0 +1,333 @@
+.carousel {
+  position: relative;
+
+  &::after, ::before{
+    box-sizing: border-box;
+  }
+  &-indicators{
+    position: absolute;
+    right: 0;
+    bottom: 10px;
+    left: 0;
+    z-index: 15;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+    justify-content: center;
+    padding-left: 0;
+    margin-right: 15%;
+    margin-left: 15%;
+    list-style: none;
+  
+    dl, ol, ul {
+      margin-top: 0;
+    }
+    &::after, ::before {
+      box-sizing: border-box;
+    }
+  }
+  &-inner {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    display: block;
+  }
+
+  img {
+    vertical-align: middle;
+    
+    border-style: none;
+    width: 100%;
+    height: auto;
+    
+  }
+  &-item {
+    margin: 0 auto;
+    width: 50%;
+    position: relative;
+    align-items: center;
+    height: auto;
+    transition: transform .6s ease;
+    backface-visibility: hidden;
+  }
+}
+
+body{
+  overflow: hidden;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// .carousel{
+//   height: 400px;
+//   width:750px;
+//   margin:0 auto;
+// }
+
+// .carousel {
+//   position: relative;
+//   width: 100%;
+//   height: auto;
+// }
+
+
+// .carousel-item{
+//   img {
+//     position: relative;
+//     display: block;
+//     margin: auto;
+//     max-width: 30%;
+//     height: auto;
+//     vertical-align: middle;
+//     border: 0;
+//   }
+//   &::after, ::before{
+//     box-sizing: border-box;
+//   }
+//     position: relative;
+//     height: auto;
+//     width: 60%;
+//     left: 15em;
+    
+// }
+
+
+
+//   &-item, &-item.active {
+//     position: relative;
+//     top: 4em;
+//     bottom: 10em;
+//     left: 20em;
+//     right: 20em;
+//     margin: auto;
+//     max-width: 60%;
+//     height: 60%;
+//   }  
+//   .carousel-inner {
+//     max-width: 50%;
+//     height: auto;
+//     position: relative;
+//     left: 20em;
+//     right: 20em;
+//     top: 8em;
+//     bottom: 8em;
+
+
+//   }
+//   &-caption.d-none.d-md-block {
+//     z-index: 1;
+//     position: absolute;
+//     top: 1em;
+//     bottom: 20em;
+//     left: 20em;
+//     width: 30%;
+//     height: 30%;
+//     // text-align: center;
+    
+//   }
+// }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+//   // .img{
+//   //   height: 400px;
+//   //       background-size: cover;
+//   //       position: relative;
+
+//   //       	top:20px;
+//   //       	left: 20px;
+//   //       	right: 20px;
+//   //       	bottom:20px;
+//   //       	background-image: linear-gradient(to bottom, transparent, rgba(0,0,0,0.5));
+//   //       	opacity: 0;
+//   //       	will-change:opacity;
+//   //       	transition: opacity 250ms ease-in-out;
+//   // }
+
+//   // .carousel{
+
+//   //   height: 400px;
+//   //   width:750px;
+//   //   margin:20px 40px;
+//   // }
+
+
+
+//   // .carousel-control {
+//   //   fill: rgb(15, 13, 13);
+//   //   background-image: none;
+//   //   display: flex;
+//   //   justify-content: center;
+//   //   align-items: center;
+//   //   transform: translate(0);
+//   //   will-change: transform;
+//   //   transition: transform 250ms ease-in;
+//   //   opacity: 0;
+//   //   &-prev{
+//   //     transform: translate(-100%);
+//   //   }
+//   //   &-next{
+//   //     transform: translate(100%);
+//   //   }
+//   // }
+//   // &:hover{
+//   //   .carousel-control{
+//   //     &-prev, &-next{
+//   //       transform: translate(0);
+//   //     }
+//   //   }
+
+//   // }
+
+
+
+
+
+
+
+
+
+
+
+
+// .carousel {
+//   height: 400px;
+//   width:750px;
+//   margin:0 auto;
+//   position: relative;
+//         top: 3em;
+//         left: 3em;
+//         right: 3em;
+//         bottom: 3em;
+// }
+// .carousel-item {
+//   height: 400px;
+//   width: 100%;
+//   position: relative;
+//   margin-left: auto;
+//   margin-right: auto;
+//       &::before{
+//         content:'';
+//         position: relative;
+//         top: 3em;
+//         left: 3em;
+//         right: 3em;
+//         bottom: 3em;
+//         background-image: linear-gradient(to bottom, transparent, rgba(0,0,0,0.5));
+//         opacity: 0;
+//         will-change:opacity;
+//         transition: opacity 250ms ease-in-out;
+//       }
+//     }
+
+
+
+
+// .carousel-item {
+//       height: 400px;
+//       background-size: cover;
+//       position: relative;
+//       &::before{
+//         content:'';
+//         position: absolute;
+//         top:0;
+//         left: 0;
+//         right: 0;
+//         bottom:0;
+//         background-image: linear-gradient(to bottom, transparent, rgba(0,0,0,0.5));
+//         opacity: 0;
+//         will-change:opacity;
+//         transition: opacity 250ms ease-in-out;
+// // }
+// .carousel-control {
+//     fill: rgb(153, 153, 153);
+//     background-image: none;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     transform: translate(0);
+//     will-change:transform;
+//     transition:transform 250ms ease-in;
+//     opacity: 1;
+//     &.left {
+//       transform: translate(-100%);
+//     }
+//     &.right {
+//       transform: translate(100%);
+//     }
+// }
+// &-indicators {
+//     position: absolute;
+//     bottom: 0;
+//     right: 0;
+//     left: 0;
+//     width: 100%;
+//     z-index: 15;
+//     margin: 0;
+//     padding: 30px;
+//     text-align: right;
+//     li{
+//       background-color:rgba(255, 255, 255, 0);
+//       border:1px solid rgba(255, 255, 255, 1);
+//       &.active{
+//         background-color:rgba(255, 255, 255, 1);
+//         border:1px solid rgba(255, 255, 255, 1);
+//       }
+//     }
+// }
+// &-caption {
+//     position: absolute;
+//     left: 0;
+//     right: 0;
+//     bottom: 0;
+//     z-index: 10;
+//     padding: 25px;
+//     color: #fff;
+//     text-align: left;
+//     transform: translateY(100%);
+//     will-change:transform;
+//     transition:transform 250ms ease-in;
+//     font-size:3em;
+//     margin: 0;
+//     &::first-letter{
+//       text-transform: uppercase;
+//     }
+// }
+// &:hover{
+//   .carousel-control{
+//     &.left, &.right{
+//       transform: translate(0);
+//     }
+//   }
+//   figure {
+//         &::before{
+//           opacity: 1;
+//         }
+//         .carousel-caption{
+//           transform: translateY(0);
+//         }
+//     }
+// }
+// }

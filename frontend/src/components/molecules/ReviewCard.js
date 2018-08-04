@@ -14,6 +14,7 @@ const ReviewCard = ({ user, review, onClick, onFollow }) => (
     <div className="col-md-4 col-lg-3 card"
         key={review._id}
         id={review._id}>
+        <div style={{position:'absolute', left:300, top:0}}>
         {/* Follow button shows only if user is logged in and not the owner */}
         {(user && reviewStatus.getOwner(review) !== user._id) ? (
             <FollowSmall
@@ -24,6 +25,7 @@ const ReviewCard = ({ user, review, onClick, onFollow }) => (
                 null
             )
         }
+        </div>
         <div className="card-body">
             <img className="card-img" width="225px" height="335px" src={(review.poster) ? review.poster : "http://via.placeholder.com/225x335"} alt="cardImg" />
             <p className="card-category">
@@ -43,7 +45,7 @@ const ReviewCard = ({ user, review, onClick, onFollow }) => (
                     {review.rating}/10 - {review.tagline}
                 </p>
             </Dotdotdot>
-            <Button className="align-self-end btn btn-lg btn-block btn-primar" label="More" onClick={onClick} />
+            <Button className="align-self-end btn btn-lg btn-block btn-primary" label="More" onClick={onClick} />
         </div>
     </div>
 );

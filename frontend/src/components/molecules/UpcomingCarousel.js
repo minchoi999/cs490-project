@@ -12,6 +12,7 @@ import {
   LANGUAGE_EN,
   UPCOMING,
   URL_IMG,
+  VIDEOS,
 } from '../../const';
 import axios from 'axios';
 import ModalVideo from 'react-modal-video';
@@ -32,6 +33,7 @@ class UpcomingCarousel extends Component {
     this.onExiting = this.onExiting.bind(this);
     this.onExited = this.onExited.bind(this);
     this.openModal = this.openModal.bind(this);
+    this.getVideoKey = this.getVideoKey.bind(this);
   }
 
   componentWillMount() {
@@ -39,7 +41,6 @@ class UpcomingCarousel extends Component {
       .get(URL_DETAIL + UPCOMING + API_KEY + LANGUAGE_EN)
       .then((response) => {
         // ex. response.data.results has [movie1, movie2, ...]
-        console.log('response');
         let firstSix = [];
         if (response.data.results && response.data.results.length > 0) {
           for (let i = 0; i < 6; i++) {
@@ -55,10 +56,44 @@ class UpcomingCarousel extends Component {
             movieID: response.data.results[i].id,
           };
         }
+        return firstSixInfo;
+      })
+      .then((items) => {
+        items.forEach((item) => {
+          this.getVideoKey(item).then((videoKey) => {
+            console.log('got promise');
+            item.videoKey = videoKey;
+            console.log(item.videoKey);
+            console.log(this.state.items);
+          });
+          console.log('before set state');
+          console.log(item.videoKey);
+        });
 
-        this.setState({ items: firstSixInfo });
+        this.setState({ items });
       });
   }
+
+  getVideoKey = (item) => {
+    try {
+      const videoKey = axios
+        .get(`${URL_DETAIL}${item.movieID}${VIDEOS}${API_KEY}`)
+        .then((response) => {
+          if (
+            response &&
+            response.data &&
+            response.data.results &&
+            response.data.results.length > 0
+          ) {
+            return response.data.results[0].key;
+          }
+          return '';
+        });
+      return videoKey;
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   openModal() {
     this.setState({ isOpen: true });
@@ -117,7 +152,7 @@ class UpcomingCarousel extends Component {
           <ModalVideo
             channel="youtube"
             isOpen={this.state.isOpen}
-            videoId={item.videoID}
+            videoId={item.videoKey}
             onClose={() => this.setState({ isOpen: false })}
           />
           <CarouselCaption

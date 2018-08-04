@@ -167,7 +167,7 @@ class ReviewEdit extends Component {
           label: 'Rating',
           name: 'rating',
           type: 'text',
-          placeholder: 'Out of ten',
+          placeholder: 'From zero to ten',
           value: this.state.rating,
           required: true
         },
@@ -190,7 +190,7 @@ class ReviewEdit extends Component {
           label: 'Tags',
           name: 'tags',
           type: 'text',
-          placeholder: 'Keywords and tags, separated by commas',
+          placeholder: 'Keywords or tags, without spaces and separated by commas',
           value: this.state.tags
         },
         {

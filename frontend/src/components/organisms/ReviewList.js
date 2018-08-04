@@ -94,7 +94,7 @@ class ReviewList extends Component {
                     <div className="text-center">
                         {
                             (partial) ?
-                                (<Button label="All Movies" redirect={`/review/view/`} />) :
+                                (<Button label="All Movie Reviews" redirect={`/review/view/`} />) :
                                 (<Button label="To Main" redirect={`/`} />)
                         }
                     </div>

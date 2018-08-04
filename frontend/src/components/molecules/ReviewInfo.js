@@ -5,7 +5,6 @@
 
 import React, { Component } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 
 import ReviewList from "../organisms/ReviewList";
 import FollowLarge from "../atoms/FollowLarge";
@@ -81,26 +80,28 @@ class ReviewInfo extends Component {
     if (!reviewId) {
       //this is the '/reviews/view/' route without reviewId
       return <ReviewList {...this.props} />;
-    } else {
+    } 
+    else {
       if (!review) {
         return <Loader />;
       }
 
       if (isOwner) {
         buttons = (
-          <div className="d-flex justify-content-around btn-section">
-            <Button label="Edit" redirect={`/review/edit/${review._id}`} />
-            <Button label="Delete" onClick={this.handleDelete} />
+          <div className="row d-flex justify-content-around btn-section">
+            <Button className="col" label="Edit" redirect={`/review/edit/${review._id}`} />
+            <Button className="col" label="Delete" onClick={this.handleDelete} />
           </div>
         );
-      } else {
+      } 
+      else {
         buttons = owner ? (
-          <div className="d-flex justify-content-around btn-section">
-            <Button
+          <div className="row d-flex justify-content-around btn-section">
+            <Button className="col"
               label="View Reviewer Profile"
               redirect={`/user/view/${owner._id}`}
             />
-            <Button
+            <Button className="col"
               label="Contact Reviewer"
               redirect={`/contact/${owner._id}/${review._id}`}
             />

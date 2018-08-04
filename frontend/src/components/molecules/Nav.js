@@ -147,8 +147,8 @@ class Nav extends Component {
             <ul className="navbar-nav mr-auto">
               <li id="add-review" className="nav-dropdown-item" onClick={this.handleClick}>Add a Review</li>
               <li id="profile" className="nav-dropdown-item" onClick={this.handleClick}>Profile</li>
-              <li id="dashboard" className="nav-dropdown-item" onClick={this.handleClick}>Dashboard</li>
-              <li id="tmdb" className="nav-dropdown-item" onClick={this.handleClick}>Browse</li>
+              {/* <li id="dashboard" className="nav-dropdown-item" onClick={this.handleClick}>Dashboard</li> */}
+              <li id="tmdb" className="nav-dropdown-item" onClick={this.handleClick}>Browse Movies</li>
               <li id="logout" className="nav-dropdown-item" onClick={this.handleClick}>Logout</li>
             </ul> :
             <ul className="navbar-nav mr-auto">

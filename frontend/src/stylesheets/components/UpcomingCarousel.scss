@@ -1,4 +1,17 @@
 .UpcomingCarousel {
+  img {
+    -webkit-filter: brightness(100%);
+  }
+
+  img:hover {
+      -webkit-filter: brightness(70%);
+      -webkit-transition: all 0.5s ease;
+      -moz-transition: all 0.5s ease;
+      -o-transition: all 0.5s ease;
+      -ms-transition: all 0.5s ease;
+      transition: all 0.5s ease;
+  }
+
   .carousel-indicators .active {
     background: #dcaf68;
   }
@@ -19,6 +32,21 @@
         background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23dcaf68' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
         cursor: pointer;
       }
+    }
+  }
+  
+  .img{
+    &::before{
+      content:'';
+      position: absolute;
+      top:0;
+      left: 0;
+      right: 0;
+      bottom:0;
+      background-image: linear-gradient(to bottom, transparent, rgba(0,0,0,0.5));
+      opacity: 0;
+      will-change:opacity;
+      transition: opacity 250ms ease-in-out;
     }
   }
 }

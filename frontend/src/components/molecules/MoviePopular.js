@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import {
-  URL_DETAIL,
-  API_KEY,
-  LANGUAGE_EN,
-  POPULAR,
-  UPCOMING,
-} from '../../const';
+import { URL_DETAIL, API_KEY, LANGUAGE_EN, POPULAR } from '../../const';
 import MovieSearch from './MovieSearch';
 import MovieCard from './MovieCard';
 import UpcomingCarousel from './UpcomingCarousel';

@@ -12,11 +12,9 @@ import {
   LANGUAGE_EN,
   UPCOMING,
   URL_IMG,
-  IMG_BACKGROUND,
 } from '../../const';
 import axios from 'axios';
 import ModalVideo from 'react-modal-video';
-import Modal from './MovieModal';
 import '../../stylesheets/components/UpcomingCarousel.css';
 
 class UpcomingCarousel extends Component {
@@ -52,8 +50,8 @@ class UpcomingCarousel extends Component {
         for (let i = 0; i < 6; i++) {
           firstSixInfo[i] = {
             src: `${URL_IMG}${'w780'}${response.data.results[i].backdrop_path}`,
-            altText: '',
-            caption: '',
+            altText: response.data.results[i].overview,
+            caption: response.data.results[i].title,
             movieID: response.data.results[i].id,
           };
         }

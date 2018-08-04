@@ -46,7 +46,7 @@ class MoviePopular extends Component {
     ));
     return (
       <div className="popular-background">
-        <div className="carousel">
+        <div className="row justify-content-center align-items-center">
           <UpcomingCarousel />
         </div>
         <MovieSearch />

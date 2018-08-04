@@ -1,7 +1,7 @@
 // Import React and its components
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux'
+import { createStore } from 'redux';
 
 // Provider allows for each individual component to connect to the store via "connect"
 import { Provider } from 'react-redux';
@@ -15,6 +15,6 @@ let store = createStore(rootReducer);
 ReactDOM.render(
   <Provider store={store}>
     <App />
-  </Provider>, 
+  </Provider>,
   document.getElementById('root')
 );

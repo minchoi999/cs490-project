@@ -84,7 +84,7 @@ class ReviewEdit extends Component {
     this.props.history.push('/');
   }
   onFormClear = () => {
-    if (this.props.match.params.id) {
+    // if (this.props.match.params.id) {
       this.setState({
         title: "",
         categories: [],
@@ -94,14 +94,14 @@ class ReviewEdit extends Component {
         tags: [],
         status: "",
         poster: "http://via.placeholder.com/225x335",
-        tmdb: "http://cs490-project-movie.herokuapp.com/tmdb",
+        tmdb: "",
         users: [{
           _id: this.props.user._id,
           status: 'owner'
         }],
         active: false,
       });
-    }
+    // }
   }
 
   setActive = (item, e) => {
@@ -228,7 +228,7 @@ class ReviewEdit extends Component {
                     <div className="d-flex justify-content-around btn-section">
                       <button type="submit" className="btn">Submit</button>
                       <button type="button" className="btn" onClick={this.onFormClear}>Clear</button>
-                      <Button label="Cancel" redirect={`/review/view/${this.props.match.params.id}`} />
+                      <Button label="Cancel" redirect={(this.props.match.params.id) ? (`/review/view/${this.props.match.params.id}`) : (`/`)} />
                     </div>
                   </fieldset>
                 </form>

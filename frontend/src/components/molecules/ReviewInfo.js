@@ -3,14 +3,15 @@
     shows details of review. Owners can also access edit and delete features
 ------------------------*/
 
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { Component } from "react";
+import axios from "axios";
+import { Link } from 'react-router-dom';
 
-import ReviewList from '../organisms/ReviewList';
-import FollowLarge from '../atoms/FollowLarge';
+import ReviewList from "../organisms/ReviewList";
+import FollowLarge from "../atoms/FollowLarge";
 import Button from "../atoms/Button.js";
 import Loader from "../atoms/Loader";
-import reviewStatus from '../../js/reviewStatus';
+import reviewStatus from "../../js/reviewStatus";
 
 class ReviewInfo extends Component {
   constructor(props) {
@@ -43,9 +44,9 @@ class ReviewInfo extends Component {
     }
   };
   getOwner = ownerId => {
-    console.log('get owner', ownerId);
+    console.log("get owner", ownerId);
     this.props.getOneUser(ownerId, profile => {
-      let owner = (profile && profile.displayName) ? profile : null;
+      let owner = profile && profile.displayName ? profile : null;
       this.setState({
         owner: owner
       });
@@ -58,31 +59,29 @@ class ReviewInfo extends Component {
       axios.post(`/api/follow/${review_id}`).then(res => {
         this.props.p(review_id);
       });
-    }
-    else {
-      // Return 
+    } else {
+      // Return
       return false;
     }
   };
 
   handleDelete = () => {
     this.props.deleteReview(this.state.review);
-    this.props.history.push('/');
+    this.props.history.push("/");
   };
   render() {
     const reviewId = this.props.match.params.id;
     const review = this.state.review;
     const owner = this.state.owner;
     const user = this.props.user;
-    const isOwner = user && owner && (user._id === owner._id);
+    const isOwner = user && owner && user._id === owner._id;
     let buttons = null;
 
-    console.log('render', review);
+    console.log("render", review);
     if (!reviewId) {
       //this is the '/reviews/view/' route without reviewId
       return <ReviewList {...this.props} />;
-    }
-    else {
+    } else {
       if (!review) {
         return <Loader />;
       }
@@ -94,22 +93,19 @@ class ReviewInfo extends Component {
             <Button label="Delete" onClick={this.handleDelete} />
           </div>
         );
-      }
-      else {
-        buttons = owner ?
-          (
-            <div className="d-flex justify-content-around btn-section">
-              <Button
-                label="View Reviewer Profile"
-                redirect={`/user/view/${owner._id}`}
-              />
-              <Button
-                label="Contact Reviewer"
-                redirect={`/contact/${owner._id}/${review._id}`}
-              />
-            </div>
-          ) : 
-          (null)
+      } else {
+        buttons = owner ? (
+          <div className="d-flex justify-content-around btn-section">
+            <Button
+              label="View Reviewer Profile"
+              redirect={`/user/view/${owner._id}`}
+            />
+            <Button
+              label="Contact Reviewer"
+              redirect={`/contact/${owner._id}/${review._id}`}
+            />
+          </div>
+        ) : null;
       }
     }
 
@@ -120,11 +116,13 @@ class ReviewInfo extends Component {
             <div className="material-card">
               <div className="review-meta row">
                 <div className="flex-row">
-                  {
-                    review.categories.map(category => {
-                      return <p key={category} className="mr-1 review-category">{category}</p>
-                    })
-                  }
+                  {review.categories.map(category => {
+                    return (
+                      <p key={category} className="mr-1 review-category">
+                        {category}
+                      </p>
+                    );
+                  })}
                 </div>
                 <p className="review-owner col text-md-right">
                   {owner ? owner.displayName : "No Owner Info"}
@@ -132,18 +130,23 @@ class ReviewInfo extends Component {
                 <hr />
               </div>
               <div className="float-right">
-                {!isOwner && user && (
-                  <FollowLarge
-                    follow={reviewStatus.getFollowers(review).includes(user._id)}
-                    onFollow={this.handleClick.bind(this, reviewId)}
-                  />
-                )}
+                {!isOwner &&
+                  user && (
+                    <FollowLarge
+                      follow={reviewStatus
+                        .getFollowers(review)
+                        .includes(user._id)}
+                      onFollow={this.handleClick.bind(this, reviewId)}
+                    />
+                  )}
               </div>
               <h1>{review.title}</h1>
               <p>{review.status}</p>
               <div className="row justify-content-between">
                 <div className="review-tech col-md-8">
-                  <h3>{review.rating}/10 - {review.tagline}</h3>
+                  <h3>
+                    {review.rating}/10 - {review.tagline}
+                  </h3>
                   <p>{review.description}</p>
                 </div>
                 <div className="review-tech col-md-4">
@@ -153,7 +156,13 @@ class ReviewInfo extends Component {
                       return <li key={item}>{item}</li>;
                     })}
                   </ul>
-                  <h3><a href={review.tmdb}>Movie Link</a></h3>
+                  {review.tmdb === "" || !review.tmdb ? (
+                    <h3>
+                      <Link to={review.tmdb}>Movie Link</Link>
+                    </h3>
+                  ) : (
+                    <h3>No Movie Link provided</h3>
+                  )}
                 </div>
               </div>
               {buttons}

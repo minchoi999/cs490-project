@@ -48,7 +48,7 @@ class DetailMovieCard extends Component {
                 <img
                   className="movie-card-detail-image"
                   src={
-                    poster_path === "undefined"
+                    typeof poster_path === "undefined"
                       ? TMDBlogo
                       : `${URL_IMG}${IMG_LARGE}${poster_path}`
                   }

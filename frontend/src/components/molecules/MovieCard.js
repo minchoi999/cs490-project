@@ -2,11 +2,12 @@ import React from 'react';
 import { shape, string, number } from 'prop-types';
 import { Link } from 'react-router-dom';
 import { URL_IMG, IMG_LARGE } from '../../const';
+import TMDBlogo from '../../images/movie_logo.svg';
 
 const MovieCard = (props) => (
     <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6">
         <Link to={`tmdb/movie/${props.movie.id}`} className="popular-movie">
-            <img className="col card-image" src={`${URL_IMG}${IMG_LARGE}${props.movie.poster_path}`} alt={`${props.movie.title} Movie Poster`} />
+            <img className="col card-image" src={(props.movie.poster_path) ? `${URL_IMG}${IMG_LARGE}${props.movie.poster_path}` : {TMDBlogo}} alt={`${props.movie.title} Movie Poster`} />
             <div className="col card-details">
                 <h3 className="row">{props.movie.title}</h3>
                 <p className="row text-ellipsis">{props.movie.overview}</p>
